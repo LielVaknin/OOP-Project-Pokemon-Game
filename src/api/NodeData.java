@@ -15,6 +15,8 @@ public class NodeData implements node_data{
     private int nodeTag;
     private double nodeWeight;
     private geo_location nodeGeoLocation;
+    node_data prev;
+    double dist;
 
     /**
      * Default constructor.
@@ -36,7 +38,8 @@ public class NodeData implements node_data{
         this.key = node.getKey();
         this.nodeInfo = node.getInfo();
         this.nodeTag = node.getTag();
-       // this.nodeGeoLocation = node.getLocation();
+        this.nodeWeight= node.getWeight();
+        // this.nodeGeoLocation = node.getLocation();
     }
 
     /**

@@ -22,6 +22,19 @@ public class EdgeData implements edge_data{
     }
 
     /**
+     * Copy constructor
+     *
+     * @param e
+     */
+    public EdgeData(edge_data e){
+        this.src =  e.getSrc();
+        this.dest = e.getDest();
+        this.edgeWeight = e.getWeight();
+        this.edgeInfo = e.getInfo();
+        this.edgeTag = e.getTag();
+    }
+
+    /**
      * The id of the source node of this edge.
      * @return
      */

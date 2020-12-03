@@ -33,6 +33,28 @@ public class DWGraph_DS implements directed_weighted_graph{
     }
 
     /**
+     * Copy constructor.
+     */
+    public DWGraph_DS(directed_weighted_graph graph) {
+        for (node_data n: graph.getV()){
+            node_data newN= new NodeData(n);
+            this.nodes.put(newN.getKey(), newN);
+
+            if(graph.getE(n.getKey()) != null) {
+                HashMap<Integer, edge_data> newEdges = new HashMap<>();
+                for (edge_data e: graph.getE(n.getKey())){
+                    edge_data newE = new EdgeData(e);
+                    newEdges.put(e.getDest(), newE);
+                }
+                this.edges.put(n.getKey(), newEdges);
+            }
+        }
+        this.MC = graph.getMC();
+        this.nodeSize = graph.nodeSize();
+        this.edgeSize = graph.edgeSize();
+    }
+
+    /**
      * returns the node_data by the node_id,
      * @param key - the node_id
      * @return the node_data by the node_id, null if none.
