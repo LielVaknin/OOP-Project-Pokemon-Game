@@ -10,7 +10,6 @@ package api;
 public class NodeData implements node_data{
 
     private int key;
-    private static int keyCounter = 0;
     private String nodeInfo;
     private int nodeTag;
     private double nodeWeight;
@@ -22,8 +21,7 @@ public class NodeData implements node_data{
      * Default constructor.
      */
     public NodeData() {
-        this.key = keyCounter;
-        keyCounter++;
+        this.key= -1;
         this.nodeInfo = "";
         this.nodeTag= 0;
         this.nodeWeight =0;
@@ -42,10 +40,16 @@ public class NodeData implements node_data{
         // this.nodeGeoLocation = node.getLocation();
     }
 
+
+    void setKey(int k){
+        if(this.key == -1)
+            this.key= k;
+    }
     /**
      * Returns the key (id) associated with this node.
      * @return
      */
+    @Override
     public int getKey(){
         return this.key;
     }
@@ -55,13 +59,16 @@ public class NodeData implements node_data{
      *
      * @return
      */
+    @Override
     public geo_location getLocation(){
         return this.nodeGeoLocation;
     }
 
-    /** Allows changing this node's location.
+    /**
+     * Allows changing this node's location.
      * @param p - new new location (position) of this node.
      */
+    @Override
     public void setLocation(geo_location p){
         this.nodeGeoLocation = p;
     }
@@ -70,6 +77,7 @@ public class NodeData implements node_data{
      * Returns the weight associated with this node.
      * @return
      */
+    @Override
     public double getWeight(){
         return this.nodeWeight;
     }
@@ -78,6 +86,7 @@ public class NodeData implements node_data{
      * Allows changing this node's weight.
      * @param w - the new weight
      */
+    @Override
     public void setWeight(double w){
         this.nodeWeight = w;
     }
@@ -86,6 +95,7 @@ public class NodeData implements node_data{
      * Returns the remark (meta data) associated with this node.
      * @return
      */
+    @Override
     public String getInfo(){
         return this.nodeInfo;
     }
@@ -94,6 +104,7 @@ public class NodeData implements node_data{
      * Allows changing the remark (meta data) associated with this node.
      * @param s
      */
+    @Override
     public void setInfo(String s){
         this.nodeInfo = s;
     }
@@ -103,6 +114,7 @@ public class NodeData implements node_data{
      * which can be used be algorithms
      * @return
      */
+    @Override
     public int getTag(){
         return this.nodeTag;
     }
@@ -112,6 +124,7 @@ public class NodeData implements node_data{
      * practice for marking by algorithms.
      * @param t - the new value of the tag
      */
+    @Override
     public void setTag(int t){
         this.nodeTag = t;
     }

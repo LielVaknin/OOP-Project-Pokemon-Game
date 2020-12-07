@@ -38,6 +38,7 @@ public class EdgeData implements edge_data{
      * The id of the source node of this edge.
      * @return
      */
+    @Override
     public int getSrc(){
         return this.src;
     }
@@ -46,6 +47,7 @@ public class EdgeData implements edge_data{
      * The id of the destination node of this edge
      * @return
      */
+    @Override
     public int getDest(){
         return this.dest;
     }
@@ -53,6 +55,7 @@ public class EdgeData implements edge_data{
     /**
      * @return the weight of this edge (positive value).
      */
+    @Override
     public double getWeight(){
         return this.edgeWeight;
     }
@@ -61,6 +64,7 @@ public class EdgeData implements edge_data{
      * Returns the remark (meta data) associated with this edge.
      * @return
      */
+    @Override
     public String getInfo(){
         return this.edgeInfo;
     }
@@ -69,6 +73,7 @@ public class EdgeData implements edge_data{
      * Allows changing the remark (meta data) associated with this edge.
      * @param s
      */
+    @Override
     public void setInfo(String s){
         this.edgeInfo = s;
     }
@@ -78,6 +83,7 @@ public class EdgeData implements edge_data{
      * which can be used be algorithms
      * @return
      */
+    @Override
     public int getTag(){
         return this.edgeTag;
     }
@@ -87,6 +93,7 @@ public class EdgeData implements edge_data{
      * practice for marking by algorithms.
      * @param t - the new value of the tag
      */
+    @Override
     public void setTag(int t){
         this.edgeTag = t;
     }

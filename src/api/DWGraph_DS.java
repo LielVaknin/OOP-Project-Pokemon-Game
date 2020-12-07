@@ -21,6 +21,8 @@ public class DWGraph_DS implements directed_weighted_graph{
     private HashMap<Integer, node_data> nodes;
     private HashMap<Integer, HashMap<Integer, edge_data>> edges;
 
+    private int ID;
+
     /**
      * Default constructor.
      */
@@ -59,6 +61,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * @param key - the node_id
      * @return the node_data by the node_id, null if none.
      */
+    @Override
     public node_data getNode(int key){ return this.nodes.get(key);}
 
     /**
@@ -68,6 +71,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * @param dest
      * @return
      */
+    @Override
     public edge_data getEdge(int src, int dest){
         if (!this.nodes.containsKey(src) || !this.nodes.containsKey(dest) || src == dest)
             return null;
@@ -79,9 +83,12 @@ public class DWGraph_DS implements directed_weighted_graph{
      * Note: this method should run in O(1) time.
      * @param n
      */
+    @Override
     public void addNode(node_data n){
+        ((NodeData)n).setKey(ID);
         if (!this.nodes.containsKey(n.getKey())) {
             this.nodes.put(n.getKey(), n);
+            ID++;
             MC++;
             nodeSize++;
         }
@@ -94,6 +101,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * @param dest - the destination of the edge.
      * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
      */
+    @Override
     public void connect(int src, int dest, double w){
         if (!this.nodes.containsKey(src) || !this.nodes.containsKey(dest) || src == dest || w < 0)
             return;
@@ -101,7 +109,7 @@ public class DWGraph_DS implements directed_weighted_graph{
             HashMap<Integer, edge_data> innerHashMap = new HashMap<>();
             this.edges.put(src, innerHashMap);
         }
-            if (getEdge(src, dest) == null){
+        if (getEdge(src, dest) == null){
             edge_data newEdge = new EdgeData(src, dest, w);
             this.edges.get(src).put(dest, newEdge);
             edgeSize++;
@@ -115,6 +123,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * Note: this method should run in O(1) time.
      * @return Collection<node_data>
      */
+    @Override
     public Collection<node_data> getV(){
         return this.nodes.values();
     }
@@ -126,6 +135,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * Note: this method should run in O(k) time, k being the collection size.
      * @return Collection<edge_data>
      */
+    @Override
     public Collection<edge_data> getE(int node_id){
         return this.edges.get(node_id).values();
     }
@@ -138,13 +148,14 @@ public class DWGraph_DS implements directed_weighted_graph{
      * @param key
      */
     // TODO: To fix this method.
+    @Override
     public node_data removeNode(int key){
         if (!this.nodes.containsKey(key))
             return null;
         Iterator<edge_data> it = this.getE(key).iterator();
         while(it.hasNext()){
             edge_data edge = it.next();
-            removeEdge(key, edge.getDest());
+            removeEdge(edge.getDest(), key);
         }
         node_data n = nodes.get(key);
         this.nodes.remove(key);
@@ -160,6 +171,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * @param dest
      * @return the data of the removed edge (null if none).
      */
+    @Override
     public edge_data removeEdge(int src, int dest){
         if (!this.nodes.containsKey(src) || !this.nodes.containsKey(dest) || src == dest)
             return null;
@@ -176,6 +188,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * Note: this method should run in O(1) time.
      * @return
      */
+    @Override
     public int nodeSize(){return this.nodeSize;}
 
     /**
@@ -183,11 +196,13 @@ public class DWGraph_DS implements directed_weighted_graph{
      * Note: this method should run in O(1) time.
      * @return
      */
+    @Override
     public int edgeSize(){return this.edgeSize;}
 
     /**
      * Returns the Mode Count - for testing changes in the graph.
      * @return
      */
+    @Override
     public int getMC(){return this.MC;}
 }
