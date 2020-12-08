@@ -21,6 +21,10 @@ public class NodeData implements node_data{
      * Default constructor.
      */
     public NodeData() {
+        this(-1);
+    }
+
+    public NodeData(int id){
         this.key= -1;
         this.nodeInfo = "";
         this.nodeTag= 0;

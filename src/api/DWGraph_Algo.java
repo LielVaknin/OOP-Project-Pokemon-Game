@@ -1,8 +1,14 @@
 package api;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
+import gameClient.Agent;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +29,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
    @Override
    public void init(directed_weighted_graph g) {
-      this.g= g;
+      this.g = g;
    }
 
    @Override
@@ -33,17 +39,17 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
    @Override
    public directed_weighted_graph copy() {
-      if(this.g == null)
+      if (this.g == null)
          return null;
       return new DWGraph_DS(g);
    }
 
    @Override
    public boolean isConnected() {
-      for (node_data n: this.g.getV()){
-         for (node_data niN: this.g.getV()){
-            if(niN != n){
-               if(this.g.getEdge(n.getKey(), niN.getKey()) == null)
+      for (node_data n : this.g.getV()) {
+         for (node_data niN : this.g.getV()) {
+            if (niN != n) {
+               if (this.g.getEdge(n.getKey(), niN.getKey()) == null)
                   return false;
             }
          }
@@ -51,26 +57,26 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       return true;
    }
 
-   private void DFS(node_data src){
-      for (node_data n: this.g.getV()){
+   private void DFS(node_data src) {
+      for (node_data n : this.g.getV()) {
          n.setInfo("white");
-         ((NodeData)n).dist = Double.MAX_VALUE;
+         ((NodeData) n).dist = Double.MAX_VALUE;
       }
-      ((NodeData)src).dist = 0;
+      ((NodeData) src).dist = 0;
       dfsVisit(src);
    }
 
-   private void dfsVisit(node_data src){
-      if(src == null){
+   private void dfsVisit(node_data src) {
+      if (src == null) {
          return;
       }
       src.setInfo("grey");
-      for (edge_data e: g.getE(src.getKey())){
-         if(((NodeData)g.getNode(e.getDest())).dist > ((NodeData)src).dist + e.getWeight()){
-            ((NodeData)g.getNode(e.getDest())).dist = ((NodeData)src).dist + e.getWeight();
-            ((NodeData)g.getNode(e.getDest())).prev = (src);
+      for (edge_data e : g.getE(src.getKey())) {
+         if (((NodeData) g.getNode(e.getDest())).dist > ((NodeData) src).dist + e.getWeight()) {
+            ((NodeData) g.getNode(e.getDest())).dist = ((NodeData) src).dist + e.getWeight();
+            ((NodeData) g.getNode(e.getDest())).prev = (src);
          }
-         if(g.getNode(e.getDest()).getInfo().equals("white")){
+         if (g.getNode(e.getDest()).getInfo().equals("white")) {
             dfsVisit(g.getNode(e.getDest()));
          }
       }
@@ -79,34 +85,33 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
    @Override
    public double shortestPathDist(int src, int dest) {
-      if(g.getNode(src) == null || g.getNode(dest) == null || src==dest){
+      if (g.getNode(src) == null || g.getNode(dest) == null || src == dest) {
          return -1;
       }
       DFS(g.getNode(src));
-      if(g.getNode(dest).getInfo().equals("white")){
+      if (g.getNode(dest).getInfo().equals("white")) {
          return -1;
       }
-      return ((NodeData)g.getNode(dest)).dist;
+      return ((NodeData) g.getNode(dest)).dist;
    }
 
    @Override
    public List<node_data> shortestPath(int src, int dest) {
-      List<node_data> path= new LinkedList<>();
-      double dist= shortestPathDist(src,dest);
-      if(dist==-1 || dist==Double.MAX_VALUE) {
-         if(src==dest && g.getNode(dest)!=null) {
+      List<node_data> path = new LinkedList<>();
+      double dist = shortestPathDist(src, dest);
+      if (dist == -1 || dist == Double.MAX_VALUE) {
+         if (src == dest && g.getNode(dest) != null) {
             path.add(g.getNode(dest));
             return path;
          }
          return null;
-      }
-      else {
+      } else {
          path.add(g.getNode(dest));
-         node_data pr = ((NodeData)g.getNode(dest)).prev;
-         int node0= dest;
-         while(node0 != src) {
+         node_data pr = ((NodeData) g.getNode(dest)).prev;
+         int node0 = dest;
+         while (node0 != src) {
             path.add(0, pr);
-            pr = ((NodeData)g.getNode(node0)).prev;
+            pr = ((NodeData) g.getNode(node0)).prev;
             node0 = pr.getKey();
          }
          return path;
@@ -122,22 +127,86 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          saveGraph.write(jsonG);
          saveGraph.close();
          return true;
-      } catch (Exception e){
+      } catch (Exception e) {
          return false;
       }
    }
 
    @Override
    public boolean load(String file) {
-      Gson gson = new Gson();
+      directed_weighted_graph graph = new DWGraph_DS();
       try {
-         FileReader lodeGraph = new FileReader(file);
-         directed_weighted_graph graph = gson.fromJson(lodeGraph, directed_weighted_graph.class);
-         this.init(graph);
-         lodeGraph.close();
+         JSONObject jsonEdges = new JSONObject(file);
+         JSONArray n = jsonEdges.getJSONArray("Nodes");
+         for (int i = 0; i < n.length(); i++) {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Agent.class, new deserializerOfNodes());
+            Gson gson = builder.create();
+            FileReader newNode = new FileReader(file);
+            node_data node = gson.fromJson(newNode, NodeData.class);
+            graph.addNode(node);
+            newNode.close();
+         }
+         JSONArray e = jsonEdges.getJSONArray("Edges");
+         for (int i = 0; i < e.length(); i++) {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Agent.class, new deserializerOfEdges());
+            Gson gson = builder.create();
+            FileReader newAEdge = new FileReader(file);
+            edge_data ed = gson.fromJson(newAEdge, EdgeData.class);
+            graph.connect(ed.getSrc(), ed.getDest(), ed.getWeight());
+            newAEdge.close();
+         }
          return true;
       } catch (Exception e) {
          return false;
+      }
+
+//      Gson gson = new Gson();
+//      try {
+//         FileReader lodeGraph = new FileReader(file);
+//         directed_weighted_graph graph = gson.fromJson(lodeGraph, directed_weighted_graph.class);
+//         this.init(graph);
+//         lodeGraph.close();
+//         return true;
+//      } catch (Exception e) {
+//         return false;
+//      }
+   }
+
+   private class deserializerOfNodes implements JsonDeserializer<node_data> {
+
+      /*
+          private int key;
+    private String nodeInfo;
+    private int nodeTag;
+    private double nodeWeight;
+    private geo_location nodeGeoLocation;
+    node_data prev;
+    double dist;
+       */
+
+      @Override
+      public node_data deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+         JsonObject nodeJson = jsonElement.getAsJsonObject();
+         int id = nodeJson.get("id").getAsInt();
+         String pos = nodeJson.get("pos").getAsString();
+         node_data n = new NodeData(id);
+         n.setLocation(new GeoLocation(pos));
+         return n;
+      }
+   }
+
+   private class deserializerOfEdges implements JsonDeserializer<edge_data> {
+
+      @Override
+      public edge_data deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+         JsonObject edgeJson = jsonElement.getAsJsonObject();
+         int src = edgeJson.get("src").getAsInt();
+         int dest = edgeJson.get("dest").getAsInt();
+         double weight = edgeJson.get("w").getAsInt();
+         edge_data e = new EdgeData(src, dest, weight);
+         return e;
       }
    }
 }
