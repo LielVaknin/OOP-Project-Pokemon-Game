@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,15 +43,46 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       return new DWGraph_DS(g);
    }
 
+   private void dfsVisit(directed_weighted_graph graph, node_data src) {
+      if (src == null) {
+         return;
+      }
+      src.setInfo("grey");
+      for (edge_data e : graph.getE(src.getKey())) {
+         if (graph.getNode(e.getDest()).getInfo().equals("white")) {
+            dfsVisit(graph, graph.getNode(e.getDest()));
+         }
+      }
+      src.setInfo("black");
+   }
+
    @Override
    public boolean isConnected() {
       for (node_data n : this.g.getV()) {
-         for (node_data niN : this.g.getV()) {
-            if (niN != n) {
-               if (this.g.getEdge(n.getKey(), niN.getKey()) == null)
-                  return false;
-            }
+         n.setInfo("white");
+         n.setTag(1);
+      }
+      int c = 0;
+      while ((g.getNode(c)) == null){
+         c++;
+      }
+      dfsVisit(this.g, (g.getNode(c)));
+      for (node_data n : this.g.getV()) {
+         if (n.getInfo().equals("white"))
+            return false;
+      }
+
+      directed_weighted_graph gr = this.copy();
+      for (node_data n : gr.getV()){
+         for (edge_data e : gr.getE(n.getKey())){
+            gr.removeEdge(e.getSrc(), e.getDest());
+            gr.connect(e.getDest(), e.getSrc(), e.getWeight());
          }
+      }
+      dfsVisit(gr, (gr.getNode(c)));
+      for (node_data n : gr.getV()) {
+         if (n.getInfo().equals("white"))
+            return false;
       }
       return true;
    }
@@ -175,17 +205,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    }
 
    private class deserializerOfNodes implements JsonDeserializer<node_data> {
-
-      /*
-          private int key;
-    private String nodeInfo;
-    private int nodeTag;
-    private double nodeWeight;
-    private geo_location nodeGeoLocation;
-    node_data prev;
-    double dist;
-       */
-
       @Override
       public node_data deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
          JsonObject nodeJson = jsonElement.getAsJsonObject();
@@ -198,7 +217,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    }
 
    private class deserializerOfEdges implements JsonDeserializer<edge_data> {
-
       @Override
       public edge_data deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
          JsonObject edgeJson = jsonElement.getAsJsonObject();
