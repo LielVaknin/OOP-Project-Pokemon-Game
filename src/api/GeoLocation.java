@@ -8,9 +8,27 @@ package api;
  */
 public class GeoLocation implements geo_location {
 
-        private double x;
-        private double y;
-        private double z;
+    private double x;
+    private double y;
+    private double z;
+
+    public GeoLocation(double x, double y, double z) {
+        this.x=x;
+        this.y=y;
+        this.z=z;
+    }
+
+    public GeoLocation(double x, double y) {
+        this(x,y,0);
+    }
+
+
+    public GeoLocation(String pos){
+        String[] a = pos.split(",");
+        this.x = Double.parseDouble(a[0]);
+        this.y = Double.parseDouble(a[1]);
+        this.z = Double.parseDouble(a[2]);
+    }
 
         public double x(){
             return this.x;
