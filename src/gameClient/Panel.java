@@ -27,7 +27,7 @@ public class Panel extends JPanel {
     }
 
     private void drawGraph(Graphics g) {
-        directed_weighted_graph graph = arena.getGraph();
+        directed_weighted_graph graph = arena.getGraphAlgo().getGraph();
         Iterator<node_data> it1 = graph.getV().iterator();
         while(it1.hasNext()) {
             node_data n = it1.next();
@@ -50,7 +50,7 @@ public class Panel extends JPanel {
     }
 
     private void drawEdge(edge_data e, Graphics g) {
-        directed_weighted_graph gg = arena.getGraph();
+        directed_weighted_graph gg = arena.getGraphAlgo().getGraph();
         geo_location s = gg.getNode(e.getSrc()).getLocation();
         geo_location d = gg.getNode(e.getDest()).getLocation();
         geo_location s0 = this._w2f.world2frame(s);

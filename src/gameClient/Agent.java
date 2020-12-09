@@ -11,7 +11,16 @@ public class Agent implements JsonDeserializer<Agent> {
     private int src;
     private int dest;
     private double speed;
-    private geo_location pos;
+    private Point3D pos;
+
+//    public Agent(int id, double value, int src, int dest, double speed, Point3D pos){
+//        this.id = id;
+//        this.value = value;
+//        this.src = src;
+//        this.dest = dest;
+//        this.speed = speed;
+//        this.pos = new Point3D(pos.x(), pos.y(), pos.z());
+//    }
 
     @Override
     public Agent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
@@ -73,4 +82,5 @@ public class Agent implements JsonDeserializer<Agent> {
     public void setPos(Point3D pos) {
         this.pos = pos;
     }
+
 }

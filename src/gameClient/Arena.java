@@ -5,7 +5,10 @@ import com.google.gson.*;
 import Server.Game_Server_Ex2;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.FileReader;
+
+import java.io.File;
+import java.io.PrintWriter;
+
 import java.util.*;
 
 public class Arena {
@@ -24,26 +27,32 @@ public class Arena {
     }
 
     void loadGraph(String json) {
-       graphAlgo = new DWGraph_Algo();
-        graphAlgo.load(json);
+        graphAlgo = new DWGraph_Algo();
+        try {
+            PrintWriter pw = new PrintWriter(new File("graph.json"));
+            pw.write(json);
+            pw.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+       graphAlgo.load("graph.json");
     }
 
     private void loadAgents(String json) {
         List<Agent> l = new ArrayList<>();
-        try {
-            JSONObject ja = new JSONObject(json);
-            JSONArray ags = ja.getJSONArray("Agents");
-            for (int i = 0; i < ags.length(); i++) {
-                GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(Agent.class, new Agent());
-                Gson gson = builder.create();
-                FileReader newAgent = new FileReader(json);
-                Agent a = gson.fromJson(newAgent, Agent.class);
-                newAgent.close();
-                l.add(a);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        GsonBuilder b = new GsonBuilder();
+        Gson gson = b.create();
+        JsonObject r = gson.fromJson(json, JsonObject.class);
+        JsonArray ags = r.getAsJsonObject().get("Agents").getAsJsonArray();
+        for (int i = 0; i < ags.size(); i++) {
+            JsonObject ag= ags.get(i).getAsJsonObject().get("Agent").getAsJsonObject();
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Agent.class, new Agent());
+            Gson gson1 = builder.create();
+            Agent a = gson1.fromJson(ag, Agent.class);
+            l.add(a);
         }
         this.agents = l;
     }
@@ -57,15 +66,22 @@ public class Arena {
                 GsonBuilder builder = new GsonBuilder();
                 builder.registerTypeAdapter(Agent.class, new Pokemon());
                 Gson gson = builder.create();
-                FileReader newPokemon = new FileReader(json);
-                Pokemon p = gson.fromJson(newPokemon, Pokemon.class);
-                newPokemon.close();
+                //FileReader newPokemon = new FileReader(json);
+                Pokemon p = gson.fromJson(json, Pokemon.class);
                 l.add(p);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         this.pokemons = l;
+    }
+
+    public dw_graph_algorithms getGraphAlgo() {
+        return graphAlgo;
+    }
+
+    public game_service gatGame(){
+        return game;
     }
 
     public List<Agent> getAgents() {
@@ -101,9 +117,9 @@ public class Arena {
                 for (int k = 1; k <= path.size(); i++){
                     for (int a = 0; a < rowlength; a++){
                         for (int b = 0; b < colLength; b++){
-                            path.get(k-1), path.get(k)
+                            //path.get(k-1), path.get(k);
                         }
-                        }
+                    }
                 }
                 q.add(path);
         }
@@ -111,4 +127,22 @@ public class Arena {
 
         }
     }
+
+//    public void chooseNextEdge(){
+//        Object[][] edgesPokemon = pokemonsAndEdges();
+//        int dest;
+//        for (Agent a: agents){
+//            if (a.getDest()!=-1){
+//               // Collection<edge_data> neighborsAgent =  graphAlgo.getGraph().getE(a.getSrc());
+//                double dis = Double.MAX_VALUE;
+//                for(int i=0; i<edgesPokemon.length; i++){
+//                   Double disBetweenTheEdges = this.graphAlgo.shortestPathDist(((edge_data)edgesPokemon[i][1]).getSrc(), ((edge_data)edgesPokemon[i][1]).getDest());
+//                   if((disBetweenTheEdges != -1) && (disBetweenTheEdges < dis)){
+//                       dis = disBetweenTheEdges;
+//                       dest = ((edge_data)edgesPokemon[i][1]).getDest();
+//                   }
+//                }
+//            }
+//        }
+//    }
 }
