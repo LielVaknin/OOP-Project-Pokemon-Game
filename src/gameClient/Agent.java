@@ -4,7 +4,7 @@ import com.google.gson.*;
 import gameClient.util.Point3D;
 import java.lang.reflect.Type;
 
-public class Agent implements JsonDeserializer<Agent> {
+public class Agent implements JsonDeserializer<Agent>, Runnable {
     private int id;
     private double value;
     private int src;
@@ -71,5 +71,10 @@ public class Agent implements JsonDeserializer<Agent> {
 
     public void setPos(Point3D pos) {
         this.pos = pos;
+    }
+
+    @Override
+    public void run() {
+
     }
 }

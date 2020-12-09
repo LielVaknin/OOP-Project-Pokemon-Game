@@ -5,11 +5,11 @@ import com.google.gson.*;
 import Server.Game_Server_Ex2;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class Arena {
 
@@ -27,8 +27,17 @@ public class Arena {
     }
 
     void loadGraph(String json) {
-       graphAlgo = new DWGraph_Algo();
-        graphAlgo.load(json);
+        graphAlgo = new DWGraph_Algo();
+        try {
+            PrintWriter pw = new PrintWriter(new File("graph.json"));
+            pw.write(json);
+            pw.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+       graphAlgo.load("graph.json");
     }
 
     private void loadAgents(String json) {
@@ -40,9 +49,8 @@ public class Arena {
                 GsonBuilder builder = new GsonBuilder();
                 builder.registerTypeAdapter(Agent.class, new Agent());
                 Gson gson = builder.create();
-                FileReader newAgent = new FileReader(json);
-                Agent a = gson.fromJson(newAgent, Agent.class);
-                newAgent.close();
+               // FileReader newAgent = new FileReader(json);
+                Agent a = gson.fromJson(json, Agent.class);
                 l.add(a);
             }
         } catch (Exception e) {
@@ -60,15 +68,18 @@ public class Arena {
                 GsonBuilder builder = new GsonBuilder();
                 builder.registerTypeAdapter(Agent.class, new Pokemon());
                 Gson gson = builder.create();
-                FileReader newPokemon = new FileReader(json);
-                Pokemon p = gson.fromJson(newPokemon, Pokemon.class);
-                newPokemon.close();
+                //FileReader newPokemon = new FileReader(json);
+                Pokemon p = gson.fromJson(json, Pokemon.class);
                 l.add(p);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         this.pokemons = l;
+    }
+
+    public game_service gatGame(){
+        return game;
     }
 
     public List<Agent> getAgents() {
@@ -93,12 +104,24 @@ public class Arena {
         Iterator<Agent> it = agents.iterator();
         while (it.hasNext()){
             Agent ag = it.next();
-           int graphAlgo.DFS();
-            ag.setPos();
+//           int graphAlgo.DFS();
+//            ag.setPos();
 
         }
 
 
 
+    }
+
+    public int chooseNextEdge(){
+        List<edge_data> edgesPokemon = pokemonsEdges();
+        for (Agent a: agents){
+            if (a.getDest()!=-1){
+                Collection<edge_data> neighborsAgent =  graphAlgo.getGraph().getE(a.getSrc());
+                for(edge_data e: edgesPokemon){
+                    
+                }
+            }
+        }
     }
 }
