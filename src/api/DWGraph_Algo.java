@@ -60,7 +60,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    public boolean isConnected() {
       for (node_data n : this.g.getV()) {
          n.setInfo("white");
-         n.setTag(1);
       }
       int c = 0;
       while ((g.getNode(c)) == null){
@@ -78,6 +77,9 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             gr.removeEdge(e.getSrc(), e.getDest());
             gr.connect(e.getDest(), e.getSrc(), e.getWeight());
          }
+      }
+      for (node_data n : gr.getV()) {
+         n.setInfo("white");
       }
       dfsVisit(gr, (gr.getNode(c)));
       for (node_data n : gr.getV()) {

@@ -160,7 +160,7 @@ public class DWGraph_DS implements directed_weighted_graph{
         nodeSize--;
         MC++;
         return this.nodes.remove(key);
-        
+
 //        Iterator<edge_data> it = this.getE(key).iterator();
 //        while(it.hasNext()){
 //            edge_data edge = it.next();
