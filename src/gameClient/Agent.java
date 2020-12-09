@@ -1,5 +1,6 @@
 package gameClient;
 
+import api.*;
 import com.google.gson.*;
 import gameClient.util.Point3D;
 import java.lang.reflect.Type;
@@ -10,7 +11,7 @@ public class Agent implements JsonDeserializer<Agent> {
     private int src;
     private int dest;
     private double speed;
-    private Point3D pos;
+    private geo_location pos;
 
     @Override
     public Agent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {

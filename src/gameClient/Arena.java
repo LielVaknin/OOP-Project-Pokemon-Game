@@ -6,10 +6,7 @@ import Server.Game_Server_Ex2;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Arena {
 
@@ -79,26 +76,32 @@ public class Arena {
         return pokemons;
     }
 
-    private List<edge_data> pokemonsEdges() {
-        List<edge_data> pokEdges = new LinkedList<>();
+    private Object[][] pokemonsAndEdges() {
+        Object [][] pokemonsEdges = new Object [pokemons.size()][2];
+        int i = 0;
         Iterator<Pokemon> it = pokemons.iterator();
         while (it.hasNext()) {
            Pokemon p =  it.next();
-            pokEdges.add(p.pokemonEdge(this.graphAlgo.getGraph()));
+           pokemonsEdges [i][0] = p;
+           pokemonsEdges [i][1] = p.pokemonEdge(this.graphAlgo.getGraph());
+           i++;
         }
-        return pokEdges;
+        return pokemonsEdges;
     }
 
     public void startPositionOfAgents(){
-        Iterator<Agent> it = agents.iterator();
-        while (it.hasNext()){
-            Agent ag = it.next();
-           int graphAlgo.DFS();
-            ag.setPos();
+        PriorityQueue<List> q = new PriorityQueue<>();
+        Object [][] pokemonsEdges = pokemonsAndEdges();
+        int length = pokemonsEdges.length;
+        for (int i = 0; i < length; i++){
+            for (int j = 0; j < length; j++){
+                List<node_data> path = this.graphAlgo.shortestPath(pokemonsEdges[i][1].getClass());
 
+
+            
         }
 
 
-
+        }
     }
 }
