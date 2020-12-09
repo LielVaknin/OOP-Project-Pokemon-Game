@@ -22,7 +22,6 @@ public class GeoLocation implements geo_location {
         this(x,y,0);
     }
 
-
     public GeoLocation(String pos){
         String[] a = pos.split(",");
         this.x = Double.parseDouble(a[0]);
