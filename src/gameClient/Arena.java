@@ -7,8 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.PrintWriter;
+
 import java.util.*;
 
 public class Arena {
@@ -42,19 +42,17 @@ public class Arena {
 
     private void loadAgents(String json) {
         List<Agent> l = new ArrayList<>();
-        try {
-            JSONObject ja = new JSONObject(json);
-            JSONArray ags = ja.getJSONArray("Agents");
-            for (int i = 0; i < ags.length(); i++) {
-                GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(Agent.class, new Agent());
-                Gson gson = builder.create();
-               // FileReader newAgent = new FileReader(json);
-                Agent a = gson.fromJson(json, Agent.class);
-                l.add(a);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        GsonBuilder b = new GsonBuilder();
+        Gson gson = b.create();
+        JsonObject r = gson.fromJson(json, JsonObject.class);
+        JsonArray ags = r.getAsJsonObject().get("Agents").getAsJsonArray();
+        for (int i = 0; i < ags.size(); i++) {
+            JsonObject ag= ags.get(i).getAsJsonObject().get("Agent").getAsJsonObject();
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Agent.class, new Agent());
+            Gson gson1 = builder.create();
+            Agent a = gson1.fromJson(ag, Agent.class);
+            l.add(a);
         }
         this.agents = l;
     }
@@ -78,6 +76,10 @@ public class Arena {
         this.pokemons = l;
     }
 
+    public dw_graph_algorithms getGraphAlgo() {
+        return graphAlgo;
+    }
+
     public game_service gatGame(){
         return game;
     }
@@ -90,38 +92,47 @@ public class Arena {
         return pokemons;
     }
 
-    private List<edge_data> pokemonsEdges() {
-        List<edge_data> pokEdges = new LinkedList<>();
+    private Object[][] pokemonsAndEdges() {
+        Object [][] pokemonsEdges = new Object [pokemons.size()][2];
+        int i = 0;
         Iterator<Pokemon> it = pokemons.iterator();
         while (it.hasNext()) {
            Pokemon p =  it.next();
-            pokEdges.add(p.pokemonEdge(this.graphAlgo.getGraph()));
+           pokemonsEdges [i][0] = p;
+           pokemonsEdges [i][1] = p.pokemonEdge(this.graphAlgo.getGraph());
+           i++;
         }
-        return pokEdges;
+        return pokemonsEdges;
     }
 
     public void startPositionOfAgents(){
-        Iterator<Agent> it = agents.iterator();
-        while (it.hasNext()){
-            Agent ag = it.next();
-//           int graphAlgo.DFS();
-//            ag.setPos();
-
+        PriorityQueue<List> q = new PriorityQueue<>();
+        Object [][] pokemonsEdges = pokemonsAndEdges();
+        int length = pokemonsEdges.length;
+        for (int i = 0; i < length; i++){
+            for (int j = 0; j < length; j++){
+                List<node_data> path = this.graphAlgo.shortestPath(((edge_data)pokemonsEdges[i][1]).getSrc(), ((edge_data)pokemonsEdges[i][1]).getSrc());
         }
 
 
-
-    }
-
-    public int chooseNextEdge(){
-        List<edge_data> edgesPokemon = pokemonsEdges();
-        for (Agent a: agents){
-            if (a.getDest()!=-1){
-                Collection<edge_data> neighborsAgent =  graphAlgo.getGraph().getE(a.getSrc());
-                for(edge_data e: edgesPokemon){
-                    
-                }
-            }
         }
     }
+
+//    public void chooseNextEdge(){
+//        Object[][] edgesPokemon = pokemonsAndEdges();
+//        int dest;
+//        for (Agent a: agents){
+//            if (a.getDest()!=-1){
+//               // Collection<edge_data> neighborsAgent =  graphAlgo.getGraph().getE(a.getSrc());
+//                double dis = Double.MAX_VALUE;
+//                for(int i=0; i<edgesPokemon.length; i++){
+//                   Double disBetweenTheEdges = this.graphAlgo.shortestPathDist(((edge_data)edgesPokemon[i][1]).getSrc(), ((edge_data)edgesPokemon[i][1]).getDest());
+//                   if((disBetweenTheEdges != -1) && (disBetweenTheEdges < dis)){
+//                       dis = disBetweenTheEdges;
+//                       dest = ((edge_data)edgesPokemon[i][1]).getDest();
+//                   }
+//                }
+//            }
+//        }
+//    }
 }

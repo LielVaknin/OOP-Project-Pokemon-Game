@@ -78,9 +78,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             gr.connect(e.getDest(), e.getSrc(), e.getWeight());
          }
       }
+
       for (node_data n : gr.getV()) {
          n.setInfo("white");
       }
+
       dfsVisit(gr, (gr.getNode(c)));
       for (node_data n : gr.getV()) {
          if (n.getInfo().equals("white"))

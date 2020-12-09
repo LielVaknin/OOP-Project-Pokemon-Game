@@ -24,7 +24,7 @@ public class Frame extends JFrame {
         this.setSize(width, height);*/
         ImageIcon image = new ImageIcon("./resources/Icon.png");
         this.setIconImage(image.getImage());
-        this.getContentPane().setBackground(Color.yellow);
+//        this.getContentPane().setBackground(Color.yellow);
         this.setVisible(true);
     }
 }
