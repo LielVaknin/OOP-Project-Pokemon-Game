@@ -92,13 +92,20 @@ public class Arena {
     public void startPositionOfAgents(){
         PriorityQueue<List> q = new PriorityQueue<>();
         Object [][] pokemonsEdges = pokemonsAndEdges();
-        int length = pokemonsEdges.length;
-        for (int i = 0; i < length; i++){
-            for (int j = 0; j < length; j++){
-                List<node_data> path = this.graphAlgo.shortestPath(pokemonsEdges[i][1].getClass());
+        int rowlength = pokemonsEdges.length;
+        int colLength = pokemonsEdges[0].length;
 
-
-            
+        for (int i = 0; i < rowlength; i++){
+            for (int j = 0; j < rowlength; j++){
+                List<node_data> path = this.graphAlgo.shortestPath(((edge_data)pokemonsEdges[i][1]).getSrc(), ((edge_data)pokemonsEdges[j][1]).getDest());
+                for (int k = 1; k <= path.size(); i++){
+                    for (int a = 0; a < rowlength; a++){
+                        for (int b = 0; b < colLength; b++){
+                            path.get(k-1), path.get(k)
+                        }
+                        }
+                }
+                q.add(path);
         }
 
 
