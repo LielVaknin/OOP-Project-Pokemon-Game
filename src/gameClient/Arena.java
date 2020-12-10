@@ -20,7 +20,7 @@ public class Arena {
     private game_service game;
 
     public Arena(int level) {
-       game = Game_Server_Ex2.getServer(level);
+        game = Game_Server_Ex2.getServer(level);
         loadGraph(game.getGraph());
         loadPokemon(game.getPokemons());
         startPositionOfAgents(game.toString());
@@ -145,13 +145,41 @@ public class Arena {
     //
     public void startPositionOfAgents(String jsonGame) {
         int numOfAgents = numOfAgentsByLevel(jsonGame);
-        pokemons.sort(value);
-        /*
-        לופ:
-       1. עדכון src לכל סוכן
-       2. עדכון dest לכל סוכן
-       3. הןספת סוכן למשחק (game.addAgent)
-       4ץ עדכון ברשימת סוכנים
-         */
+        Collections.sort(pokemons, new Pokemon.pokemonsComparator());
+        int pCounter = pokemons.size() - 1;
+        for (int i = 1; i <= numOfAgents; i++) {
+            Pokemon p = pokemons.get(pCounter);
+            Agent ag = new Agent();
+            ag.setSrc(p.getEdge().getSrc());
+            ag.setDest(p.getEdge().getDest());
+            game.addAgent(ag.getSrc());
+            agents.add(ag);
+            pCounter--;
+        }
+    }
+     public void moveStrategy() {
+
+        for (int i = 1; i < agents.size(); i++) {
+            Agent ag = agents.get(i);
+            List<node_data> ShortestPathToPokemon = graphAlgo.shortestPath(agents.get(0).getSrc(), pokemons.get(0).getEdge().getDest());
+            srcOfAgentPath =
+            for (int j = 1; j < pokemons.size(); j++){
+            List<node_data> l =
+               if(l.size())
+//            int id = ag.getId();
+//            int dest = ag.getNextNode();
+//            int src = ag.getSrc();
+//            double v = ag.getValue();
+//            if (dest == -1) {
+//                dest = nextNode(g, src);
+//                game.chooseNextEdge(ag.getID(), dest);
+//                System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
+            }
+        }
+
+        private static int nextNode (int src){
+
+        }
     }
 }
+
