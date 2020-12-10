@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -152,6 +153,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    public boolean save(String file) {
       Gson gson = new Gson();
       String jsonG = gson.toJson(g);
+      System.out.println(jsonG);
       try {
          FileWriter saveGraph = new FileWriter(file);
          saveGraph.write(jsonG);
@@ -159,26 +161,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          return true;
       } catch (Exception e) {
          return false;
-      }
-   }
-
-   public void initFromJson(JsonObject json){
-      JsonArray nodes = json.get("Nodes").getAsJsonArray();
-      for (int i=0; i<nodes.size(); i++){
-         int id = nodes.get(i).getAsJsonObject().get("id").getAsInt();
-         String pos = nodes.get(i).getAsJsonObject().get("pos").getAsString();
-         geo_location location = new GeoLocation(pos);
-         node_data node = new NodeData(id);
-         node.setLocation(location);
-         this.g.addNode(node);
-      }
-
-      JsonArray edges = json.get("Edges").getAsJsonArray();
-      for (int i=0; i<edges.size(); i++){
-         int src = edges.get(i).getAsJsonObject().get("src").getAsInt();
-         int dest = edges.get(i).getAsJsonObject().get("dest").getAsInt();
-         double weight = edges.get(i).getAsJsonObject().get("w").getAsDouble();
-         g.connect(src, dest, weight);
       }
    }
 
@@ -193,6 +175,45 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       } catch (FileNotFoundException e) {
          e.printStackTrace();
          return false;
+      }
+   }
+
+   private void initFromJson(JsonObject json){
+      directed_weighted_graph newGraph = new DWGraph_DS();
+      loadNodes(json, newGraph);
+      loadEdges(json, newGraph);
+      this.g = newGraph;
+   }
+
+   private void loadNodes(JsonObject json, directed_weighted_graph newGraph){
+      JsonObject jsonNodes = json.get("nodes").getAsJsonObject();
+      for (Map.Entry<String, JsonElement> node : jsonNodes.entrySet()){
+         int hashKey = Integer.parseInt(node.getKey()); //the key of the hashmap
+         JsonObject jsonN = node.getValue().getAsJsonObject();
+         double nodeWeight = jsonN.get("nodeWeight").getAsDouble();
+         JsonObject jsonLocation = jsonN.get("nodeGeoLocation").getAsJsonObject();
+         int x = jsonLocation.get("x").getAsInt();
+         int y = jsonLocation.get("y").getAsInt();
+         int z = jsonLocation.get("z").getAsInt();
+         geo_location pos  = new GeoLocation(x, y, z);
+         node_data n = new NodeData(hashKey);
+         n.setWeight(nodeWeight);
+         n.setLocation(pos);
+         newGraph.addNode(n);
+      }
+   }
+
+   private void loadEdges(JsonObject json, directed_weighted_graph newGraph){
+      JsonObject jsonEdges = json.get("edges").getAsJsonObject();
+      for (Map.Entry<String, JsonElement> setHashEdges : jsonEdges.entrySet()) {
+         int src = Integer.parseInt(setHashEdges.getKey()); //the key of the hashmap
+         JsonObject jsonEdgeByNode = setHashEdges.getValue().getAsJsonObject();
+         for (Map.Entry<String, JsonElement> edge : jsonEdgeByNode.entrySet()) {
+            JsonObject jsonE = edge.getValue().getAsJsonObject();
+            int dest = jsonE.get("dest").getAsInt();
+            double w = jsonE.get("edgeWeight").getAsDouble();
+            newGraph.connect(src, dest, w);
+         }
       }
    }
 
