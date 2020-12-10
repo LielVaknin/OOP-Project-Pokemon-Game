@@ -158,14 +158,22 @@ public class Arena {
         }
     }
      public void moveStrategy() {
-
-        for (int i = 1; i < agents.size(); i++) {
-            Agent ag = agents.get(i);
-            List<node_data> ShortestPathToPokemon = graphAlgo.shortestPath(agents.get(0).getSrc(), pokemons.get(0).getEdge().getDest());
-            srcOfAgentPath =
-            for (int j = 1; j < pokemons.size(); j++){
-            List<node_data> l =
-               if(l.size())
+         List<Pokemon> agentIsBusted = new LinkedList<>();
+         for (int i = 0; i < pokemons.size(); i++) {
+             List<node_data> shortestWayToPokemon = graphAlgo.shortestPath(agents.get(0).getSrc(), pokemons.get(i).getEdge().getDest());
+             int agentSrc = agents.get(0).getSrc();
+             int agentDest = pokemons.get(i).getEdge().getDest();
+             for (int j = 1; j < agents.size(); j++) {
+                 List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(j).getSrc(), pokemons.get(i).getEdge().getDest());
+                 if (pathToPokemon.size() < shortestWayToPokemon.size()) {
+                     shortestWayToPokemon = pathToPokemon;
+                     agentSrc = agents.get(j).getSrc();
+                     agentDest =  pokemons.get(i).getEdge().getDest();
+                 }
+                 game.chooseNextEdge(agentSrc, agentDest);
+             }
+         }
+     }
 //            int id = ag.getId();
 //            int dest = ag.getNextNode();
 //            int src = ag.getSrc();
@@ -174,12 +182,10 @@ public class Arena {
 //                dest = nextNode(g, src);
 //                game.chooseNextEdge(ag.getID(), dest);
 //                System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
-            }
-        }
-
-        private static int nextNode (int src){
-
-        }
-    }
+//            }
+//        }
+//
+//        private static int nextNode (int src){
+//        }
 }
 
