@@ -46,6 +46,7 @@ public class Arena {
     }*/
 
     void loadGraph(String json) {
+        graphAlgo = new DWGraph_Algo();
         Gson gson = new Gson();
         JsonObject jGraph = gson.fromJson(json, JsonObject.class);
         ((DWGraph_Algo)graphAlgo).initFromJson(jGraph);
@@ -53,49 +54,16 @@ public class Arena {
     }
 
     private void loadAgents(String json) {
-/*        System.out.println(json);
-        List<Pokemon> l = new ArrayList<>();
-        try {
-            JSONObject jp = new JSONObject(json);
-            JSONArray pok = jp.getJSONArray("Agent");
-            for (int i = 0; i < pok.length(); i++) {
-                JSONObject j = pok.getJSONObject(i);
-                System.out.println(j);
-                Pokemon p = new Pokemon(j.toString());
-                l.add(p);
-                *//*        ArrayList<Agent> ans = new ArrayList<Agent>();
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray agents = jsonObject.getJSONArray("Agents");
-            for(int i=0;i<agents.length();i++) {
-                Agent c = new Agent(ggs,0);
-                c.update(agents.get(i).toString());
-                ans.add(c);
-            }
-            //= getJSONArray("Agents");
-        } catch (JSONException | JSONException e) {
-            e.printStackTrace();
+        List<Agent> l = new ArrayList<>();
+        Gson gson = new Gson();
+        JsonObject jsonAgents = gson.fromJson(json, JsonObject.class);
+        JsonArray arrayAgents = jsonAgents.get("Agents").getAsJsonArray();
+        for(int i=0;i<arrayAgents.size();i++) {
+            JsonObject agent= arrayAgents.get(i).getAsJsonObject().get("Agent").getAsJsonObject();
+            Agent a = new Agent(agent.toString());
+            l.add(a);
         }
-        return ans;*//*
-//        List<Agent> l = new ArrayList<>();
-//        GsonBuilder b = new GsonBuilder();
-//        Gson gson = b.create();
-//        JsonObject r = gson.fromJson(json, JsonObject.class);
-//        JsonArray ags = r.getAsJsonObject().get("Agents").getAsJsonArray();
-//        for (int i = 0; i < ags.size(); i++) {
-//            JsonObject ag= ags.get(i).getAsJsonObject().get("Agent").getAsJsonObject();
-//            GsonBuilder builder = new GsonBuilder();
-//            builder.registerTypeAdapter(Agent.class, new Agent());
-//            Gson gson1 = builder.create();
-//            Agent a = gson1.fromJson(ag, Agent.class);
-//            l.add(a);
-//        }
-//        this.agents = l;
-            }
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }*/
+        this.agents = l;
     }
 
     private void loadPokemon(String json) {
@@ -149,37 +117,40 @@ public class Arena {
         int pCounter = pokemons.size() - 1;
         for (int i = 1; i <= numOfAgents; i++) {
             Pokemon p = pokemons.get(pCounter);
-            Agent ag = new Agent();
-            ag.setSrc(p.getEdge().getSrc());
-            ag.setDest(p.getEdge().getDest());
-            game.addAgent(ag.getSrc());
-            agents.add(ag);
+//            Agent ag = new Agent();
+//            ag.setSrc(p.getEdge().getSrc());
+//            ag.setDest(p.getEdge().getDest());
+            game.addAgent(p.getEdge().getSrc());
+//            agents.add(ag);
             pCounter--;
         }
+        String jsonAgents = this.game.getAgents();
+        loadAgents(jsonAgents);
     }
-     public void moveStrategy() {
 
-        for (int i = 1; i < agents.size(); i++) {
-            Agent ag = agents.get(i);
-            List<node_data> ShortestPathToPokemon = graphAlgo.shortestPath(agents.get(0).getSrc(), pokemons.get(0).getEdge().getDest());
-            srcOfAgentPath =
-            for (int j = 1; j < pokemons.size(); j++){
-            List<node_data> l =
-               if(l.size())
-//            int id = ag.getId();
-//            int dest = ag.getNextNode();
-//            int src = ag.getSrc();
-//            double v = ag.getValue();
-//            if (dest == -1) {
-//                dest = nextNode(g, src);
-//                game.chooseNextEdge(ag.getID(), dest);
-//                System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
-            }
-        }
-
-        private static int nextNode (int src){
-
-        }
-    }
+//     public void moveStrategy() {
+//
+//        for (int i = 1; i < agents.size(); i++) {
+//            Agent ag = agents.get(i);
+//            List<node_data> ShortestPathToPokemon = graphAlgo.shortestPath(agents.get(0).getSrc(), pokemons.get(0).getEdge().getDest());
+//            srcOfAgentPath =
+//            for (int j = 1; j < pokemons.size(); j++){
+//            List<node_data> l =
+//               if(l.size())
+////            int id = ag.getId();
+////            int dest = ag.getNextNode();
+////            int src = ag.getSrc();
+////            double v = ag.getValue();
+////            if (dest == -1) {
+////                dest = nextNode(g, src);
+////                game.chooseNextEdge(ag.getID(), dest);
+////                System.out.println("Agent: " + id + ", val: " + v + "   turned to node: " + dest);
+//            }
+//        }
+//
+//        private static int nextNode (int src){
+//
+//        }
+//    }
 }
 

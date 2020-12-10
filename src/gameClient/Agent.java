@@ -39,21 +39,21 @@ public class Agent {
         return this;
     }*/
 
-//    public Agent(String json){
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            JSONObject p = jsonObject.getJSONObject("Agent");
-//
-//            this.value = p.getInt("value");
-//            this.type = p.getInt("type");
-//            this.pos = new GeoLocation(p.getString("pos"));
-//            System.out.println(this);
-//
-//        }
-//        catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public Agent(String json){
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject a = jsonObject.getJSONObject("Agent");
+            this.id = a.getInt("id");
+            this.value = a.getInt("value");
+            this.src = a.getInt("src");
+            this.dest = a.getInt("dest");
+            this.speed = a.getDouble("speed");
+            this.pos = new GeoLocation(a.getString("pos"));
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
     public int getId() {
         return id;
     }

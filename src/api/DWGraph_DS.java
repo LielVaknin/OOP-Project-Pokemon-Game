@@ -215,7 +215,29 @@ public class DWGraph_DS implements directed_weighted_graph{
     @Override
     public int getMC(){return this.MC;}
 
-    public static void main(String[] args) {
-        System.out.println("Hey");
+    @Override
+    public String toString(){
+        String g = "[";
+        int siN = 0;
+        for(int n: this.nodes.keySet()){
+            g = g+"("+n+": {";
+            int siE = 0;
+            for (edge_data e: getE(n)){
+                if(siE == getE(n).size()-1){
+                    g = g+e.getDest()+"- weight = "+e.getWeight()+"}";
+                }else {
+                    g = g+e.getDest()+"- weight = "+e.getWeight()+", ";
+                }
+                siE++;
+            }
+            g = g+"}";
+            if(siN == this.nodes.keySet().size()-1){
+                g = g+"]";
+            } else {
+                g = g+" , ";
+            }
+            siN++;
+        }
+        return g;
     }
 }

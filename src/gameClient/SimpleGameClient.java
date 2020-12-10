@@ -16,11 +16,15 @@ import java.util.List;
  * use of the "server".
  */
 public class SimpleGameClient {
-	public static void main(String[] a){
+	public static void main(String[] args){
 		game_service game = Game_Server_Ex2.getServer(23); // you have [0,23] games
-		String s = game.toString();
-		System.out.println(s);
+		game.addAgent(0);
+		game.addAgent(1);
+//		Arena a = new Arena(23);
+//		String s = game.toString();
+//		System.out.println(s);
 		System.out.println(game.getGraph());
-//		System.out.println(game.getPokemons());
+		System.out.println(game.getAgents());
+		System.out.println(game.getPokemons());
 	}
 }
