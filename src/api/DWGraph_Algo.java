@@ -5,6 +5,7 @@ import gameClient.Agent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
@@ -166,74 +167,42 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
    }
 
-   public void initFromJson(String json){
+   public void initFromJson(JsonObject json){
+      JsonArray nodes = json.get("Nodes").getAsJsonArray();
+      for (int i=0; i<nodes.size(); i++){
+         int id = nodes.get(i).getAsJsonObject().get("id").getAsInt();
+         String pos = nodes.get(i).getAsJsonObject().get("pos").getAsString();
+         geo_location location = new GeoLocation(pos);
+         node_data node = new NodeData(id);
+         node.setLocation(location);
+         this.g.addNode(node);
+      }
 
+      JsonArray edges = json.get("Edges").getAsJsonArray();
+      for (int i=0; i<edges.size(); i++){
+         int src = edges.get(i).getAsJsonObject().get("src").getAsInt();
+         int dest = edges.get(i).getAsJsonObject().get("dest").getAsInt();
+         double weight = edges.get(i).getAsJsonObject().get("w").getAsDouble();
+         g.connect(src, dest, weight);
+      }
    }
+
    @Override
    public boolean load(String file) {
-      directed_weighted_graph graph = new DWGraph_DS();
       try {
-         JSONObject jsonEdges = new JSONObject(file);
-         JSONArray n = jsonEdges.getJSONArray("Nodes");
-         for (int i = 0; i < n.length(); i++) {
-            GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(NodeData.class, new deserializerOfNodes());
-            Gson gson = builder.create();
-            FileReader newNode = new FileReader(file);
-            node_data node = gson.fromJson(newNode, NodeData.class);
-            graph.addNode(node);
-            newNode.close();
-         }
-         JSONArray e = jsonEdges.getJSONArray("Edges");
-         for (int i = 0; i < e.length(); i++) {
-            GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(EdgeData.class, new deserializerOfEdges());
-            Gson gson = builder.create();
-            FileReader newAEdge = new FileReader(file);
-            edge_data ed = gson.fromJson(newAEdge, EdgeData.class);
-            graph.connect(ed.getSrc(), ed.getDest(), ed.getWeight());
-            newAEdge.close();
-         }
+         Gson gson = new Gson();
+         FileReader lodeGraph = new FileReader(file);
+         JsonObject jsonOb = gson.fromJson(lodeGraph, JsonObject.class);
+         initFromJson(jsonOb);
+         //System.out.println(g);
+         //String json = jsonOb.toString();
+         //String json = gson.toJson(lodeGraph.read());
+         //System.out.println(json);
          return true;
-      } catch (Exception e) {
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
          return false;
       }
-
-//      Gson gson = new Gson();
-//      try {
-//         FileReader lodeGraph = new FileReader(file);
-//         directed_weighted_graph graph = gson.fromJson(lodeGraph, directed_weighted_graph.class);
-//         this.init(graph);
-//         lodeGraph.close();
-//         return true;
-//      } catch (Exception e) {
-//         return false;
-//      }
    }
 
-   private class deserializerOfNodes implements JsonDeserializer<node_data> {
-      @Override
-      public node_data deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-         JsonObject nodeJson = jsonElement.getAsJsonObject();
-         int id = nodeJson.get("id").getAsInt();
-         String pos = nodeJson.get("pos").getAsString();
-         node_data n = new NodeData(id);
-         n.setLocation(new GeoLocation(pos));
-         return n;
-      }
-   }
-
-   private class deserializerOfEdges implements JsonDeserializer<edge_data> {
-      @Override
-      public edge_data deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-         JsonObject edgeJson = jsonElement.getAsJsonObject();
-         int src = edgeJson.get("src").getAsInt();
-         int dest = edgeJson.get("dest").getAsInt();
-         double weight = edgeJson.get("w").getAsInt();
-         edge_data e = new EdgeData(src, dest, weight);
-         return e;
-      }
-   }
 }
-
-

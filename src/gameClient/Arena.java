@@ -46,16 +46,9 @@ public class Arena {
     }*/
 
     void loadGraph(String json) {
-        graphAlgo = new DWGraph_Algo();
-        try {
-            PrintWriter pw = new PrintWriter(new File("graph.json"));
-            pw.write(json);
-            pw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        graphAlgo.load("graph.json");
+        Gson gson = new Gson();
+        JsonObject jGraph = gson.fromJson(json, JsonObject.class);
+        ((DWGraph_Algo)graphAlgo).initFromJson(jGraph);
         System.out.println(graphAlgo.getGraph());
     }
 
@@ -143,7 +136,10 @@ public class Arena {
     }
 
     private int numOfAgentsByLevel(String jsonGame){
-        return 1;
+        Gson gson = new Gson();
+        JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
+        int numAgentsOnTheGame = jGame.get("GameServer").getAsJsonObject().get("agents").getAsInt();
+        return numAgentsOnTheGame;
     }
 
     //
@@ -158,5 +154,4 @@ public class Arena {
        4ץ עדכון ברשימת סוכנים
          */
     }
-
 }
