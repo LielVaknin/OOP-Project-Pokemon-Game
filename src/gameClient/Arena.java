@@ -21,11 +21,13 @@ public class Arena {
 
     public Arena(int level) {
        game = Game_Server_Ex2.getServer(level);
-
-//        loadAgents(game.getAgents());
-        loadPokemon(game.getPokemons());
-//        setEdges();
         loadGraph(game.getGraph());
+        loadPokemon(game.getPokemons());
+        startPositionOfAgents(game.toString());
+//        loadAgents(game.getAgents());
+
+//        setEdges();
+
         placeAgents();
 
 
@@ -112,16 +114,9 @@ public class Arena {
             for (int i = 0; i < pok.length(); i++) {
                 JSONObject j = pok.getJSONObject(i);
                 System.out.println(j);
-                Pokemon p = new Pokemon(j.toString());
-//                p.pokemonEdge(graphAlgo.getGraph(), p.getPos())
+                Pokemon p = new Pokemon(j.toString(), graphAlgo.getGraph());
                 l.add(p);
 
-/*                GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(Pokemon.class, new Pokemon());
-                Gson gson = builder.create();
-                //FileReader newPokemon = new FileReader(json);
-                Pokemon p = gson.fromJson(json, Pokemon.class);
-//                l.add(p);*/
 
             }
         } catch (Exception e) {
@@ -147,58 +142,21 @@ public class Arena {
         return pokemons;
     }
 
-    private Object[][] pokemonsAndEdges() {
-        Object[][] pokemonsEdges = new Object[pokemons.size()][2];
-        int i = 0;
-        Iterator<Pokemon> it = pokemons.iterator();
-        while (it.hasNext()) {
-            Pokemon p = it.next();
-            pokemonsEdges[i][0] = p;
-            pokemonsEdges[i][1] = p.pokemonEdge(this.graphAlgo.getGraph());
-            i++;
-        }
-        return pokemonsEdges;
+    private int numOfAgentsByLevel(String jsonGame){
+        return 1;
     }
 
     //
-    public void startPositionOfAgents() {
-        PriorityQueue<List> q = new PriorityQueue<>();
-        Object[][] pokemonsEdges = pokemonsAndEdges();
-        int rowlength = pokemonsEdges.length;
-        int colLength = pokemonsEdges[0].length;
-
-        for (int i = 0; i < rowlength; i++) {
-            for (int j = 0; j < rowlength; j++) {
-                List<node_data> path = this.graphAlgo.shortestPath(((edge_data) pokemonsEdges[i][1]).getSrc(), ((edge_data) pokemonsEdges[j][1]).getDest());
-                for (int k = 1; k <= path.size(); i++) {
-                    for (int a = 0; a < rowlength; a++) {
-                        for (int b = 0; b < colLength; b++) {
-                            //path.get(k-1), path.get(k);
-                        }
-                    }
-                }
-                q.add(path);
-            }
-
-
-        }
+    public void startPositionOfAgents(String jsonGame) {
+        int numOfAgents = numOfAgentsByLevel(jsonGame);
+        pokemons.sort(value);
+        /*
+        לופ:
+       1. עדכון src לכל סוכן
+       2. עדכון dest לכל סוכן
+       3. הןספת סוכן למשחק (game.addAgent)
+       4ץ עדכון ברשימת סוכנים
+         */
     }
 
-//    public void chooseNextEdge(){
-//        Object[][] edgesPokemon = pokemonsAndEdges();
-//        int dest;
-//        for (Agent a: agents){
-//            if (a.getDest()!=-1){
-//               // Collection<edge_data> neighborsAgent =  graphAlgo.getGraph().getE(a.getSrc());
-//                double dis = Double.MAX_VALUE;
-//                for(int i=0; i<edgesPokemon.length; i++){
-//                   Double disBetweenTheEdges = this.graphAlgo.shortestPathDist(((edge_data)edgesPokemon[i][1]).getSrc(), ((edge_data)edgesPokemon[i][1]).getDest());
-//                   if((disBetweenTheEdges != -1) && (disBetweenTheEdges < dis)){
-//                       dis = disBetweenTheEdges;
-//                       dest = ((edge_data)edgesPokemon[i][1]).getDest();
-//                   }
-//                }
-//            }
-//        }
-//    }
 }

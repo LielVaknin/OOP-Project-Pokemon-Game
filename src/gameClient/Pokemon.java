@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.Iterator;
 
-public class Pokemon implements JsonDeserializer<Pokemon> {
+public class Pokemon {
 
     private int id;
     private double value;
@@ -16,21 +16,7 @@ public class Pokemon implements JsonDeserializer<Pokemon> {
     private geo_location pos;
     private edge_data edge;
 
-    public edge_data getEdge() {
-        return edge;
-    }
-
-    @Override
-    public Pokemon deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        JsonObject agentJ = jsonElement.getAsJsonObject();
-        this.value = agentJ.get("value").getAsDouble();
-        this.type = agentJ.get("type").getAsInt();
-        String st = agentJ.get("pos").getAsString();
-        this.pos = new Point3D(st);
-        return this;
-    }
-
-    public Pokemon (String json){
+    public Pokemon (String json, directed_weighted_graph g){
         try {
             JSONObject jsonObject = new JSONObject(json);
             JSONObject p = jsonObject.getJSONObject("Pokemon");
@@ -38,7 +24,7 @@ public class Pokemon implements JsonDeserializer<Pokemon> {
             this.value = p.getInt("value");
             this.type = p.getInt("type");
             this.pos = new GeoLocation(p.getString("pos"));
-            this.edge = new edge_data(pokemonEdge());
+            this.edge = pokemonEdge(g);
 
             System.out.println(this);
 
@@ -46,6 +32,10 @@ public class Pokemon implements JsonDeserializer<Pokemon> {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public edge_data getEdge() {
+        return edge;
     }
 
     public double getValue() {
