@@ -18,7 +18,7 @@ public class DWGraph_DS implements directed_weighted_graph{
     private int nodeSize;
     private int edgeSize;
 
-    private HashMap<Integer, node_data> nodes;
+    public HashMap<Integer, node_data> nodes;
     private HashMap<Integer, HashMap<Integer, edge_data>> edges;
 
     private int ID;
@@ -214,4 +214,8 @@ public class DWGraph_DS implements directed_weighted_graph{
      */
     @Override
     public int getMC(){return this.MC;}
+
+    public static void main(String[] args) {
+        System.out.println("Hey");
+    }
 }

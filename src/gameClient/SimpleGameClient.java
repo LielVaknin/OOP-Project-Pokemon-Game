@@ -20,7 +20,7 @@ public class SimpleGameClient {
 		game_service game = Game_Server_Ex2.getServer(23); // you have [0,23] games
 		String s = game.toString();
 		System.out.println(s);
-		System.out.println(game.getAgents());
-		System.out.println(game.getPokemons());
+		System.out.println(game.getGraph());
+//		System.out.println(game.getPokemons());
 	}
 }

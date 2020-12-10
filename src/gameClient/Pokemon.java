@@ -3,14 +3,22 @@ package gameClient;
 import api.*;
 import com.google.gson.*;
 import gameClient.util.Point3D;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.Iterator;
 
 public class Pokemon implements JsonDeserializer<Pokemon> {
 
+    private int id;
     private double value;
     private int type;
     private geo_location pos;
+    private edge_data edge;
+
+    public edge_data getEdge() {
+        return edge;
+    }
 
     @Override
     public Pokemon deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
@@ -20,6 +28,24 @@ public class Pokemon implements JsonDeserializer<Pokemon> {
         String st = agentJ.get("pos").getAsString();
         this.pos = new Point3D(st);
         return this;
+    }
+
+    public Pokemon (String json){
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject p = jsonObject.getJSONObject("Pokemon");
+
+            this.value = p.getInt("value");
+            this.type = p.getInt("type");
+            this.pos = new GeoLocation(p.getString("pos"));
+            this.edge = new edge_data(pokemonEdge());
+
+            System.out.println(this);
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public double getValue() {
@@ -61,6 +87,7 @@ public class Pokemon implements JsonDeserializer<Pokemon> {
         }
         return null;
     }
+    public String toString() {return "F:{v="+value+", t="+type+"}";}
 
     private double calculatePokemonEdge(edge_data edge, directed_weighted_graph graph){
         double subtruction_y1_y2 = graph.getNode(edge.getSrc()).getLocation().y() - graph.getNode(edge.getDest()).getLocation().y();

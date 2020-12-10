@@ -4,6 +4,7 @@ import api.*;
 import com.google.gson.*;
 import Server.Game_Server_Ex2;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -12,7 +13,6 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class Arena {
-
     public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
     private dw_graph_algorithms graphAlgo;
     private List<Agent> agents;
@@ -20,11 +20,28 @@ public class Arena {
     private game_service game;
 
     public Arena(int level) {
-        game = Game_Server_Ex2.getServer(level);
-        loadAgents(game.getAgents());
+       game = Game_Server_Ex2.getServer(level);
+
+//        loadAgents(game.getAgents());
         loadPokemon(game.getPokemons());
+//        setEdges();
         loadGraph(game.getGraph());
+        placeAgents();
+
+
     }
+
+    private void placeAgents() {
+    }
+/*
+    private void setEdges() {
+
+        for(Pokemon p : pokemons ){
+            if (p.getEdge() == null){
+                f.setEdge()
+            }
+        }
+    }*/
 
     void loadGraph(String json) {
         graphAlgo = new DWGraph_Algo();
@@ -32,47 +49,85 @@ public class Arena {
             PrintWriter pw = new PrintWriter(new File("graph.json"));
             pw.write(json);
             pw.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
-       graphAlgo.load("graph.json");
+        graphAlgo.load("graph.json");
+        System.out.println(graphAlgo.getGraph());
     }
 
     private void loadAgents(String json) {
-        List<Agent> l = new ArrayList<>();
-        GsonBuilder b = new GsonBuilder();
-        Gson gson = b.create();
-        JsonObject r = gson.fromJson(json, JsonObject.class);
-        JsonArray ags = r.getAsJsonObject().get("Agents").getAsJsonArray();
-        for (int i = 0; i < ags.size(); i++) {
-            JsonObject ag= ags.get(i).getAsJsonObject().get("Agent").getAsJsonObject();
-            GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(Agent.class, new Agent());
-            Gson gson1 = builder.create();
-            Agent a = gson1.fromJson(ag, Agent.class);
-            l.add(a);
+/*        System.out.println(json);
+        List<Pokemon> l = new ArrayList<>();
+        try {
+            JSONObject jp = new JSONObject(json);
+            JSONArray pok = jp.getJSONArray("Agent");
+            for (int i = 0; i < pok.length(); i++) {
+                JSONObject j = pok.getJSONObject(i);
+                System.out.println(j);
+                Pokemon p = new Pokemon(j.toString());
+                l.add(p);
+                *//*        ArrayList<Agent> ans = new ArrayList<Agent>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray agents = jsonObject.getJSONArray("Agents");
+            for(int i=0;i<agents.length();i++) {
+                Agent c = new Agent(ggs,0);
+                c.update(agents.get(i).toString());
+                ans.add(c);
+            }
+            //= getJSONArray("Agents");
+        } catch (JSONException | JSONException e) {
+            e.printStackTrace();
         }
-        this.agents = l;
+        return ans;*//*
+//        List<Agent> l = new ArrayList<>();
+//        GsonBuilder b = new GsonBuilder();
+//        Gson gson = b.create();
+//        JsonObject r = gson.fromJson(json, JsonObject.class);
+//        JsonArray ags = r.getAsJsonObject().get("Agents").getAsJsonArray();
+//        for (int i = 0; i < ags.size(); i++) {
+//            JsonObject ag= ags.get(i).getAsJsonObject().get("Agent").getAsJsonObject();
+//            GsonBuilder builder = new GsonBuilder();
+//            builder.registerTypeAdapter(Agent.class, new Agent());
+//            Gson gson1 = builder.create();
+//            Agent a = gson1.fromJson(ag, Agent.class);
+//            l.add(a);
+//        }
+//        this.agents = l;
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }*/
     }
 
     private void loadPokemon(String json) {
+        System.out.println(json);
         List<Pokemon> l = new ArrayList<>();
         try {
             JSONObject jp = new JSONObject(json);
             JSONArray pok = jp.getJSONArray("Pokemons");
             for (int i = 0; i < pok.length(); i++) {
-                GsonBuilder builder = new GsonBuilder();
-                builder.registerTypeAdapter(Agent.class, new Pokemon());
+                JSONObject j = pok.getJSONObject(i);
+                System.out.println(j);
+                Pokemon p = new Pokemon(j.toString());
+//                p.pokemonEdge(graphAlgo.getGraph(), p.getPos())
+                l.add(p);
+
+/*                GsonBuilder builder = new GsonBuilder();
+                builder.registerTypeAdapter(Pokemon.class, new Pokemon());
                 Gson gson = builder.create();
                 //FileReader newPokemon = new FileReader(json);
                 Pokemon p = gson.fromJson(json, Pokemon.class);
-                l.add(p);
+//                l.add(p);*/
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(l);
         this.pokemons = l;
     }
 
@@ -80,7 +135,7 @@ public class Arena {
         return graphAlgo;
     }
 
-    public game_service gatGame(){
+    public game_service gatGame() {
         return game;
     }
 
@@ -93,36 +148,37 @@ public class Arena {
     }
 
     private Object[][] pokemonsAndEdges() {
-        Object [][] pokemonsEdges = new Object [pokemons.size()][2];
+        Object[][] pokemonsEdges = new Object[pokemons.size()][2];
         int i = 0;
         Iterator<Pokemon> it = pokemons.iterator();
         while (it.hasNext()) {
-           Pokemon p =  it.next();
-           pokemonsEdges [i][0] = p;
-           pokemonsEdges [i][1] = p.pokemonEdge(this.graphAlgo.getGraph());
-           i++;
+            Pokemon p = it.next();
+            pokemonsEdges[i][0] = p;
+            pokemonsEdges[i][1] = p.pokemonEdge(this.graphAlgo.getGraph());
+            i++;
         }
         return pokemonsEdges;
     }
 
-    public void startPositionOfAgents(){
+    //
+    public void startPositionOfAgents() {
         PriorityQueue<List> q = new PriorityQueue<>();
-        Object [][] pokemonsEdges = pokemonsAndEdges();
+        Object[][] pokemonsEdges = pokemonsAndEdges();
         int rowlength = pokemonsEdges.length;
         int colLength = pokemonsEdges[0].length;
 
-        for (int i = 0; i < rowlength; i++){
-            for (int j = 0; j < rowlength; j++){
-                List<node_data> path = this.graphAlgo.shortestPath(((edge_data)pokemonsEdges[i][1]).getSrc(), ((edge_data)pokemonsEdges[j][1]).getDest());
-                for (int k = 1; k <= path.size(); i++){
-                    for (int a = 0; a < rowlength; a++){
-                        for (int b = 0; b < colLength; b++){
+        for (int i = 0; i < rowlength; i++) {
+            for (int j = 0; j < rowlength; j++) {
+                List<node_data> path = this.graphAlgo.shortestPath(((edge_data) pokemonsEdges[i][1]).getSrc(), ((edge_data) pokemonsEdges[j][1]).getDest());
+                for (int k = 1; k <= path.size(); i++) {
+                    for (int a = 0; a < rowlength; a++) {
+                        for (int b = 0; b < colLength; b++) {
                             //path.get(k-1), path.get(k);
                         }
                     }
                 }
                 q.add(path);
-        }
+            }
 
 
         }

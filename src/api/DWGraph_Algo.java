@@ -166,6 +166,9 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
    }
 
+   public void initFromJson(String json){
+
+   }
    @Override
    public boolean load(String file) {
       directed_weighted_graph graph = new DWGraph_DS();
@@ -174,7 +177,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          JSONArray n = jsonEdges.getJSONArray("Nodes");
          for (int i = 0; i < n.length(); i++) {
             GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(Agent.class, new deserializerOfNodes());
+            builder.registerTypeAdapter(NodeData.class, new deserializerOfNodes());
             Gson gson = builder.create();
             FileReader newNode = new FileReader(file);
             node_data node = gson.fromJson(newNode, NodeData.class);
@@ -184,7 +187,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          JSONArray e = jsonEdges.getJSONArray("Edges");
          for (int i = 0; i < e.length(); i++) {
             GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(Agent.class, new deserializerOfEdges());
+            builder.registerTypeAdapter(EdgeData.class, new deserializerOfEdges());
             Gson gson = builder.create();
             FileReader newAEdge = new FileReader(file);
             edge_data ed = gson.fromJson(newAEdge, EdgeData.class);

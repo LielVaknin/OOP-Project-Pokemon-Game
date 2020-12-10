@@ -3,15 +3,17 @@ package gameClient;
 import api.*;
 import com.google.gson.*;
 import gameClient.util.Point3D;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 
-public class Agent implements JsonDeserializer<Agent> {
+public class Agent {
     private int id;
     private double value;
     private int src;
     private int dest;
     private double speed;
-    private Point3D pos;
+    private geo_location pos;
 
 //    public Agent(int id, double value, int src, int dest, double speed, Point3D pos){
 //        this.id = id;
@@ -21,9 +23,11 @@ public class Agent implements JsonDeserializer<Agent> {
 //        this.speed = speed;
 //        this.pos = new Point3D(pos.x(), pos.y(), pos.z());
 //    }
+/*
+
 
     @Override
-    public Agent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public Agent deserialize(String Json) {
         JsonObject agentJ = jsonElement.getAsJsonObject();
         this.id = agentJ.get("id").getAsInt();
         this.value = agentJ.get("value").getAsDouble();
@@ -33,8 +37,23 @@ public class Agent implements JsonDeserializer<Agent> {
         String point = agentJ.get("pos").getAsString();
         pos = new Point3D(point);
         return this;
-    }
+    }*/
 
+//    public Agent(String json){
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            JSONObject p = jsonObject.getJSONObject("Agent");
+//
+//            this.value = p.getInt("value");
+//            this.type = p.getInt("type");
+//            this.pos = new GeoLocation(p.getString("pos"));
+//            System.out.println(this);
+//
+//        }
+//        catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     public int getId() {
         return id;
     }
@@ -75,7 +94,7 @@ public class Agent implements JsonDeserializer<Agent> {
         this.speed = speed;
     }
 
-    public Point3D getPos() {
+    public geo_location getPos() {
         return pos;
     }
 
