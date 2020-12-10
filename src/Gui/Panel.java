@@ -1,7 +1,8 @@
-package gameClient;
+package Gui;
 
 import api.*;
-import gameClient.util.Point3D;
+import gameClient.Arena;
+import gameClient.CL_Pokemon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,11 +61,11 @@ public class Panel extends JPanel {
     }
 
     private void drawPokemons(Graphics g) {
-        List<Pokemon> pokemons = arena.getPokemons();
+        List<CL_Pokemon> pokemons = arena.getPokemons();
         if(pokemons!=null) {
-            Iterator<Pokemon> it = pokemons.iterator();
+            Iterator<CL_Pokemon> it = pokemons.iterator();
             while(it.hasNext()) {
-                Pokemon pok = it.next();
+                CL_Pokemon pok = it.next();
                 geo_location c = pok.getPos();
                 int r = 10;
                 g.setColor(Color.green);

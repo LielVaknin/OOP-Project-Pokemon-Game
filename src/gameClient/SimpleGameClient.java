@@ -21,8 +21,8 @@ public class SimpleGameClient {
 		game.addAgent(0);
 		game.addAgent(1);
 //		Arena a = new Arena(23);
-//		String s = game.toString();
-//		System.out.println(s);
+		String s = game.toString();
+		System.out.println(s);
 		System.out.println(game.getGraph());
 		System.out.println(game.getAgents());
 		System.out.println(game.getPokemons());

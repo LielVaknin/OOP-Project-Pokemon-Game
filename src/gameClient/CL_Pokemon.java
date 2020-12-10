@@ -1,15 +1,11 @@
 package gameClient;
 
 import api.*;
-import com.google.gson.*;
-import gameClient.util.Point3D;
-import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class Pokemon {
+public class CL_Pokemon implements pokemon {
 
     private int id;
     private double value;
@@ -17,36 +13,29 @@ public class Pokemon {
     private geo_location pos;
     private edge_data edge;
 
-    public Pokemon (String json, directed_weighted_graph g){
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONObject p = jsonObject.getJSONObject("Pokemon");
-
-            this.value = p.getInt("value");
-            this.type = p.getInt("type");
-            this.pos = new GeoLocation(p.getString("pos"));
-            this.edge = pokemonEdge(g);
-
-            System.out.println(this);
-
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+    public CL_Pokemon(double value, int type, geo_location pos, directed_weighted_graph g){
+        this.value = value;
+        this.type = type;
+        this.pos = pos;
+        this.edge = pokemonEdge(g);
     }
 
+    @Override
     public edge_data getEdge() {
         return edge;
     }
 
+    @Override
     public double getValue() {
         return value;
     }
 
+    @Override
     public int getType() {
         return type;
     }
 
+    @Override
     public geo_location getPos() {
         return pos;
     }
@@ -78,6 +67,7 @@ public class Pokemon {
         }
         return null;
     }
+
     public String toString() {return "F:{v="+value+", t="+type+"}";}
 
     private double calculatePokemonEdge(edge_data edge, directed_weighted_graph graph){
@@ -92,7 +82,7 @@ public class Pokemon {
      * Class which implements the Comparator<T> interface,
      * used for startPositionOfAgents method in Arena class.
      */
-    static class pokemonsComparator implements Comparator<Pokemon> {
+    static class pokemonsComparator implements Comparator<CL_Pokemon> {
 
         /**
          * Overriding compare() method of Comparator.
@@ -100,7 +90,7 @@ public class Pokemon {
          * @return
          */
         @Override
-        public int compare(Pokemon p1, Pokemon p2) {
+        public int compare(CL_Pokemon p1, CL_Pokemon p2) {
             return Double.compare(p1.getValue(), p2.getValue());
         }
     }

@@ -15,45 +15,15 @@ public class Agent {
     private double speed;
     private geo_location pos;
 
-//    public Agent(int id, double value, int src, int dest, double speed, Point3D pos){
-//        this.id = id;
-//        this.value = value;
-//        this.src = src;
-//        this.dest = dest;
-//        this.speed = speed;
-//        this.pos = new Point3D(pos.x(), pos.y(), pos.z());
-//    }
-/*
-
-
-    @Override
-    public Agent deserialize(String Json) {
-        JsonObject agentJ = jsonElement.getAsJsonObject();
-        this.id = agentJ.get("id").getAsInt();
-        this.value = agentJ.get("value").getAsDouble();
-        this.src = agentJ.get("src").getAsInt();
-        this.dest = agentJ.get("dest").getAsInt();
-        this.speed = agentJ.get("speed").getAsDouble();
-        String point = agentJ.get("pos").getAsString();
-        pos = new Point3D(point);
-        return this;
-    }*/
-
-    public Agent(String json){
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONObject a = jsonObject.getJSONObject("Agent");
-            this.id = a.getInt("id");
-            this.value = a.getInt("value");
-            this.src = a.getInt("src");
-            this.dest = a.getInt("dest");
-            this.speed = a.getDouble("speed");
-            this.pos = new GeoLocation(a.getString("pos"));
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
+    public Agent(int id, double value, int src, int dest, double speed, geo_location pos){
+        this.id = id;
+        this.value = value;
+        this.src = src;
+        this.dest = dest;
+        this.speed = speed;
+        this.pos = pos;
     }
+
     public int getId() {
         return id;
     }
