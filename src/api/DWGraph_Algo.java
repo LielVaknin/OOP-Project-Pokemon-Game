@@ -167,25 +167,25 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
    }
 
-//   public void initFromJson(JsonObject json){
-//      JsonArray nodes = json.get("Nodes").getAsJsonArray();
-//      for (int i=0; i<nodes.size(); i++){
-//         int id = nodes.get(i).getAsJsonObject().get("id").getAsInt();
-//         String pos = nodes.get(i).getAsJsonObject().get("pos").getAsString();
-//         geo_location location = new GeoLocation(pos);
-//         node_data node = new NodeData(id);
-//         node.setLocation(location);
-//         this.g.addNode(node);
-//      }
-//
-//      JsonArray edges = json.get("Edges").getAsJsonArray();
-//      for (int i=0; i<edges.size(); i++){
-//         int src = edges.get(i).getAsJsonObject().get("src").getAsInt();
-//         int dest = edges.get(i).getAsJsonObject().get("dest").getAsInt();
-//         double weight = edges.get(i).getAsJsonObject().get("w").getAsDouble();
-//         g.connect(src, dest, weight);
-//      }
-//   }
+   public void initFromJson(JsonObject json){
+      JsonArray nodes = json.get("Nodes").getAsJsonArray();
+      for (int i=0; i<nodes.size(); i++){
+         int id = nodes.get(i).getAsJsonObject().get("id").getAsInt();
+         String pos = nodes.get(i).getAsJsonObject().get("pos").getAsString();
+         geo_location location = new GeoLocation(pos);
+         node_data node = new NodeData(id);
+         node.setLocation(location);
+         this.g.addNode(node);
+      }
+
+      JsonArray edges = json.get("Edges").getAsJsonArray();
+      for (int i=0; i<edges.size(); i++){
+         int src = edges.get(i).getAsJsonObject().get("src").getAsInt();
+         int dest = edges.get(i).getAsJsonObject().get("dest").getAsInt();
+         double weight = edges.get(i).getAsJsonObject().get("w").getAsDouble();
+         g.connect(src, dest, weight);
+      }
+   }
 
    @Override
    public boolean load(String file) {

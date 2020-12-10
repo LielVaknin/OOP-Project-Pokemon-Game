@@ -68,7 +68,7 @@ public class Arena {
                 }
                 agentSrc = agents.get(j).getSrc();
                 List<node_data> pathToPokemon = graphAlgo.shortestPath(agentSrc, pokemonDest);
-                if ((shortestWayToPokemon == null) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+                if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
                     shortestWayToPokemon = pathToPokemon;
                     agentSrc = agents.get(j).getSrc();
                     pokemonDest =  pokemons.get(i).getEdge().getDest();
