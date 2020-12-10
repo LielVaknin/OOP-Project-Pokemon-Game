@@ -6,6 +6,7 @@ import gameClient.util.Point3D;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.Comparator;
 import java.util.Iterator;
 
 public class Pokemon {
@@ -85,5 +86,22 @@ public class Pokemon {
         double m = subtruction_y1_y2 / subtruction_x1_x2;
         double n = graph.getNode(edge.getSrc()).getLocation().y() - (m * graph.getNode(edge.getSrc()).getLocation().x());
         return m * this.pos.x() + n;
+    }
+
+    /**
+     * Class which implements the Comparator<T> interface,
+     * used for startPositionOfAgents method in Arena class.
+     */
+    static class pokemonsComparator implements Comparator<Pokemon> {
+
+        /**
+         * Overriding compare() method of Comparator.
+         *
+         * @return
+         */
+        @Override
+        public int compare(Pokemon p1, Pokemon p2) {
+            return Double.compare(p1.getValue(), p2.getValue());
+        }
     }
 }
