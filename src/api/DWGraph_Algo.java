@@ -1,14 +1,9 @@
 package api;
 
 import com.google.gson.*;
-import gameClient.Agent;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 

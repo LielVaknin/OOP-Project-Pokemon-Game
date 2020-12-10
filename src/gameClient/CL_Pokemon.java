@@ -1,12 +1,12 @@
 package gameClient;
 
 import api.*;
-
 import java.util.Comparator;
 import java.util.Iterator;
 
 public class CL_Pokemon implements pokemon {
 
+    //public static final double EPS1 = 0.001, EPS2=EPS1*EPS1, EPS=EPS2;
     private int id;
     private double value;
     private int type;
@@ -40,6 +40,54 @@ public class CL_Pokemon implements pokemon {
         return pos;
     }
 
+//    public static void updateEdge(CL_Pokemon pok, directed_weighted_graph g) {
+//        //	oop_edge_data ans = null;
+//        Iterator<node_data> it1 = g.getV().iterator();
+//        while(it1.hasNext()) {
+//            node_data v = it1.next();
+//            Iterator<edge_data> it2 = g.getE(v.getKey()).iterator();
+//            while(it2.hasNext()) {
+//                edge_data e = it2.next();
+//                boolean f = isOnEdge(pok.getPos(), e, pok.getType(), g);
+//                if(f) {
+//                    pok.setEdge(e);
+//                }
+//            }
+//        }
+//    }
+//
+//    private void setEdge(edge_data e) {
+//        this.edge = e;
+//    }
+//
+//    private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest) {
+//        boolean ans = false;
+//        double dist = src.distance(dest);
+//        double d1 = src.distance(p) + p.distance(dest);
+//        if(dist > d1 - EPS2) {
+//            ans = true;
+//        }
+//        return ans;
+//    }
+//
+//    private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
+//        geo_location src = g.getNode(s).getLocation();
+//        geo_location dest = g.getNode(d).getLocation();
+//        return isOnEdge(p, src, dest);
+//    }
+//
+//    private static boolean isOnEdge(geo_location p, edge_data e, int type, directed_weighted_graph g) {
+//        int src = g.getNode(e.getSrc()).getKey();
+//        int dest = g.getNode(e.getDest()).getKey();
+//        if(type < 0 && dest > src) {
+//            return false;
+//        }
+//        if(type > 0 && src > dest) {
+//            return false;
+//        }
+//        return isOnEdge(p, src, dest, g);
+//    }
+
     public edge_data pokemonEdge(directed_weighted_graph graph) {
         Boolean pokemonOnRisingEdge = true;
         Boolean pokemonOnFallingEdge = true;
@@ -68,8 +116,6 @@ public class CL_Pokemon implements pokemon {
         return null;
     }
 
-    public String toString() {return "F:{v="+value+", t="+type+"}";}
-
     private double calculatePokemonEdge(edge_data edge, directed_weighted_graph graph){
         double subtruction_y1_y2 = graph.getNode(edge.getSrc()).getLocation().y() - graph.getNode(edge.getDest()).getLocation().y();
         double subtruction_x1_x2 = graph.getNode(edge.getSrc()).getLocation().x() - graph.getNode(edge.getDest()).getLocation().x();
@@ -77,6 +123,8 @@ public class CL_Pokemon implements pokemon {
         double n = graph.getNode(edge.getSrc()).getLocation().y() - (m * graph.getNode(edge.getSrc()).getLocation().x());
         return m * this.pos.x() + n;
     }
+
+    public String toString() {return "F:{v="+value+", t="+type+"}";}
 
     /**
      * Class which implements the Comparator<T> interface,

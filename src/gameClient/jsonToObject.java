@@ -32,8 +32,8 @@ public final class jsonToObject {
         }
     }
 
-    public static List<Agent> loadAgents(String json) {
-        List<Agent> l = new ArrayList<>();
+    public static List<CL_Agent> loadAgents(String json) {
+        List<CL_Agent> l = new ArrayList<>();
         Gson gson = new Gson();
         JsonObject jsonAgents = gson.fromJson(json, JsonObject.class);
         JsonArray arrayAgents = jsonAgents.get("Agents").getAsJsonArray();
@@ -45,7 +45,7 @@ public final class jsonToObject {
             int dest = agent.get("dest").getAsInt();
             Double speed = agent.get("speed").getAsDouble();
             geo_location pos = new GeoLocation(agent.get("pos").getAsString());
-            Agent a = new Agent(id, value, src, dest, speed, pos);
+            CL_Agent a = new CL_Agent(id, value, src, dest, speed, pos);
             l.add(a);
         }
         return l;

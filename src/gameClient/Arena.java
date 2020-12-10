@@ -2,13 +2,13 @@ package gameClient;
 
 import api.*;
 import Server.Game_Server_Ex2;
-
 import java.util.*;
 
 public class Arena {
+
     public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
     private dw_graph_algorithms graphAlgo;
-    private List<Agent> agents;
+    private List<CL_Agent> agents;
     private List<CL_Pokemon> pokemons;
     private game_service game;
 
@@ -28,7 +28,7 @@ public class Arena {
         return game;
     }
 
-    public List<Agent> getAgents() {
+    public List<CL_Agent> getAgents() {
         return agents;
     }
 
