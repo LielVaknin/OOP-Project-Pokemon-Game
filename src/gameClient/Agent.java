@@ -3,7 +3,7 @@ package gameClient;
 import api.*;
 
 /**
- * This interface represents
+ * This interface represents an agent.
  */
 public interface agent {
 
@@ -32,25 +32,25 @@ public interface agent {
     public void setValue(double value);
 
     /**
-     * Returns the id of the source node which is where the agent is currently stands on.
+     * Returns the id of the source node which the agent is currently stands on.
      * @return src.
      */
     public int getSrc();
 
     /**
-     * Allows to set the id of the source node which is where the agent is currently stands on.
+     * Allows to set the id of the source node which the agent is currently stands on.
      * @param src represents the given id of this source node.
      */
     public void setSrc(int src);
 
     /**
-     * Returns the id of the destination node which is where the agent is about to reach.
+     * Returns the id of the destination node which the agent is about to reach.
      * @return dest.
      */
     public int getDest();
 
     /**
-     * Allows to set the id of the destination node which is where the agent is about to reach.
+     * Allows to set the id of the destination node which the agent is about to reach.
      * @param dest represents the given destination node.
      */
     public void setDest(int dest);

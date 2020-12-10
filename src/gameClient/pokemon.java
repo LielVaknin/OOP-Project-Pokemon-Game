@@ -3,10 +3,13 @@ package gameClient;
 import api.edge_data;
 import api.geo_location;
 
+/**
+ * This interface represents a pokemon.
+ */
 public interface pokemon {
 
     /**
-     * Returns the edge where which the pokemon is stands on.
+     * Returns the edge which the pokemon is stands on.
      * @return edge.
      */
     public edge_data getEdge();
