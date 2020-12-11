@@ -2,15 +2,10 @@ package api;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * This class represents a directional weighted graph.
- * The interface has a road-system or communication network in mind -
- * and should support a large number of nodes (over 100,000).
- * The implementation should be based on an efficient compact representation
- * (should NOT be based on a n*n matrix).
- *
+ * @authors Liel.Vaknin & Renana.Levy.
  */
 public class DWGraph_DS implements directed_weighted_graph{
 
