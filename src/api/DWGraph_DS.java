@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class DWGraph_DS implements directed_weighted_graph{
 
-    private int MC;
     private int nodeSize;
+    private int MC;
     private int edgeSize;
 
     public HashMap<Integer, node_data> nodes;
