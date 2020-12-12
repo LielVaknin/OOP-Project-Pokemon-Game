@@ -1,5 +1,7 @@
 package api;
 
+import java.util.Objects;
+
 /**
  * This class represents the set of operations applicable on a
  * node (vertex) in a (directional) weighted graph.
@@ -141,6 +143,30 @@ public class NodeData implements node_data{
     @Override
     public String toString() {
         return "" + this.key;
+    }
+
+    /**
+     * Equals method.
+     *
+     * @param o represents a given object.
+     * @return true if this object and a given object are equals, false if not.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NodeData nodeData = (NodeData) o;
+        return key == nodeData.key && nodeTag == nodeData.nodeTag && Double.compare(nodeData.nodeWeight, nodeWeight) == 0 && Double.compare(nodeData.dist, dist) == 0 && Objects.equals(nodeInfo, nodeData.nodeInfo) && Objects.equals(nodeGeoLocation, nodeData.nodeGeoLocation) && Objects.equals(prev, nodeData.prev);
+    }
+
+    /**
+     * HashCode method.
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, nodeInfo, nodeTag, nodeWeight, nodeGeoLocation, prev, dist);
     }
 }
 

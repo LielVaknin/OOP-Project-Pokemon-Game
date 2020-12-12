@@ -2,6 +2,7 @@ package api;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * This class represents a directional weighted graph.
@@ -234,5 +235,29 @@ public class DWGraph_DS implements directed_weighted_graph{
             siN++;
         }
         return g;
+    }
+
+    /**
+     * Equals method.
+     *
+     * @param o represents a given object.
+     * @return true if this object and a given object are equals, false if not.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DWGraph_DS that = (DWGraph_DS) o;
+        return nodeSize == that.nodeSize && edgeSize == that.edgeSize && ID == that.ID && Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
+    }
+
+    /**
+     * HashCode method.
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeSize, edgeSize, nodes, edges, ID);
     }
 }
