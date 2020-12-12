@@ -10,8 +10,6 @@ public class Frame extends JFrame {
 
     public Frame(Arena arena) {
         super();
-        this.arena = arena;
-        initPanel(arena);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenHeight = screenSize.height;
@@ -25,12 +23,17 @@ public class Frame extends JFrame {
         ImageIcon image = new ImageIcon("./resources/Icon.png"); //create an ImageIcon
         this.setIconImage(image.getImage()); //change icon of frame
 //        this.getContentPane().setBackground(new Color(0,122 ,232)); //change color of background
+
+        this.arena = arena;
+        initPanel(arena);
     }
-        private void initPanel(Arena arena){
-            Panel panel = new Panel(arena);
-            this.add(panel);
-        }
+
+    private void initPanel(Arena arena){
+        Panel panel = new Panel(arena);
+        this.add(panel);
+    }
 }
+
 //
 //import api.directed_weighted_graph;
 //import api.edge_data;

@@ -54,34 +54,39 @@ public class Arena {
         }
         String jsonAgents = this.game.getAgents();
         this.agents = jsonToObject.loadAgents(jsonAgents);
+
+        pokemonWithHigherValue = pokemons.size() - 1;
+        for (int i = 1; i <= numOfAgents; i++) {
+            CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
+            agent a = agents.get(p.getEdge().getSrc());
+            a.setDest(p.getEdge().getDest());
+            pokemonWithHigherValue --;
+        }
     }
 
      public void movementStrategy() {
         int numAgents= agents.size();
-        List<node_data> shortestWayToPokemon = new LinkedList<>();
-        for (int i = 0; i < (pokemons.size()) && (numAgents > 0); i++) {
-//             int agentSrc = agents.get(0).getSrc();
-            int agentSrc = -1;
-            int pokemonDest = pokemons.get(i).getEdge().getDest();
-//             List<node_data> shortestWayToPokemon = new LinkedList<>();/*graphAlgo.shortestPath(agentSrc, pokemonDest)*/;
-            for (int j = 1; j < agents.size(); j++) {
-//                 int pokemonDest = pokemons.get(i).getEdge().getDest();
-                if(agents.get(j).getDest() != -1){
-                    continue;
-                }
-                agentSrc = agents.get(j).getSrc();
-                List<node_data> pathToPokemon = graphAlgo.shortestPath(agentSrc, pokemonDest);
-                if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
-                    shortestWayToPokemon = pathToPokemon;
-                    agentSrc = agents.get(j).getSrc();
-                    pokemonDest =  pokemons.get(i).getEdge().getDest();
-                }
-            }
-            int agentDest = shortestWayToPokemon.get(1).getKey();
-            game.chooseNextEdge(agentSrc, agentDest);
-            numAgents--;
-            shortestWayToPokemon.clear();
-        }
+//        List<node_data> shortestWayToPokemon = new LinkedList<>();
+//        for (int i = 0; i < (pokemons.size()) && (numAgents > 0); i++) {
+////             int agentSrc = agents.get(0).getSrc();
+//            int agentSrc = -1;
+//            int pokemonDest = pokemons.get(i).getEdge().getDest();
+////             List<node_data> shortestWayToPokemon = new LinkedList<>();/*graphAlgo.shortestPath(agentSrc, pokemonDest)*/;
+//            for (int j = 0; j < agents.size(); j++) {
+////                 int pokemonDest = pokemons.get(i).getEdge().getDest();
+//                agentSrc = agents.get(j).getSrc();
+//                List<node_data> pathToPokemon = graphAlgo.shortestPath(agentSrc, pokemonDest);
+//                if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+//                    shortestWayToPokemon = pathToPokemon;
+//                    agentSrc = agents.get(j).getSrc();
+//                    pokemonDest =  pokemons.get(i).getEdge().getDest();
+//                }
+//            }
+//            int agentDest = shortestWayToPokemon.get(1).getKey();
+//            game.chooseNextEdge(agentSrc, agentDest);
+//            numAgents--;
+//            shortestWayToPokemon.clear();
+//        }
      }
 
     private static Range2D GraphRange(directed_weighted_graph g) {
