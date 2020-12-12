@@ -29,6 +29,14 @@ public class GeoLocation implements geo_location {
         this.z = Double.parseDouble(a[2]);
     }
 
+    public GeoLocation(geo_location pos){
+        if (pos == null)
+            return;
+        this.x = pos.x();
+        this.y = pos.y();
+        this.z = pos.z();
+    }
+
         public double x(){
             return this.x;
         }

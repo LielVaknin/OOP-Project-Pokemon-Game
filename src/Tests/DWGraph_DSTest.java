@@ -186,12 +186,16 @@ class DWGraph_DSTest {
         g_Test8.connect(2, 3, 1);
         g_Test8.connect(3, 4, 5);
         assertEquals(5, g_Test8.nodeSize());
+        assertEquals(7, g_Test8.edgeSize());
         assertEquals(12, g_Test8.getMC());
-        g_Test8.removeNode(0);
+        node_data n = g_Test8.removeNode(3);
+        assertEquals(3, n.getKey());
         assertEquals(4, g_Test8.nodeSize());
+        assertEquals(5, g_Test8.edgeSize());
         assertEquals(15, g_Test8.getMC()); // The increase of MC also caused because of edges deletion.
-        assertNull(g_Test8.removeNode(0)); // Tries to remove node which no longer exists in the graph.
+        assertNull(g_Test8.removeNode(3)); // Tries to remove node which no longer exists in the graph.
         assertEquals(4, g_Test8.nodeSize());
+        assertEquals(5, g_Test8.edgeSize());
         assertEquals(15, g_Test8.getMC());
     }
 

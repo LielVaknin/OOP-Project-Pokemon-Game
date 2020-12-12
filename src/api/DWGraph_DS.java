@@ -34,6 +34,10 @@ public class DWGraph_DS implements directed_weighted_graph{
      * Copy constructor.
      */
     public DWGraph_DS(directed_weighted_graph graph) {
+        this.nodes = new HashMap<>();
+        this.edges = new HashMap<>();
+        if(graph == null)
+            return;
         for (node_data n: graph.getV()){
             node_data newN= new NodeData(n);
             this.nodes.put(newN.getKey(), newN);
@@ -133,6 +137,8 @@ public class DWGraph_DS implements directed_weighted_graph{
      */
     @Override
     public Collection<edge_data> getE(int node_id){
+        if(this.edges.get(node_id) ==null)
+            return null;
         return this.edges.get(node_id).values();
     }
 
@@ -149,6 +155,9 @@ public class DWGraph_DS implements directed_weighted_graph{
         if (!this.nodes.containsKey(key))
             return null;
         for (node_data n : this.getV()) {
+            if(!this.edges.containsKey(n.getKey())){
+                continue;
+            }
             if (this.edges.get(n.getKey()).containsKey(key)) {
                 this.removeEdge(n.getKey(), key);
             }
@@ -156,17 +165,6 @@ public class DWGraph_DS implements directed_weighted_graph{
         nodeSize--;
         MC++;
         return this.nodes.remove(key);
-
-//        Iterator<edge_data> it = this.getE(key).iterator();
-//        while(it.hasNext()){
-//            edge_data edge = it.next();
-//            removeEdge(edge.getDest(), key);
-//        }
-//        node_data n = nodes.get(key);
-//        this.nodes.remove(key);
-//        nodeSize--;
-//        MC++;
-//        return n;
     }
 
     /**
@@ -226,7 +224,7 @@ public class DWGraph_DS implements directed_weighted_graph{
                 }
                 siE++;
             }
-            g = g+"}";
+            g = g+")";
             if(siN == this.nodes.keySet().size()-1){
                 g = g+"]";
             } else {
@@ -245,10 +243,33 @@ public class DWGraph_DS implements directed_weighted_graph{
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DWGraph_DS that = (DWGraph_DS) o;
-        return nodeSize == that.nodeSize && edgeSize == that.edgeSize && ID == that.ID && Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
+        if (this == o)
+            return true;
+        if (o == null || /*getClass() != o.getClass()*/ !(o instanceof directed_weighted_graph))
+            return false;
+//        DWGraph_DS that = (DWGraph_DS) o;
+//        return nodeSize == that.nodeSize && edgeSize == that.edgeSize && ID == that.ID && Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
+        directed_weighted_graph that = (directed_weighted_graph)o;
+        if(this.nodeSize != that.nodeSize() || this.edgeSize != that.edgeSize() || this.MC!=that.getMC())
+            return false;
+        for(node_data ng: that.getV()) {
+            int keyG = ng.getKey();
+            if(this.nodes.containsKey(keyG)) {
+                node_data nt = this.getNode(keyG);
+                if((!(nt).equals(ng)))
+                    return false;
+                else {
+                    for (edge_data e: that.getE(keyG)){
+                        Collection<edge_data> thisE = this.getE(keyG);
+                        if(!thisE.contains(e))
+                            return false;
+                    }
+                }
+            }
+            else
+                return false;
+        }
+        return true;
     }
 
     /**

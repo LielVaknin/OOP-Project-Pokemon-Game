@@ -43,7 +43,8 @@ public class NodeData implements node_data{
         this.nodeInfo = node.getInfo();
         this.nodeTag = node.getTag();
         this.nodeWeight= node.getWeight();
-        // this.nodeGeoLocation = node.getLocation();
+        if (node.getLocation() != null)
+            this.nodeGeoLocation = new GeoLocation(node.getLocation());
     }
 
 
@@ -153,10 +154,20 @@ public class NodeData implements node_data{
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NodeData nodeData = (NodeData) o;
-        return key == nodeData.key && nodeTag == nodeData.nodeTag && Double.compare(nodeData.nodeWeight, nodeWeight) == 0 && Double.compare(nodeData.dist, dist) == 0 && Objects.equals(nodeInfo, nodeData.nodeInfo) && Objects.equals(nodeGeoLocation, nodeData.nodeGeoLocation) && Objects.equals(prev, nodeData.prev);
+        if (this == o)
+            return true;
+        if (o == null || /*getClass() != o.getClass()*/ !(o instanceof node_data))
+            return false;
+        node_data nodeData = (node_data) o;
+//        return key == nodeData.key && nodeTag == nodeData.nodeTag && Double.compare(nodeData.nodeWeight, nodeWeight) == 0 && Double.compare(nodeData.dist, dist) == 0 && Objects.equals(nodeInfo, nodeData.nodeInfo) && Objects.equals(nodeGeoLocation, nodeData.nodeGeoLocation) && Objects.equals(prev, nodeData.prev);
+        if(this.key != nodeData.getKey() || this.nodeTag!=nodeData.getTag() || (!(this.nodeInfo.equals(nodeData.getInfo()))) || (this.nodeWeight != nodeData.getWeight()))
+            return false;
+        geo_location gl = nodeData.getLocation();
+        if((gl == null) && this.getLocation() == null)
+            return true;
+        if((this.nodeGeoLocation.x() != gl.x()) || (this.nodeGeoLocation.y() != gl.y()) || (this.nodeGeoLocation.z() != gl.z()))
+            return false;
+        return true;
     }
 
     /**

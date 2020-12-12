@@ -4,6 +4,7 @@ import com.google.gson.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     * @param src
     */
    private void dfsVisit(directed_weighted_graph graph, node_data src) {
-      if (src == null) {
+      if (graph.getE(src.getKey()) == null) {
          return; // תנאי עצירה לרקורסיה
       }
       src.setInfo("grey"); //תחילת טיפול בקודקוד צובע אותו באפור
@@ -81,6 +82,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    @Override
    public boolean isConnected() {
+      if(g ==null || g.nodeSize()<2)
+         return true;
       for (node_data n : this.g.getV()) {
          n.setInfo("white");     // צובע את כל הקודקודים בלבן
       }
@@ -94,14 +97,31 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             return false;     //אם קיים קודקוד לבן זה אומר שאין מסלול מהsrc אליו ולכן הגרף לא קשיר חזק
       }
 
-      //לולאה שהופכת את כיווני הצלעות של הגרף (יוצרת גרף חדש)
-      directed_weighted_graph gr = this.copy();
-      for (node_data n : gr.getV()){
-         for (edge_data e : gr.getE(n.getKey())){
-            gr.removeEdge(e.getSrc(), e.getDest());
+      directed_weighted_graph gr = new DWGraph_DS();
+      for (node_data n : this.g.getV()){
+         node_data newN = new NodeData(n.getKey());
+         gr.addNode(newN);
+      }
+      for (node_data n : this.g.getV()){
+         for (edge_data e : this.g.getE(n.getKey())){
             gr.connect(e.getDest(), e.getSrc(), e.getWeight());
          }
       }
+
+         //לולאה שהופכת את כיווני הצלעות של הגרף (יוצרת גרף חדש)
+//      directed_weighted_graph gr = this.copy();
+//      for (node_data n : gr.getV()){
+//         Iterator<edge_data> itEdge = gr.getE(n.getKey()).iterator();
+//         while ((itEdge.hasNext())){
+//            edge_data e = itEdge.next();
+//            gr.connect(e.getDest(), e.getSrc(), e.getWeight());
+//            itEdge.remove();
+//         }
+//         for (edge_data e : gr.getE(n.getKey())){
+//            gr.removeEdge(e.getSrc(), e.getDest());
+//            gr.connect(e.getDest(), e.getSrc(), e.getWeight());
+//         }
+//      }
 
       for (node_data n : gr.getV()) {
          n.setInfo("white");     // צובע את כל הקודקודים בלבן
@@ -252,14 +272,16 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          int hashKey = Integer.parseInt(node.getKey()); //the key of the hashmap
          JsonObject jsonN = node.getValue().getAsJsonObject();
          double nodeWeight = jsonN.get("nodeWeight").getAsDouble();
-         JsonObject jsonLocation = jsonN.get("nodeGeoLocation").getAsJsonObject();
-         int x = jsonLocation.get("x").getAsInt();
-         int y = jsonLocation.get("y").getAsInt();
-         int z = jsonLocation.get("z").getAsInt();
-         geo_location pos  = new GeoLocation(x, y, z);
          node_data n = new NodeData(hashKey);
          n.setWeight(nodeWeight);
-         n.setLocation(pos);
+         if(jsonN.get("nodeGeoLocation") != null){
+            JsonObject jsonLocation = jsonN.get("nodeGeoLocation").getAsJsonObject();
+            int x = jsonLocation.get("x").getAsInt();
+            int y = jsonLocation.get("y").getAsInt();
+            int z = jsonLocation.get("z").getAsInt();
+            geo_location pos  = new GeoLocation(x, y, z);
+            n.setLocation(pos);
+         }
          newGraph.addNode(n);
       }
    }
