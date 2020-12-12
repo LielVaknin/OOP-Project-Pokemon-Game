@@ -1,5 +1,7 @@
 package api;
 
+import java.util.Objects;
+
 /**
  * This class represents the set of operations applicable on a
  * directional edge(src,dest) in a (directional) weighted graph.
@@ -96,6 +98,30 @@ public class EdgeData implements edge_data{
     @Override
     public void setTag(int t){
         this.edgeTag = t;
+    }
+
+    /**
+     * Equals method.
+     *
+     * @param o represents a given object.
+     * @return true if this object and a given object are equals, false if not.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EdgeData edgeData = (EdgeData) o;
+        return src == edgeData.src && dest == edgeData.dest && Double.compare(edgeData.edgeWeight, edgeWeight) == 0 && edgeTag == edgeData.edgeTag && Objects.equals(edgeInfo, edgeData.edgeInfo);
+    }
+
+    /**
+     * HashCode method.
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(src, dest, edgeWeight, edgeInfo, edgeTag);
     }
 }
 
