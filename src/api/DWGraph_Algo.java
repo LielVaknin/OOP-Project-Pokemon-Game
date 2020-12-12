@@ -30,7 +30,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    @Override
    public void init(directed_weighted_graph g) {
-      this.g = g;
+      this.g = g;    // גרף עליו האלגוריתמים יעבדו
    }
 
    /**
@@ -40,7 +40,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    @Override
    public directed_weighted_graph getGraph() {
-      return g;
+      return g;     //מחזיק את הגרף
    }
 
    /**
@@ -51,26 +51,26 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    @Override
    public directed_weighted_graph copy() {
       if (this.g == null)
-         return null;
-      return new DWGraph_DS(g);
+         return null;   //מחזיר null אם אין גרף
+      return new DWGraph_DS(g);  //שולח לבנאי מעתיק של גרף
    }
 
    /**
-    *
+    * שייך לisConnected
     * @param graph
     * @param src
     */
    private void dfsVisit(directed_weighted_graph graph, node_data src) {
       if (src == null) {
-         return;
+         return; // תנאי עצירה לרקורסיה
       }
-      src.setInfo("grey");
-      for (edge_data e : graph.getE(src.getKey())) {
-         if (graph.getNode(e.getDest()).getInfo().equals("white")) {
-            dfsVisit(graph, graph.getNode(e.getDest()));
+      src.setInfo("grey"); //תחילת טיפול בקודקוד צובע אותו באפור
+      for (edge_data e : graph.getE(src.getKey())) {  // עובר על כל הצלעות שמחוברות לsrc
+         if (graph.getNode(e.getDest()).getInfo().equals("white")) {    // אם אחד השכנים לבן זה אומר שנתקלנו בו לראשונה
+            dfsVisit(graph, graph.getNode(e.getDest()));    // המשך- ולכן אותו שכן הופך להיות הsrc וקוראים לפונקציה שוב
          }
       }
-      src.setInfo("black");
+      src.setInfo("black");   // סיימנו לטפל בקודקוד אחרי שחזרנו מהרקורסיה ולכן הוא הופך לשחור
    }
 
    /**
@@ -82,18 +82,19 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    @Override
    public boolean isConnected() {
       for (node_data n : this.g.getV()) {
-         n.setInfo("white");
+         n.setInfo("white");     // צובע את כל הקודקודים בלבן
       }
       int c = 0;
       while ((g.getNode(c)) == null){
-         c++;
+         c++;     // מחפש קודקוד להתחלה (מפתח שנמצא בגרף)
       }
-      dfsVisit(this.g, (g.getNode(c)));
+      dfsVisit(this.g, (g.getNode(c)));   // שולח לפונקציה שמחשבת מסלולים (רקורסית DFS)
       for (node_data n : this.g.getV()) {
          if (n.getInfo().equals("white"))
-            return false;
+            return false;     //אם קיים קודקוד לבן זה אומר שאין מסלול מהsrc אליו ולכן הגרף לא קשיר חזק
       }
 
+      //לולאה שהופכת את כיווני הצלעות של הגרף (יוצרת גרף חדש)
       directed_weighted_graph gr = this.copy();
       for (node_data n : gr.getV()){
          for (edge_data e : gr.getE(n.getKey())){
@@ -103,41 +104,43 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
 
       for (node_data n : gr.getV()) {
-         n.setInfo("white");
+         n.setInfo("white");     // צובע את כל הקודקודים בלבן
       }
 
-      dfsVisit(gr, (gr.getNode(c)));
+      dfsVisit(gr, (gr.getNode(c)));   // שולח לפונקציה שמחשבת מסלולים (רקורסית DFS). מתחיל מהקודקוד שסיימנו לטפל בו אחרון, קודם (אמור להיות הקודקוד ששלחנו כי זה רקורסיה)
       for (node_data n : gr.getV()) {
          if (n.getInfo().equals("white"))
-            return false;
-      }
+            return false;     // אם יש קודקוד לבן אז אין עץ עומק יחיד ולכן יש קודקודים שאין מסלול בניהם ולכן גם בגרף המקורי לא יהיה מסלול (הפוך) בניהם,
+      }                       // עובד על פי עקרון הDFS
       return true;
    }
 
+   // שייך לshortest
    private void DFS(node_data src) {
       for (node_data n : this.g.getV()) {
-         n.setInfo("white");
-         ((NodeData) n).dist = Double.MAX_VALUE;
+         n.setInfo("white");     //צובע את כל הקודקודים בלבן
+         ((NodeData) n).dist = Double.MAX_VALUE;   // מאתחל את המרחק מהsrc לאינסוף
       }
-      ((NodeData) src).dist = 0;
-      dfsVisit(src);
+      ((NodeData) src).dist = 0;    // מרחק מקודקוד לעצמו הוא 0
+      dfsVisit(src);    // שליחה לרקורסיה
    }
 
+   // שייך לshortest
    private void dfsVisit(node_data src) {
       if (src == null) {
-         return;
+         return;     // תנאי עצירה לרקורסיה
       }
-      src.setInfo("grey");
-      for (edge_data e : g.getE(src.getKey())) {
+      src.setInfo("grey");    // תחילת טיפול בקודקוד צובע אותו באפור
+      for (edge_data e : g.getE(src.getKey())) { // עובר על כל הצלעות שמחוברות לsrc
          if (((NodeData) g.getNode(e.getDest())).dist > ((NodeData) src).dist + e.getWeight()) {
-            ((NodeData) g.getNode(e.getDest())).dist = ((NodeData) src).dist + e.getWeight();
-            ((NodeData) g.getNode(e.getDest())).prev = (src);
+            ((NodeData) g.getNode(e.getDest())).dist = ((NodeData) src).dist + e.getWeight();   // אם המרחק מהsrc המקורי עכשיו קטן יותר מקודם- נעדכן אותו למרחק הקטן
+            ((NodeData) g.getNode(e.getDest())).prev = (src);  // ונעדכן את הקודקוד שדרכו הגענו אליו להיות האבא שלו
          }
          if (g.getNode(e.getDest()).getInfo().equals("white")) {
-            dfsVisit(g.getNode(e.getDest()));
+            dfsVisit(g.getNode(e.getDest()));   // אם הגענו לקודקוד לבן משמע קודקוד חדש- נפיל עליו את הרקורסיה
          }
       }
-      src.setInfo("black");
+      src.setInfo("black");   // קודקוד שסיימנו לטפל נצבע אותו בשחור
    }
 
    /**
@@ -151,13 +154,13 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    @Override
    public double shortestPathDist(int src, int dest) {
       if (g.getNode(src) == null || g.getNode(dest) == null || src == dest) {
-         return -1;
+         return -1;  // אם אחד הקודקודים לא בגרף או שהם שווים אין מרחק בניהם ולכן המרחק הוא 1-
       }
-      DFS(g.getNode(src));
+      DFS(g.getNode(src));    // קריאה לDFS. עושים זאת פעם אחת כי אנחנו מחפשים מסלול ספציפי
       if (g.getNode(dest).getInfo().equals("white")) {
-         return -1;
+         return -1;  // אם הdest לבן אז לא היה מסלול ולכן נחזיר 1-
       }
-      return ((NodeData) g.getNode(dest)).dist;
+      return ((NodeData) g.getNode(dest)).dist;    // נחזיר את המחרק של הdest מהsrc
    }
 
    /**
