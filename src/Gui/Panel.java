@@ -59,6 +59,7 @@ public class Panel extends JPanel {
         drawGraph(g);
         drawPokemons(g);
         drawAgents(g);
+        info(g);
     }
 
     private void drawGraph(Graphics g) {
@@ -104,14 +105,15 @@ public class Panel extends JPanel {
                 int r = 10;
                 g.setColor(Color.green);
                 if(pok.getType() < 0) {
-                    g.setColor(Color.orange);
+                    g.setColor(Color.red);
                 }
                 if(c!=null) {
                     geo_location ge = this._w2f.world2frame(c);
-//                    ImageIcon poky = new ImageIcon("./resources/pokemon.png");
-//                    g.drawImage(poky.getImage(), (int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r, null);
-                    g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
-                    //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
+                    ImageIcon poky = new ImageIcon("./resources/pokemon.png");
+                    g.drawImage(poky.getImage(), (int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r, null);
+//                    g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
+                    g.drawString(""+pok.getValue(), (int)ge.x()-r+2, (int)ge.y()-r);
+//                    	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
 
                 }
             }
@@ -120,7 +122,7 @@ public class Panel extends JPanel {
 
     private void drawAgents(Graphics g) {
         List<CL_Agent> agents = arena.getAgents();
-        g.setColor(Color.red);
+        g.setColor(Color.DARK_GRAY);
         int i = 0;
         while(agents != null && i < agents.size()) {
             geo_location c = agents.get(i).getPos();
@@ -128,8 +130,20 @@ public class Panel extends JPanel {
             i++;
             if(c!=null) {
                 geo_location ge = this._w2f.world2frame(c);
-                g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
+                ImageIcon poky = new ImageIcon("./resources/agent.png");
+                g.drawImage(poky.getImage(), (int)ge.x()-r, (int)ge.y()-r-3, 3*r, 3*r, null);
+//                g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
+//                g.drawString(""+agents.get(i).getValue(), (int)ge.x(), (int)ge.y()-2*r);
             }
         }
+    }
+
+    private void info(Graphics g){
+        this.setLayout(null);
+        g.setColor(Color.BLACK);
+        JLabel level = new JLabel("level: "+arena.getLevel()+"         time: "+arena.gatGame().timeToEnd());
+        level.setBounds(1010, 3, 1000000000, 35);
+        level.setFont(new Font("Italic", 4, 18));
+        this.add(level);
     }
 }

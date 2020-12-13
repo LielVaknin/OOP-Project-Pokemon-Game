@@ -14,14 +14,18 @@ public class Arena implements arenaGame{
     private List<CL_Agent> agents;
     private List<CL_Pokemon> pokemons;
     private game_service game;
+    private int level;
 
     public Arena(int level) {
+        this.level = level;
         graphAlgo = new DWGraph_Algo();
         game = Game_Server_Ex2.getServer(level);
         jsonToObject.loadGraph(game.getGraph(), graphAlgo.getGraph());
         this.pokemons = jsonToObject.loadPokemon(game.getPokemons(), graphAlgo.getGraph());
         startPositionOfAgents(game.toString());
     }
+
+    public int getLevel(){return level;}
 
     public void setAgents(List<CL_Agent> a){
         this.agents = a;
@@ -69,11 +73,11 @@ public class Arena implements arenaGame{
                 System.out.println(p.getEdge().getDest());
                 this.game.chooseNextEdge(a.getId(), p.getEdge().getDest());
                 System.out.println(this.game.getAgents());
-                jsonAgents = this.game.getAgents();
-                this.agents = jsonToObject.loadAgents(jsonAgents);
                 pokemonWithHigherValue--;
             }
         }
+        jsonAgents = this.game.getAgents();
+        this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
     @Override
