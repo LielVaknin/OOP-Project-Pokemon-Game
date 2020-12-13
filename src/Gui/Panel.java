@@ -18,6 +18,8 @@ public class Panel extends JPanel {
 
     public Panel(Arena arena) {
         this.arena = arena;
+        this.repaint();
+//        paintComponent();
         updateFrame();
     }
 
@@ -32,6 +34,7 @@ public class Panel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.setColor(Color.BLACK);
         drawGraph(g);
         drawPokemons(g);
         //drawAgents(g);

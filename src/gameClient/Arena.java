@@ -20,7 +20,7 @@ public class Arena {
         game = Game_Server_Ex2.getServer(level);
         jsonToObject.loadGraph(game.getGraph(), graphAlgo.getGraph());
         this.pokemons = jsonToObject.loadPokemon(game.getPokemons(), graphAlgo);
-        startPositionOfAgents(game.toString());
+//        startPositionOfAgents(game.toString());
     }
 
     public dw_graph_algorithms getGraphAlgo() {

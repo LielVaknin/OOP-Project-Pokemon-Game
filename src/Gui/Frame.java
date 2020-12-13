@@ -17,7 +17,7 @@ public class Frame extends JFrame {
 
         this.setTitle("Catch The Pokemon"); //sets title of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
-        this.setResizable(false); //prevent frame from being resized
+//        this.setResizable(false); //prevent frame from being resized
         this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
         this.setVisible(true); //make frame visible
         ImageIcon image = new ImageIcon("./resources/Icon.png"); //create an ImageIcon
