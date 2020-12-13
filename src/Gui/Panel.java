@@ -16,6 +16,23 @@ public class Panel extends JPanel {
     private Arena arena;
     private gameClient.util.Range2Range _w2f;
 
+//    public Panel(){
+//        System.out.println("enter");
+//    }
+
+//    public void foo(){
+//        System.out.println("foo");
+//    }
+
+//    @Override
+//    protected void paintComponent(Graphics g){
+//        super.paintComponent(g);
+//        System.out.println("paint");
+//        g.setColor(Color.BLACK);
+//        g.fillOval(100, 150, 20, 20);
+//        System.out.println(this.getHeight());
+//    }
+
     public Panel(Arena arena) {
         this.arena = arena;
         this.repaint();
@@ -24,8 +41,8 @@ public class Panel extends JPanel {
     }
 
     private void updateFrame() {
-        Range rx = new Range(20,this.getWidth()-20);
-        Range ry = new Range(this.getHeight()-10,150);
+        Range rx = new Range(50,this.getWidth()+1300);
+        Range ry = new Range(this.getHeight()+670,80);
         Range2D frame = new Range2D(rx,ry);
         directed_weighted_graph g = arena.getGraphAlgo().getGraph();
         _w2f = Arena.w2f(g,frame);
@@ -37,7 +54,7 @@ public class Panel extends JPanel {
         g.setColor(Color.BLACK);
         drawGraph(g);
         drawPokemons(g);
-        //drawAgents(g);
+        drawAgents(g);
     }
 
     private void drawGraph(Graphics g) {
@@ -87,6 +104,8 @@ public class Panel extends JPanel {
                 }
                 if(c!=null) {
                     geo_location ge = this._w2f.world2frame(c);
+//                    ImageIcon poky = new ImageIcon("./resources/pokemon.png");
+//                    g.drawImage(poky.getImage(), (int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r, null);
                     g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
                     //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
 

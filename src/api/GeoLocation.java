@@ -1,5 +1,7 @@
 package api;
 
+import gameClient.util.Point3D;
+
 /**
  * This class represents a geo location <x,y,z>, aka Point3D.
  *
@@ -8,6 +10,7 @@ package api;
  */
 public class GeoLocation implements geo_location {
 
+    public static final double EPS1 = 0.001, EPS2 = Math.pow(EPS1,2), EPS=EPS2;
     private double x;
     private double y;
     private double z;
@@ -48,12 +51,27 @@ public class GeoLocation implements geo_location {
         }
        // TODO: To test this method.
         public double distance(geo_location g){
-            double distance;
-            double partOneOfCalculation, partTwoOfCalculation, partThreeOfCalculation;
-            partOneOfCalculation = Math.pow(g.x() - this.x, 2);
-            partTwoOfCalculation = Math.pow(g.y() - this.y, 2);
-            partThreeOfCalculation = Math.pow(g.z() - this.z, 2);
-            distance = Math.pow(partOneOfCalculation + partTwoOfCalculation + partThreeOfCalculation, 0.5);
-            return distance;
+            double dx = this.x() - g.x();
+            double dy = this.y() - g.y();
+            double dz = this.z() - g.z();
+            double t = (dx*dx+dy*dy+dz*dz);
+            return Math.sqrt(t);
+//            double distance;
+//            double partOneOfCalculation, partTwoOfCalculation, partThreeOfCalculation;
+//            partOneOfCalculation = Math.pow(g.x() - this.x, 2);
+//            partTwoOfCalculation = Math.pow(g.y() - this.y, 2);
+//            partThreeOfCalculation = Math.pow(g.z() - this.z, 2);
+//            distance = Math.pow(partOneOfCalculation + partTwoOfCalculation + partThreeOfCalculation, 0.5);
+//            return distance;
         }
+
+    public boolean equals(Object p) {
+        if(p==null || !(p instanceof geo_location)) {return false;}
+        geo_location p2 = (geo_location) p;
+        return ( (x==p2.x()) && (y==p2.y()) && (z==p2.z()) );
+    }
+    public boolean close2equals(geo_location p2) {
+        return ( this.distance(p2) < EPS ); }
+    public boolean equalsXY (geo_location p)
+    {return p.x() == x && p.y() == y();}
     }

@@ -19,10 +19,10 @@ import java.util.List;
  */
 public class test {
 	public static void main(String[] args){
-		game_service game = Game_Server_Ex2.getServer(23); // you have [0,23] games
+//		game_service game = Game_Server_Ex2.getServer(23); // you have [0,23] games
 //		game.addAgent(0);
 //		game.addAgent(1);
-		Arena a = new Arena(23);
+		Arena a = new Arena(8);
 //		String s = game.toString();
 //		System.out.println(s);
 //		System.out.println(game.getGraph());

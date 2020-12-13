@@ -19,18 +19,24 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
 //        this.setResizable(false); //prevent frame from being resized
         this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
-        this.setVisible(true); //make frame visible
+//        this.setVisible(true); //make frame visible
         ImageIcon image = new ImageIcon("./resources/Icon.png"); //create an ImageIcon
         this.setIconImage(image.getImage()); //change icon of frame
 //        this.getContentPane().setBackground(new Color(0,122 ,232)); //change color of background
 
         this.arena = arena;
-        initPanel(arena);
+        initPanel(this.arena);
+        this.setVisible(true); //make frame visible
     }
 
     private void initPanel(Arena arena){
         Panel panel = new Panel(arena);
+//        panel.foo();
+//        System.out.println("panel");
         this.add(panel);
+//        System.out.println("panel");
+//        panel.repaint();
+//        System.out.println("panel");
     }
 }
 

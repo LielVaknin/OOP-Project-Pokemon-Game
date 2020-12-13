@@ -50,7 +50,7 @@ public final class jsonToObject {
         return l;
     }
 
-    public static List<CL_Pokemon> loadPokemon(String json, dw_graph_algorithms graphAlgo) {
+    public static List<CL_Pokemon> loadPokemon(String json, directed_weighted_graph graph) {
         List<CL_Pokemon> l = new ArrayList<>();
         Gson gson = new Gson();
         JsonObject jsonAgents = gson.fromJson(json, JsonObject.class);
@@ -60,7 +60,7 @@ public final class jsonToObject {
             int value = agent.get("value").getAsInt();
             int type = agent.get("type").getAsInt();
             geo_location pos = new GeoLocation(agent.get("pos").getAsString());
-            CL_Pokemon p = new CL_Pokemon(value, type, pos, graphAlgo.getGraph());
+            CL_Pokemon p = new CL_Pokemon(value, type, pos, graph);
             l.add(p);
         }
         return l;

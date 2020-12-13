@@ -19,8 +19,8 @@ public class Arena implements arenaGame{
         graphAlgo = new DWGraph_Algo();
         game = Game_Server_Ex2.getServer(level);
         jsonToObject.loadGraph(game.getGraph(), graphAlgo.getGraph());
-        this.pokemons = jsonToObject.loadPokemon(game.getPokemons(), graphAlgo);
-//        startPositionOfAgents(game.toString());
+        this.pokemons = jsonToObject.loadPokemon(game.getPokemons(), graphAlgo.getGraph());
+        startPositionOfAgents(game.toString());
     }
 
     @Override
@@ -61,18 +61,20 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
 
         pokemonWithHigherValue = pokemons.size() - 1;
-        for (int i = 1; i <= numOfAgents; i++) {
+        for (int i = 0; i < numOfAgents; i++) {
             CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
-            agent a = agents.get(p.getEdge().getSrc());
-            a.setDest(p.getEdge().getDest());
-            pokemonWithHigherValue --;
+            if((agents.get(i).getSrc()) == p.getEdge().getSrc()) {
+                agent a = agents.get(i);
+                a.setDest(p.getEdge().getDest());
+                pokemonWithHigherValue--;
+            }
         }
     }
 
     @Override
      public void movementStrategy() {
          String jsonPokemons = this.game.getPokemons();
-         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo);
+         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
          int numOfAgents = this.agents.size();
          int numOfPokemons = this.pokemons.size();
          double shortestWayToPokemon = Double.MAX_VALUE;
