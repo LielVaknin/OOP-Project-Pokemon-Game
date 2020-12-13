@@ -20,21 +20,33 @@ public class GamePlay implements Runnable{
 
     @Override
     public void run() {
-        game.startGame();
         while (game.isRunning()) {
-            this.game.move();
-            move();
+            try {
+//                move();
+//                game.chooseNextEdge(0, 8);
+                for (int i = 0; i < 20; i++)
+                    game.move();
+                Thread.sleep(100);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+//            for (int i = 0; i<1000; i++) {
+//                this.game.move();
+//                this.frame.update();
+//            }
+//            move();
         }
         game.stopGame();
+        System.out.println(game);
     }
 
     public void move(){
 //        this.frame.update();
-        System.out.println(game.getAgents());
+//        System.out.println(game.getAgents());
         List<CL_Agent> l = jsonToObject.loadAgents(game.getAgents());
         this.arena.setAgents(l);
         this.arena.movementStrategy();
-//        System.out.println(game.getAgents());
+//        System.out.println(game);
         this.frame.update();
     }
 }

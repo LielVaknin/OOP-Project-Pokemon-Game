@@ -15,11 +15,13 @@ public class Arena implements arenaGame{
     private List<CL_Pokemon> pokemons;
     private game_service game;
     private int level;
+    private int numAgents;
 
     public Arena(int level) {
         this.level = level;
         graphAlgo = new DWGraph_Algo();
         game = Game_Server_Ex2.getServer(level);
+        numAgents = jsonToObject.numOfAgentsByLevel(game.toString());
         jsonToObject.loadGraph(game.getGraph(), graphAlgo.getGraph());
         this.pokemons = jsonToObject.loadPokemon(game.getPokemons(), graphAlgo.getGraph());
         startPositionOfAgents(game.toString());
@@ -53,10 +55,10 @@ public class Arena implements arenaGame{
 
     @Override
     public void startPositionOfAgents(String jsonGame) {
-        int numOfAgents = jsonToObject.numOfAgentsByLevel(jsonGame);
+//        int numOfAgents = jsonToObject.numOfAgentsByLevel(jsonGame);
         Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());
         int pokemonWithHigherValue = pokemons.size() - 1;
-        for (int i = 1; i <= numOfAgents; i++) {
+        for (int i = 1; i <= numAgents; i++) {
             CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
             game.addAgent(p.getEdge().getSrc());
             pokemonWithHigherValue --;
@@ -64,19 +66,22 @@ public class Arena implements arenaGame{
 
         String jsonAgents = this.game.getAgents();
         this.agents = jsonToObject.loadAgents(jsonAgents);
+    }
 
-        pokemonWithHigherValue = pokemons.size() - 1;
-        for (int i = 0; i < numOfAgents; i++) {
+    public void firstChooseNext(String jsonGame){
+//        int numOfAgents = jsonToObject.numOfAgentsByLevel(jsonGame);
+        int pokemonWithHigherValue = pokemons.size() - 1;
+        for (int i = 0; i < numAgents; i++) {
             CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
             if((agents.get(i).getSrc()) == p.getEdge().getSrc()) {
                 agent a = agents.get(i);
-                System.out.println(p.getEdge().getDest());
+//                System.out.println(p.getEdge().getDest());
                 this.game.chooseNextEdge(a.getId(), p.getEdge().getDest());
-                System.out.println(this.game.getAgents());
+//                System.out.println(this.game.getAgents());
                 pokemonWithHigherValue--;
             }
         }
-        jsonAgents = this.game.getAgents();
+        String jsonAgents = this.game.getAgents();
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
