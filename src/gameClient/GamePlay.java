@@ -23,7 +23,7 @@ public class GamePlay implements Runnable{
         while (game.isRunning()) {
             try {
 //                move();
-                game.chooseNextEdge(0, 8);
+//                game.chooseNextEdge(0, 8);
 //                for (int i = 0; i < 20; i++)
                 game.move();
 //                this.frame.update();

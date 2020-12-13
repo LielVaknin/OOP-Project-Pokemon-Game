@@ -27,7 +27,7 @@ public class Ex2 {
         Arena catchThePokemon = new Arena(0);
 //        catchThePokemon.gatGame().startGame();
         catchThePokemon.gatGame().startGame();
-//        catchThePokemon.firstChooseNext(catchThePokemon.gatGame().toString());
+        catchThePokemon.firstChooseNext(catchThePokemon.gatGame().toString());
 //        catchThePokemon.gatGame().move();
 //        catchThePokemons.gatGame().login(Long.parseLong(args[1]));
         Frame f = new Frame(catchThePokemon);
