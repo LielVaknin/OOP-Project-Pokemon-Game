@@ -35,9 +35,13 @@ public class Panel extends JPanel {
 
     public Panel(Arena arena) {
         this.arena = arena;
-        this.repaint();
+//        this.repaint();
 //        paintComponent();
         updateFrame();
+    }
+
+    public void update(){
+        this.repaint();
     }
 
     private void updateFrame() {
@@ -77,7 +81,7 @@ public class Panel extends JPanel {
         geo_location pos = n.getLocation();
         geo_location fp = this._w2f.world2frame(pos);
         g.fillOval((int)fp.x()-r, (int)fp.y()-r, 2*r, 2*r);
-        g.drawString(""+n.getKey(), (int)fp.x(), (int)fp.y()-4*r);
+        g.drawString(""+n.getKey(), (int)fp.x(), (int)fp.y()-2*r);
     }
 
     private void drawEdge(edge_data e, Graphics g) {

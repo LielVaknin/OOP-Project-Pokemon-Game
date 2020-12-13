@@ -1,28 +1,16 @@
 package gameClient;
 
+import Gui.Frame;
 import java.awt.*;
 
-public class Ex2 implements Runnable {
+public class Ex2 {
 
     public static void main(String[] args){
-        Arena catchThePokemons = new Arena(23);
-        catchThePokemons.movementStrategy();
-//        MyFrame frame..
-//        GamePlay gamePlay = mew GamePLay(Arena, Frame);
-    }
-
-    @Override
-    public void run() {
-//        long dt = 50;
-//
-//        while (catchThePokemons.gatGame().isRunning()){
-//            MyFrame frame = new MyFrame("My game");
-//            try{
-//                aren.getAgants();
-//                aren.getPokemon();
-//                frame.update();
-//            }
-//
-//        }
+        Arena catchThePokemon = new Arena(0);
+//        catchThePokemons.gatGame().login(Long.parseLong(args[1]));
+        Frame f = new Frame(catchThePokemon);
+        GamePlay game = new GamePlay(catchThePokemon, f);
+        Thread gamePlay = new Thread(game);
+        gamePlay.start();
     }
 }

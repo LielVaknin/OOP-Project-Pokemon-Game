@@ -7,6 +7,7 @@ import java.awt.*;
 public class Frame extends JFrame {
 
     private Arena arena;
+    private Panel panel;
 
     public Frame(Arena arena) {
         super();
@@ -30,13 +31,17 @@ public class Frame extends JFrame {
     }
 
     private void initPanel(Arena arena){
-        Panel panel = new Panel(arena);
+        this.panel = new Panel(arena);
 //        panel.foo();
 //        System.out.println("panel");
         this.add(panel);
 //        System.out.println("panel");
 //        panel.repaint();
 //        System.out.println("panel");
+    }
+
+    public void update(){
+        panel.update();
     }
 }
 

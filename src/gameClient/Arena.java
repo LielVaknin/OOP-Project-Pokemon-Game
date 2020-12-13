@@ -23,6 +23,10 @@ public class Arena implements arenaGame{
         startPositionOfAgents(game.toString());
     }
 
+    public void setAgents(List<CL_Agent> a){
+        this.agents = a;
+    }
+
     @Override
     public dw_graph_algorithms getGraphAlgo() {
         return graphAlgo;
@@ -50,13 +54,10 @@ public class Arena implements arenaGame{
         int pokemonWithHigherValue = pokemons.size() - 1;
         for (int i = 1; i <= numOfAgents; i++) {
             CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
-//            Agent ag = new Agent();
-//            ag.setSrc(p.getEdge().getSrc());
-//            ag.setDest(p.getEdge().getDest());
             game.addAgent(p.getEdge().getSrc());
-//            agents.add(ag);
             pokemonWithHigherValue --;
         }
+
         String jsonAgents = this.game.getAgents();
         this.agents = jsonToObject.loadAgents(jsonAgents);
 
@@ -65,7 +66,11 @@ public class Arena implements arenaGame{
             CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
             if((agents.get(i).getSrc()) == p.getEdge().getSrc()) {
                 agent a = agents.get(i);
-                a.setDest(p.getEdge().getDest());
+                System.out.println(p.getEdge().getDest());
+                this.game.chooseNextEdge(a.getId(), p.getEdge().getDest());
+                System.out.println(this.game.getAgents());
+                jsonAgents = this.game.getAgents();
+                this.agents = jsonToObject.loadAgents(jsonAgents);
                 pokemonWithHigherValue--;
             }
         }
