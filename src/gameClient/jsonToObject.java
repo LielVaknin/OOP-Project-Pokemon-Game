@@ -4,7 +4,6 @@ import api.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public final class jsonToObject {
         Gson gson = new Gson();
         JsonObject jGraph = gson.fromJson(json, JsonObject.class);
         JsonArray nodes = jGraph.get("Nodes").getAsJsonArray();
-        for (int i=0; i<nodes.size(); i++) {
+        for (int i = 0; i < nodes.size(); i++) {
             int id = nodes.get(i).getAsJsonObject().get("id").getAsInt();
             String pos = nodes.get(i).getAsJsonObject().get("pos").getAsString();
             geo_location location = new GeoLocation(pos);
@@ -24,7 +23,7 @@ public final class jsonToObject {
         }
 
         JsonArray edges = jGraph.get("Edges").getAsJsonArray();
-        for (int i=0; i<edges.size(); i++) {
+        for (int i = 0; i < edges.size(); i++) {
             int src = edges.get(i).getAsJsonObject().get("src").getAsInt();
             int dest = edges.get(i).getAsJsonObject().get("dest").getAsInt();
             double weight = edges.get(i).getAsJsonObject().get("w").getAsDouble();
