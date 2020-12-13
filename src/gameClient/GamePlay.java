@@ -23,9 +23,10 @@ public class GamePlay implements Runnable{
         while (game.isRunning()) {
             try {
 //                move();
-//                game.chooseNextEdge(0, 8);
-                for (int i = 0; i < 20; i++)
-                    game.move();
+                game.chooseNextEdge(0, 8);
+//                for (int i = 0; i < 20; i++)
+                game.move();
+//                this.frame.update();
                 Thread.sleep(100);
             }catch (InterruptedException e){
                 e.printStackTrace();
@@ -34,7 +35,7 @@ public class GamePlay implements Runnable{
 //                this.game.move();
 //                this.frame.update();
 //            }
-//            move();
+            move();
         }
         game.stopGame();
         System.out.println(game);
