@@ -12,6 +12,7 @@ public class CL_Pokemon implements pokemon {
     private int type;
     private geo_location pos;
     private edge_data edge;
+    private boolean isBusted;
 
     public CL_Pokemon(double value, int type, geo_location pos, directed_weighted_graph g){
         this.value = value;
@@ -38,6 +39,14 @@ public class CL_Pokemon implements pokemon {
     @Override
     public geo_location getPos() {
         return pos;
+    }
+
+    public boolean isBusted() {
+        return isBusted;
+    }
+
+    public void setBusted(boolean busted) {
+        isBusted = busted;
     }
 
     public static void updateEdge(CL_Pokemon pok, directed_weighted_graph g) {
