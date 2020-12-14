@@ -11,10 +11,16 @@ import java.util.List;
 
 public class Panel extends JPanel {
 
+    private static final int WP = 100/*, HP = 3*/;
+
     private JLabel level;
     private JLabel time;
     private JLabel score;
     private JLabel moves;
+
+
+    private int w;
+    private int h;
 
     private Image background;
 
@@ -23,11 +29,23 @@ public class Panel extends JPanel {
 
 
     public Panel(Arena arena) {
+        super();
         this.setLayout(null);
         background = new ImageIcon("./resources/backgroundGame.png").getImage();
         this.arena = arena;
-        newInfo();
-        updateFrame();
+//        level = new JLabel("level: "/*+arena.getLevel()*/);
+//        time = new JLabel("time: "+arena.gatGame().timeToEnd());
+//        int grade = jsonToObject.score(arena.gatGame().toString());
+//        score = new JLabel("score: "+grade);
+//        int moving = jsonToObject.moves(arena.gatGame().toString());
+//        moves = new JLabel("moves: "+moving);
+//        this.add(level);
+//        this.add(time);
+//        this.add(score);
+//        this.add(moves);
+
+//        newInfo();
+//        updateFrame();
     }
 
     public void update(){
@@ -35,8 +53,8 @@ public class Panel extends JPanel {
     }
 
     private void updateFrame() {
-        Range rx = new Range(50,this.getWidth()+1300);
-        Range ry = new Range(this.getHeight()+670,80);
+        Range rx = new Range(30,w-30);
+        Range ry = new Range(h-30,60);
         Range2D frame = new Range2D(rx,ry);
         directed_weighted_graph g = arena.getGraphAlgo().getGraph();
         _w2f = Arena.w2f(g,frame);
@@ -45,12 +63,16 @@ public class Panel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background, 0, 0, null);
+        w= this.getWidth();
+        h= this.getHeight();
+        updateFrame();
+//        g.drawImage(background, 0, 0, null);
         g.setColor(Color.BLUE);
         drawGraph(g);
         drawPokemons(g);
         drawAgents(g);
-        info();
+        newInfo();
+//        info();
     }
 
     private void info() {
@@ -73,6 +95,8 @@ public class Panel extends JPanel {
     }
 
     private void drawNode(node_data n, int r, Graphics g) {
+
+
         geo_location pos = n.getLocation();
         geo_location fp = this._w2f.world2frame(pos);
         g.fillOval((int)fp.x()-r, (int)fp.y()-r-2, 2*r+3, 2*r+3);
@@ -87,7 +111,7 @@ public class Panel extends JPanel {
         geo_location d0 = this._w2f.world2frame(d);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(2));
-        g.drawLine((int)s0.x()-1, (int)s0.y(), (int)d0.x(), (int)d0.y());
+        g.drawLine((int)s0.x(), (int)s0.y(), (int)d0.x(), (int)d0.y());
         //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
     }
 
@@ -133,26 +157,29 @@ public class Panel extends JPanel {
     }
 
     private void newInfo(){
+        System.out.println(w);
+        System.out.println(h);
+
         level = new JLabel("level: "+arena.getLevel());
         this.add(level);
         level.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
-        level.setBounds(1100, 2, 200, 50);
+        level.setBounds(w-3*WP, 2, 200, 50);
 
         time = new JLabel("time: "+arena.gatGame().timeToEnd());
         this.add(time);
         time.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
-        time.setBounds(1200, 2, 200, 50);
+        time.setBounds(w-2*WP, 2, 200, 50);
 
         int grade = jsonToObject.score(arena.gatGame().toString());
         score = new JLabel("score: "+grade);
         this.add(score);
         score.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
-        score.setBounds(50, 2, 200, 50);
+        score.setBounds(WP-5, 2, 200, 50);
 
         int moving = jsonToObject.moves(arena.gatGame().toString());
         moves = new JLabel("moves: "+moving);
         this.add(moves);
         moves.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
-        moves.setBounds(150, 2, 200, 50);
+        moves.setBounds(2*WP, 2, 200, 50);
     }
 }

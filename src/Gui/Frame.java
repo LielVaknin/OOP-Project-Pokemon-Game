@@ -11,6 +11,7 @@ public class Frame extends JFrame {
     private Arena arena;
     private Panel panel;
 
+
     public Frame(){
         super();
 
@@ -39,8 +40,10 @@ public class Frame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
 //        this.setResizable(true); //prevent frame from being resized
         this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
+        this.setResizable(true);
         ImageIcon image = new ImageIcon("./resources/Icon.png"); //create an ImageIcon
         this.setIconImage(image.getImage()); //change icon of frame
+        this.setExtendedState(Frame.MAXIMIZED_BOTH);
 //        this.getContentPane().setBackground(new Color(0,122 ,232)); //change color of background
 //        this.setLayout(null);
 
@@ -50,6 +53,8 @@ public class Frame extends JFrame {
     }
 
     private void initPanel(Arena arena){
+//        this.getSize();
+
         this.panel = new Panel(arena);
 //        System.out.println("panel");
         this.add(panel);
