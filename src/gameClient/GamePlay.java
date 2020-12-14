@@ -10,11 +10,13 @@ public class GamePlay implements Runnable{
     private Arena arena;
     private Frame frame;
     private game_service game;
+    private int length;
 
     public GamePlay(Arena a, Frame f){
         this.arena = a;
         this.frame = f;
         this.game = a.gatGame();
+//        this.length = somthing;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class GamePlay implements Runnable{
 //                    if(i%200 == 0)
 //                        this.frame.update();
                 }
-                Thread.sleep(100);
+                Thread.sleep(10);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -47,5 +49,11 @@ public class GamePlay implements Runnable{
 //        System.out.println(this.arena.getAgents().get(0).getDest());
 //        System.out.println(game);
         this.frame.update();
+
+//        return  -1; // מה שחוזר מפונקצית החישוב
     }
+
+    /*
+     חישוב הצלע הכי ארוכה לסוכן חלקי המהירות שלו (להפוך למילי שניות) לעשות את החישוב במוב סטראתג'י
+     */
 }
