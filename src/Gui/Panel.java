@@ -18,7 +18,6 @@ public class Panel extends JPanel {
     private JLabel score;
     private JLabel moves;
 
-
     private int w;
     private int h;
 
@@ -31,21 +30,10 @@ public class Panel extends JPanel {
     public Panel(Arena arena) {
         super();
         this.setLayout(null);
-        background = new ImageIcon("./resources/backgroundGame.png").getImage();
-        this.arena = arena;
-//        level = new JLabel("level: "/*+arena.getLevel()*/);
-//        time = new JLabel("time: "+arena.gatGame().timeToEnd());
-//        int grade = jsonToObject.score(arena.gatGame().toString());
-//        score = new JLabel("score: "+grade);
-//        int moving = jsonToObject.moves(arena.gatGame().toString());
-//        moves = new JLabel("moves: "+moving);
-//        this.add(level);
-//        this.add(time);
-//        this.add(score);
-//        this.add(moves);
 
-//        newInfo();
-//        updateFrame();
+        background = new ImageIcon("./resources/GameBackground.png").getImage();
+
+        this.arena = arena;
     }
 
     public void update(){
@@ -65,19 +53,14 @@ public class Panel extends JPanel {
         super.paintComponent(g);
         w= this.getWidth();
         h= this.getHeight();
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(background, 0,0, w, h, null);
         updateFrame();
-//        g.drawImage(background, 0, 0, null);
-        g.setColor(Color.BLUE);
+        g.setColor(Color.BLACK);
         drawGraph(g);
         drawPokemons(g);
         drawAgents(g);
-        newInfo();
-//        info();
-    }
-
-    private void info() {
-        time.repaint();
-        time = new JLabel("time: "+arena.gatGame().timeToEnd());
+        Info();
     }
 
     private void drawGraph(Graphics g) {
@@ -123,9 +106,11 @@ public class Panel extends JPanel {
                 CL_Pokemon pok = it.next();
                 geo_location c = pok.getPos();
                 int r = 10;
-                g.setColor(Color.green);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setStroke(new BasicStroke(3));
+                g2d.setColor(Color.BLUE);
                 if(pok.getType() < 0) {
-                    g.setColor(Color.red);
+                    g2d.setColor(Color.red);
                 }
                 if(c!=null) {
                     geo_location ge = this._w2f.world2frame(c);
@@ -156,7 +141,7 @@ public class Panel extends JPanel {
         }
     }
 
-    private void newInfo(){
+    private void Info(){
         System.out.println(w);
         System.out.println(h);
 
