@@ -157,8 +157,8 @@ public class Panel extends JPanel {
     }
 
     private void newInfo(){
-        System.out.println(w);
-        System.out.println(h);
+       // System.out.println(w);
+      //  System.out.println(h);
 
         level = new JLabel("level: "+arena.getLevel());
         this.add(level);

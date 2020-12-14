@@ -99,36 +99,78 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
+//    @Override
+//     public void movementStrategy() {
+//       //  CL_Pokemon p = null;
+//         String jsonPokemons = this.game.getPokemons();
+//         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
+//         int numOfPokemons = this.pokemons.size();
+//         List<node_data> shortestWayToPokemon = new LinkedList<>();
+//         for (int i = 0; i < numAgents; i++) {
+//             if (this.agents.get(i).getDest() == -1) {
+//                 for (int j = 0; j < numOfPokemons; j++) {
+//                     if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()) {
+////                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
+//                         this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
+//                       //  pokemons.get(j).setBusted(true);
+//                         return;
+//                     }
+//                    // if (!pokemons.get(j).isBusted()) {// אם הפוקימון תפוס שלא יבדוק אליו מסלול
+//                         List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
+//                         if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+//                             shortestWayToPokemon = pathToPokemon;
+//                           //  p = pokemons.get(j);
+//                         }
+//                     }
+//                 }
+////                 System.out.println(shortestWayToPokemon.toString());
+//                 if(shortestWayToPokemon.size() != 0) {
+//                     this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
+//                   //  p.setBusted(true);
+//                 }
+//             }
+//             shortestWayToPokemon.clear();
+//          //   p = null;
+//         }
+//     }
+
     @Override
      public void movementStrategy() {
+         CL_Pokemon p = null;
          String jsonPokemons = this.game.getPokemons();
          this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
+        Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());
+        int pokemonWithHigherValue = pokemons.size() - 1;
          int numOfPokemons = this.pokemons.size();
          List<node_data> shortestWayToPokemon = new LinkedList<>();
          for (int i = 0; i < numAgents; i++) {
              if (this.agents.get(i).getDest() == -1) {
                  for (int j = 0; j < numOfPokemons; j++) {
-                     if(agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()){
-//                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
+                     if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc() && pokemons.get(j).is {
+                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
                          this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
-                         //לסמן את הפוקימון כתפוס
+                         pokemons.get(j).setBusted(true);
                          return;
                      }
-                     // אם הפוקימון תפוס שלא יבדוק אליו מסלול
-                     List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
-                     if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
-                         shortestWayToPokemon = pathToPokemon;
+                     if (!pokemons.get(j).isBusted()) {// אם הפוקימון תפוס שלא יבדוק אליו מסלול
+                         List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
+                         if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+                             shortestWayToPokemon = pathToPokemon;
+                             p = pokemons.get(j);
+                         }
                      }
                  }
-//                 System.out.println(shortestWayToPokemon.toString());
+                 System.out.println(shortestWayToPokemon.toString());
                  if(shortestWayToPokemon.size() != 0) {
                      this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
-                     //לסמן את הפוקימון כתפוס
+                     p.setBusted(true);
                  }
              }
              shortestWayToPokemon.clear();
+          //   p = null;
          }
      }
+
 //        List<node_data> shortestWayToPokemon = new LinkedList<>();
 //        for (int i = 0; i < (pokemons.size()) && (numAgents > 0); i++) {
 ////             int agentSrc = agents.get(0).getSrc();
