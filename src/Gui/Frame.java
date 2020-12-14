@@ -17,12 +17,12 @@ public class Frame extends JFrame {
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
 
-        this.setTitle("Catch The Pokemon"); //sets title of frame
+        this.setTitle("Catch Them All"); //sets title of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
 //        this.setResizable(false); //prevent frame from being resized
         this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
 //        this.setVisible(true); //make frame visible
-        ImageIcon image = new ImageIcon("./resources/Icon.png"); //create an ImageIcon
+        ImageIcon image = new ImageIcon("./resources/Pokemon.png"); //create an ImageIcon
         this.setIconImage(image.getImage()); //change icon of frame
     }
 

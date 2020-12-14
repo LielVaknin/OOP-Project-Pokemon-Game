@@ -1,7 +1,6 @@
 package Gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class panelLogin extends JPanel {
 
@@ -9,11 +8,10 @@ public class panelLogin extends JPanel {
     private static JLabel level;
     private static JTextField IDText;
     private static JTextField levelText;
-    private int numLevel;
     private JFrame frame;
 
     public panelLogin(JFrame f){ ;
-        f.setLayout(null);
+        this.setLayout(null);
         setID();
         setLevel();
         this.frame = f;
@@ -41,5 +39,6 @@ public class panelLogin extends JPanel {
         levelText = new JTextField(10);
         levelText.setBounds(620, 355, 165, 25);
         this.add(levelText);
+
     }
 }
