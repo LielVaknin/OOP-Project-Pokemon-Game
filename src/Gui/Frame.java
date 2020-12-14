@@ -1,6 +1,8 @@
 package Gui;
 
 import gameClient.Arena;
+import gameClient.jsonToObject;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,12 +36,13 @@ public class Frame extends JFrame {
 
         this.setTitle("Catch The Pokemon"); //sets title of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
-//        this.setResizable(false); //prevent frame from being resized
+//        this.setResizable(true); //prevent frame from being resized
         this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
 //        this.setVisible(true); //make frame visible
         ImageIcon image = new ImageIcon("./resources/Icon.png"); //create an ImageIcon
         this.setIconImage(image.getImage()); //change icon of frame
 //        this.getContentPane().setBackground(new Color(0,122 ,232)); //change color of background
+//        this.setLayout(null);
 
         this.arena = arena;
         initPanel(this.arena);
@@ -47,6 +50,7 @@ public class Frame extends JFrame {
     }
 
     private void initPanel(Arena arena){
+//        this.setLayout(null);
         this.panel = new Panel(arena);
 //        panel.foo();
 //        System.out.println("panel");
@@ -57,8 +61,32 @@ public class Frame extends JFrame {
     }
 
     public void update(){
+//        info();
         panel.update();
     }
+
+//    private void info(){
+//        this.setLayout(null);
+//
+//        JLabel level = new JLabel("level: "+arena.getLevel(), JLabel.CENTER);
+////        level.setBounds(1010, 3, 500, 35);
+//        this.add(level);
+//
+//
+//        JLabel time = new JLabel("time: "+arena.gatGame().timeToEnd());
+////        level.setBounds(2000, 8, 500, 35);
+//        this.add(time);
+//
+//        int grade = jsonToObject.score(arena.gatGame().toString());
+//        JLabel score = new JLabel("score: "+grade);
+////        level.setBounds(10, 3, 500, 35);
+//        this.add(score);
+//
+//        int moving = jsonToObject.moves(arena.gatGame().toString());
+//        JLabel moves = new JLabel("moves: "+moving);
+////        level.setBounds(10, 8, 500, 35);
+//        this.add(moves);
+//    }
 }
 
 //

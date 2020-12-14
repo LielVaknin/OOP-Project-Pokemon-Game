@@ -72,4 +72,18 @@ public final class jsonToObject {
         int numOfAgentsInTheGame = jGame.get("GameServer").getAsJsonObject().get("agents").getAsInt();
         return numOfAgentsInTheGame;
     }
+
+    public static int score(String jsonGame){
+        Gson gson = new Gson();
+        JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
+        int grade = jGame.get("GameServer").getAsJsonObject().get("grade").getAsInt();
+        return grade;
+    }
+
+    public static int moves(String jsonGame){
+        Gson gson = new Gson();
+        JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
+        int moves = jGame.get("GameServer").getAsJsonObject().get("moves").getAsInt();
+        return moves;
+    }
 }
