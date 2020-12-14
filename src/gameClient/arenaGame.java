@@ -32,9 +32,9 @@ public interface arenaGame {
 
     /**
      * This method places the agents before the game begins.
-     * @param jsonGame
+     *
      */
-    public void startPositionOfAgents(String jsonGame);
+    public void startPositionOfAgents();
 
     /**
      * This method implements an algorithm which chooses

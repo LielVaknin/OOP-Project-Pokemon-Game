@@ -25,12 +25,15 @@ public class Ex2 {
 //        g.chooseNextEdge(0, 8);
 //        System.out.println(g.getAgents());
         Arena catchThePokemon = new Arena(0);
+//        System.out.println(catchThePokemon.getGraphAlgo().getGraph().toString());
+        Frame f = new Frame(catchThePokemon);
 //        catchThePokemon.gatGame().startGame();
         catchThePokemon.gatGame().startGame();
-        catchThePokemon.firstChooseNext(catchThePokemon.gatGame().toString());
+//        catchThePokemon.gatGame().chooseNextEdge(0, 8);
+        catchThePokemon.firstChooseNext();
 //        catchThePokemon.gatGame().move();
 //        catchThePokemons.gatGame().login(Long.parseLong(args[1]));
-        Frame f = new Frame(catchThePokemon);
+//        Frame f = new Frame(catchThePokemon);
         GamePlay game = new GamePlay(catchThePokemon, f);
         Thread gamePlay = new Thread(game);
         gamePlay.start();

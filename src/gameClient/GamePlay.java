@@ -24,10 +24,12 @@ public class GamePlay implements Runnable{
             try {
 //                move();
 //                game.chooseNextEdge(0, 8);
-//                for (int i = 0; i < 20; i++)
-                game.move();
-//                this.frame.update();
-                Thread.sleep(100);
+                for (int i = 0; i < 20; i++) {
+                    game.move();
+//                    if(i%200 == 0)
+//                        this.frame.update();
+                }
+                Thread.sleep(50);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -38,7 +40,7 @@ public class GamePlay implements Runnable{
             move();
         }
         game.stopGame();
-        System.out.println(game);
+//        System.out.println(game);
     }
 
     public void move(){
@@ -46,7 +48,9 @@ public class GamePlay implements Runnable{
 //        System.out.println(game.getAgents());
         List<CL_Agent> l = jsonToObject.loadAgents(game.getAgents());
         this.arena.setAgents(l);
+//        System.out.println(this.arena.getAgents().get(0).getDest());
         this.arena.movementStrategy();
+//        System.out.println(this.arena.getAgents().get(0).getDest());
 //        System.out.println(game);
         this.frame.update();
     }

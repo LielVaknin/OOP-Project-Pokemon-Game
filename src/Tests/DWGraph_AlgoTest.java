@@ -99,6 +99,8 @@ class DWGraph_AlgoTest {
         assertEquals(3, ga_Test.shortestPath(1, 0).size());
         assertEquals(10, ga_Test.shortestPathDist(0, 4));	//Path between 2 node that in the graph and connected.
         assertEquals(5, ga_Test.shortestPath(0, 4).size());
+        assertEquals(3, ga_Test.shortestPathDist(1, 3));	//Path between 2 node that in the graph and connected.
+        assertEquals(3, ga_Test.shortestPath(1, 3).size());
         g_Test.removeEdge(2, 0);
         assertEquals(-1, ga_Test.shortestPathDist(3, 0));	    //Path between 2 node that in the graph and not connected.
         assertNull(ga_Test.shortestPath(3, 0));
@@ -108,7 +110,7 @@ class DWGraph_AlgoTest {
         assertNull(ga_Test.shortestPath(8, 1));
         assertEquals(-1, ga_Test.shortestPathDist(13, 11));	//Path between 2 node that not in the graph.
         assertNull(ga_Test.shortestPath(13, 11));
-        assertEquals(-1, ga_Test.shortestPathDist(3, 3));	    //Path between node in the graph to himself.
+        assertEquals(0, ga_Test.shortestPathDist(3, 3));	    //Path between node in the graph to himself.
         assertEquals(1, ga_Test.shortestPath(3, 3).size());
         assertEquals(-1, ga_Test.shortestPathDist(10, 10));	//Path between node that not in the graph to himself.
         assertNull(ga_Test.shortestPath(10, 10));

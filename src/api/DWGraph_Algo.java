@@ -4,10 +4,7 @@ import com.google.gson.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class represents a Directed (positive) Weighted Graph Theory Algorithms including:
@@ -138,11 +135,36 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    // שייך לshortest
    private void DFS(node_data src) {
       for (node_data n : this.g.getV()) {
-         n.setInfo("white");     //צובע את כל הקודקודים בלבן
+//         n.setInfo("white");     //צובע את כל הקודקודים בלבן
+         n.setInfo("unvisited");
          ((NodeData) n).dist = Double.MAX_VALUE;   // מאתחל את המרחק מהsrc לאינסוף
       }
       ((NodeData) src).dist = 0;    // מרחק מקודקוד לעצמו הוא 0
-      dfsVisit(src);    // שליחה לרקורסיה
+//      dfsVisit(src);    // שליחה לרקורסיה
+      Dijkstra(src.getKey());
+   }
+
+   private void Dijkstra(int src) {
+      Queue<node_data> q= new PriorityQueue<>();
+      for (node_data n: g.getV()) {
+         q.add(n);
+      }
+      while(!q.isEmpty()) {
+         node_data rm= q.poll();
+         for(edge_data edge: g.getE(rm.getKey())) {
+            if(g.getNode(edge.getDest()).getInfo().equals("unvisited")) {
+               double weight= g.getEdge(rm.getKey(), edge.getDest()).getWeight();
+               double path= ((NodeData)rm).dist+weight;
+               if(((NodeData)g.getNode(edge.getDest())).dist > path) {
+                  q.remove(g.getNode(edge.getDest()));
+                  ((NodeData)g.getNode(edge.getDest())).dist = path;
+                  ((NodeData)g.getNode(edge.getDest())).prev = rm;
+                  q.add(g.getNode(edge.getDest()));
+               }
+            }
+         }
+         rm.setInfo("visited");
+      }
    }
 
    // שייך לshortest
@@ -154,10 +176,10 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       for (edge_data e : g.getE(src.getKey())) { // עובר על כל הצלעות שמחוברות לsrc
          if (((NodeData) g.getNode(e.getDest())).dist > ((NodeData) src).dist + e.getWeight()) {
             ((NodeData) g.getNode(e.getDest())).dist = ((NodeData) src).dist + e.getWeight();   // אם המרחק מהsrc המקורי עכשיו קטן יותר מקודם- נעדכן אותו למרחק הקטן
-            ((NodeData) g.getNode(e.getDest())).prev = (src);  // ונעדכן את הקודקוד שדרכו הגענו אליו להיות האבא שלו
+            ((NodeData) g.getNode(e.getDest())).prev = src;  // ונעדכן את הקודקוד שדרכו הגענו אליו להיות האבא שלו
          }
          if (g.getNode(e.getDest()).getInfo().equals("white")) {
-            dfsVisit(g.getNode(e.getDest()));   // אם הגענו לקודקוד לבן משמע קודקוד חדש- נפיל עליו את הרקורסיה
+            dfsVisit(g.getNode(e.getDest()));   // אם הגענו לקודקוד לבן משמע קודקוד חדש- נפעיל עליו את הרקורסיה
          }
       }
       src.setInfo("black");   // קודקוד שסיימנו לטפל נצבע אותו בשחור
@@ -173,8 +195,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    @Override
    public double shortestPathDist(int src, int dest) {
-      if (g.getNode(src) == null || g.getNode(dest) == null || src == dest) {
+      if (g.getNode(src) == null || g.getNode(dest) == null) {
          return -1;  // אם אחד הקודקודים לא בגרף או שהם שווים אין מרחק בניהם ולכן המרחק הוא 1-
+      }
+      if(src == dest) {
+         return 0;
       }
       DFS(g.getNode(src));    // קריאה לDFS. עושים זאת פעם אחת כי אנחנו מחפשים מסלול ספציפי
       if (g.getNode(dest).getInfo().equals("white")) {
@@ -196,22 +221,23 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    @Override
    public List<node_data> shortestPath(int src, int dest) {
       List<node_data> path = new LinkedList<>();
+      if (src == dest && g.getNode(dest) != null) {
+         path.add(g.getNode(dest));
+         return path;
+      }
       double dist = shortestPathDist(src, dest);
       if (dist == -1 || dist == Double.MAX_VALUE) {
-         if (src == dest && g.getNode(dest) != null) {
-            path.add(g.getNode(dest));
-            return path;
-         }
          return null;
       } else {
          path.add(g.getNode(dest));
          node_data pr = ((NodeData) g.getNode(dest)).prev;
-         int node0 = dest;
+         int node0 = pr.getKey();
          while (node0 != src) {
             path.add(0, pr);
             pr = ((NodeData) g.getNode(node0)).prev;
             node0 = pr.getKey();
          }
+         path.add(0, pr);
          return path;
       }
    }

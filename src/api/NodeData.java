@@ -1,5 +1,7 @@
 package api;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
@@ -9,7 +11,7 @@ import java.util.Objects;
  * @authors Liel.Vaknin & Renana.Levy.
  *
  */
-public class NodeData implements node_data{
+public class NodeData implements node_data, Comparable<node_data>{
 
     private int key;
     private String nodeInfo;
@@ -178,6 +180,16 @@ public class NodeData implements node_data{
     @Override
     public int hashCode() {
         return Objects.hash(key, nodeInfo, nodeTag, nodeWeight, nodeGeoLocation, prev, dist);
+    }
+
+    @Override
+    public int compareTo(node_data o) {
+        if(this.dist > ((NodeData)o).dist)
+            return 1;
+        else if(this.dist < ((NodeData)o).dist)
+            return -1;
+        else
+            return 0;
     }
 }
 
