@@ -1,35 +1,26 @@
 package Gui;
 
-import api.game_service;
-import gameClient.Arena;
-import gameClient.GamePlay;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class panelLogin extends JPanel implements ActionListener {
+public class panelLogin extends JPanel {
 
     private static JLabel ID;
     private static JLabel level;
     private static JTextField IDText;
     private static JTextField levelText;
-    private static JButton login;
     private int numLevel;
-    private Frame frame;
-//    private Arena a;
+    private JFrame frame;
 
-    public panelLogin(Frame f){
-//        this.setLayout(new BorderLayout(50, 50));
-//        this.setSize(50, 50);
-        this.setLayout(null);
+    public panelLogin(JFrame f){ ;
+        f.setLayout(null);
         setID();
         setLevel();
-        login();
         this.frame = f;
+        f.add(ID);
+        f.add(IDText);
+        f.add(level);
+        f.add(levelText);
     }
 
     private void setID(){
@@ -51,27 +42,4 @@ public class panelLogin extends JPanel implements ActionListener {
         levelText.setBounds(620, 355, 165, 25);
         this.add(levelText);
     }
-
-    private void login(){
-        JButton login = new JButton("Login");
-        login.setBounds(650, 400 , 80, 25);
-        login.addActionListener(this);
-        this.add(login);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == login) {
-            numLevel = Integer.parseInt(levelText.getText());
-            Arena a = new Arena(numLevel);
-            Panel p = new Panel(a);
-            frame.add(p);
-            frame.setVisible(true);
-            GamePlay game = new GamePlay(a, frame);
-            Thread gamePlay = new Thread(game);
-            gamePlay.start();
-        }
-    }
-
 }

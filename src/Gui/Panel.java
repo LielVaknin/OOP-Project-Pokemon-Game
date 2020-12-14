@@ -129,7 +129,7 @@ public class Panel extends JPanel {
                 }
                 if(c!=null) {
                     geo_location ge = this._w2f.world2frame(c);
-                    ImageIcon poky = new ImageIcon("./resources/pokemon.png");
+                    ImageIcon poky = new ImageIcon("./resources/Pokemon.png");
                     g.drawImage(poky.getImage(), (int)ge.x()-r-5, (int)ge.y()-r-5, 3*r, 3*r, null);
 //                    g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
                     g.drawString(""+pok.getValue(), (int)ge.x()-r+1, (int)ge.y()-r-3);
@@ -148,7 +148,7 @@ public class Panel extends JPanel {
             i++;
             if(c!=null) {
                 geo_location ge = this._w2f.world2frame(c);
-                ImageIcon poky = new ImageIcon("./resources/agent2.png");
+                ImageIcon poky = new ImageIcon("./resources/Agent.png");
                 g.drawImage(poky.getImage(), (int)ge.x()-2*r, (int)ge.y()-4*r, 5*r, 6*r, null);
 //                g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
 //                g.drawString(""+agents.get(i).getValue(), (int)ge.x(), (int)ge.y()-2*r);
