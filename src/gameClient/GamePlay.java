@@ -27,7 +27,7 @@ public class GamePlay implements Runnable{
 //                    if(i%200 == 0)
 //                        this.frame.update();
                 }
-                Thread.sleep(200);
+                Thread.sleep(100);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }

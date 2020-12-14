@@ -137,16 +137,19 @@ public class Arena implements arenaGame{
     @Override
      public void movementStrategy() {
          CL_Pokemon p = null;
-         String jsonPokemons = this.game.getPokemons();
+         String jsonPokemons = this.game.getPokemons(); //לא למחוק!!!!! וגם את הבאה!!!
          this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
-        Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());
-        int pokemonWithHigherValue = pokemons.size() - 1;
+         Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());
+         for (CL_Pokemon pok: pokemons){
+             pok.setBusted(false);
+         }
+         int pokemonWithHigherValue = pokemons.size() - 1;
          int numOfPokemons = this.pokemons.size();
          List<node_data> shortestWayToPokemon = new LinkedList<>();
          for (int i = 0; i < numAgents; i++) {
              if (this.agents.get(i).getDest() == -1) {
                  for (int j = 0; j < numOfPokemons; j++) {
-                     if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc() && pokemons.get(j).isBusted()){
+                     if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()){
                          System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
                          this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
                          pokemons.get(j).setBusted(true);

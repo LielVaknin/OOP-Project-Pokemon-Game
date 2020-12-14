@@ -53,10 +53,10 @@ public final class jsonToObject {
     public static List<CL_Pokemon> loadPokemon(String json, directed_weighted_graph graph) {
         List<CL_Pokemon> l = new ArrayList<>();
         Gson gson = new Gson();
-        JsonObject jsonAgents = gson.fromJson(json, JsonObject.class);
-        JsonArray arrayAgents = jsonAgents.get("Pokemons").getAsJsonArray();
-        for(int i=0;i<arrayAgents.size();i++) {
-            JsonObject agent= arrayAgents.get(i).getAsJsonObject().get("Pokemon").getAsJsonObject();
+        JsonObject jsonPokemons = gson.fromJson(json, JsonObject.class);
+        JsonArray arrayPokemons = jsonPokemons.get("Pokemons").getAsJsonArray();
+        for(int i=0;i<arrayPokemons.size();i++) {
+            JsonObject agent= arrayPokemons.get(i).getAsJsonObject().get("Pokemon").getAsJsonObject();
             int value = agent.get("value").getAsInt();
             int type = agent.get("type").getAsInt();
             geo_location pos = new GeoLocation(agent.get("pos").getAsString());
