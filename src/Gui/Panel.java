@@ -21,36 +21,12 @@ public class Panel extends JPanel {
     private Arena arena;
     private gameClient.util.Range2Range _w2f;
 
-//    public Panel(){
-//        System.out.println("enter");
-//    }
-
-//    public void foo(){
-//        System.out.println("foo");
-//    }
-
-//    @Override
-//    protected void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//        System.out.println("paint");
-//        g.setColor(Color.BLACK);
-//        g.fillOval(100, 150, 20, 20);
-//        System.out.println(this.getHeight());
-//    }
 
     public Panel(Arena arena) {
         this.setLayout(null);
         background = new ImageIcon("./resources/backgroundGame.png").getImage();
-//        Dimension size = new Dimension(background.getWidth(null), background.getHeight(null));
-//        setPreferredSize(size);
-//        setMinimumSize(size);
-//        setMaximumSize(size);
-//        setSize(size);
-//        setLayout(null);
         this.arena = arena;
         newInfo();
-//        this.repaint();
-//        paintComponent();
         updateFrame();
     }
 
@@ -69,8 +45,6 @@ public class Panel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-//        Graphics2D g2d = (Graphics2D) g;
-//        g2d.drawImage("./resources/backgroundGame.png");
         g.drawImage(background, 0, 0, null);
         g.setColor(Color.BLUE);
         drawGraph(g);
@@ -135,8 +109,6 @@ public class Panel extends JPanel {
                     g.drawImage(poky.getImage(), (int)ge.x()-r-5, (int)ge.y()-r-5, 3*r, 3*r, null);
 //                    g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
                     g.drawString(""+pok.getValue(), (int)ge.x()-r+1, (int)ge.y()-r-3);
-//                    	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
-
                 }
             }
         }
@@ -153,7 +125,7 @@ public class Panel extends JPanel {
             if(c!=null) {
                 geo_location ge = this._w2f.world2frame(c);
                 ImageIcon poky = new ImageIcon("./resources/agent2.png");
-                g.drawImage(poky.getImage(), (int)ge.x()-2*r, (int)ge.y()-2*r-5, 5*r, 6*r, null);
+                g.drawImage(poky.getImage(), (int)ge.x()-2*r, (int)ge.y()-4*r, 5*r, 6*r, null);
 //                g.fillOval((int)ge.x()-r, (int)ge.y()-r, 2*r, 2*r);
 //                g.drawString(""+agents.get(i).getValue(), (int)ge.x(), (int)ge.y()-2*r);
             }

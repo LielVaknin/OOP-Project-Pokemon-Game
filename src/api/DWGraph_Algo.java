@@ -105,7 +105,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          }
       }
 
-         //לולאה שהופכת את כיווני הצלעות של הגרף (יוצרת גרף חדש)
+//         //לולאה שהופכת את כיווני הצלעות של הגרף (יוצרת גרף חדש)
 //      directed_weighted_graph gr = this.copy();
 //      for (node_data n : gr.getV()){
 //         Iterator<edge_data> itEdge = gr.getE(n.getKey()).iterator();

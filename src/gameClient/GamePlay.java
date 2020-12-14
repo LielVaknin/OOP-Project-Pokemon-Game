@@ -1,7 +1,6 @@
 package gameClient;
 
 import Gui.Frame;
-import Server.Game_Server_Ex2;
 import api.game_service;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class GamePlay implements Runnable{
         while (game.isRunning()) {
             try {
 //                move();
-//                game.chooseNextEdge(0, 8);
                 for (int i = 0; i < 10; i++) {
                     game.move();
 //                    if(i%200 == 0)
@@ -33,10 +31,6 @@ public class GamePlay implements Runnable{
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
-//            for (int i = 0; i<1000; i++) {
-//                this.game.move();
-//                this.frame.update();
-//            }
             move();
         }
         game.stopGame();
