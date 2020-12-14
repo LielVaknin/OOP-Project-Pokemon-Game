@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 
 public class LaunchPage implements ActionListener {
 
-  private JButton loginButton;
+    private Arena arena;
+    private panelLogin loginPanel;
+    private JButton loginButton;
 
     public LaunchPage(){
         JFrame loginFrame = new JFrame();
@@ -18,7 +20,7 @@ public class LaunchPage implements ActionListener {
         loginFrame.setIconImage(image.getImage());
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        panelLogin loginPanel = new panelLogin(loginFrame);
+        loginPanel = new panelLogin(loginFrame);
         JButton loginButton = new JButton("Login");
         loginButton.setBounds(650, 400 , 80, 25);
         loginButton.setFocusable(false);
@@ -38,12 +40,16 @@ public class LaunchPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == loginButton){
-            Arena arena = new Arena();
-
-//            Frame frame = new Frame(arena);
-//            GamePlay game = new GamePlay(arena, frame);
-//            Thread gamePlay = new Thread(game);
-//            gamePlay.start();
+            int gameLevel = Integer.parseInt(loginPanel.getLevelText().getText());
+            arena = new Arena(gameLevel);
         }
+    }
+
+    public Arena getArena(){
+        return arena;
+    }
+
+    public long id(){
+        return Long.parseLong(loginPanel.getIDText().getText());
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Panel extends JPanel {
 
-    private static final int WP = 100/*, HP = 3*/;
+    private static final int WP = 100;
 
     private JLabel level;
     private JLabel time;

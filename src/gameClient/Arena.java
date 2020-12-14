@@ -111,16 +111,20 @@ public class Arena implements arenaGame{
                      if(agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()){
 //                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
                          this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
+                         //לסמן את הפוקימון כתפוס
                          return;
                      }
+                     // אם הפוקימון תפוס שלא יבדוק אליו מסלול
                      List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
                      if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
                          shortestWayToPokemon = pathToPokemon;
                      }
                  }
 //                 System.out.println(shortestWayToPokemon.toString());
-                 if(shortestWayToPokemon.size() != 0)
-                    this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
+                 if(shortestWayToPokemon.size() != 0) {
+                     this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
+                     //לסמן את הפוקימון כתפוס
+                 }
              }
              shortestWayToPokemon.clear();
          }

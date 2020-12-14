@@ -4,10 +4,10 @@ import javax.swing.*;
 
 public class panelLogin extends JPanel {
 
-    private static JLabel ID;
-    private static JLabel level;
-    private static JTextField IDText;
-    private static JTextField levelText;
+    private JLabel ID;
+    private JLabel level;
+    private JTextField IDText;
+    private JTextField levelText;
     private JFrame frame;
 
     public panelLogin(JFrame f){ ;
@@ -40,5 +40,13 @@ public class panelLogin extends JPanel {
         levelText.setBounds(620, 355, 165, 25);
         this.add(levelText);
 
+    }
+
+    public JTextField getIDText() {
+        return IDText;
+    }
+
+    public JTextField getLevelText() {
+        return levelText;
     }
 }

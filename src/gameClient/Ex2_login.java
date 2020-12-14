@@ -8,8 +8,11 @@ public class Ex2_login {
     public static void main(String[] args){
 //        Arena catchThemAll = new Arena(0);
         LaunchPage p = new LaunchPage();
-        Frame frame = new Frame(arena);
-        GamePlay game = new GamePlay(arena, frame);
+        Frame frame = new Frame(p.getArena());
+//        LaunchPage p = new LaunchPage();
+//        p.getArena().gatGame().login(p.id());
+//        Frame frame = new Frame(p.getArena());
+        GamePlay game = new GamePlay(p.getArena(), frame);
         Thread gamePlay = new Thread(game);
         gamePlay.start();
 
