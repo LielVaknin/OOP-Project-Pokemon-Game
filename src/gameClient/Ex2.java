@@ -24,7 +24,7 @@ public class Ex2 {
 //        System.out.println(g);
 //        g.chooseNextEdge(0, 8);
 //        System.out.println(g.getAgents());
-        Arena catchThePokemon = new Arena(0);
+        Arena catchThePokemon = new Arena(23);
 //        System.out.println(catchThePokemon.getGraphAlgo().getGraph().toString());
         Frame f = new Frame(catchThePokemon);
 //        catchThePokemon.gatGame().startGame();

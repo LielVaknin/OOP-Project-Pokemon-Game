@@ -77,20 +77,22 @@ public class Arena implements arenaGame{
         for (int i = 0; i < numAgents; i++) {
             if(pokemonWithHigherValue < 0){
                 agent a = agents.get(i);
-                List<edge_data> e = (List<edge_data>)graphAlgo.getGraph().getE(a.getSrc());
+                Collection<edge_data> e = graphAlgo.getGraph().getE(a.getSrc());
                 if(e != null) {
-                    int index = e.get(0).getDest();
-                    this.game.chooseNextEdge(a.getId(), index);
+                    Iterator<edge_data> itE = e.iterator();
+                    edge_data e1 = itE.next();
+                    this.game.chooseNextEdge(a.getId(), e1.getDest());
                 }
-            }
-            CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
-            if((agents.get(i).getSrc()) == p.getEdge().getSrc()) {
-                agent a = agents.get(i);
-//                System.out.println(p.getEdge().getDest());
-                this.game.chooseNextEdge(a.getId(), p.getEdge().getDest());
-//                System.out.println(this.game.getAgents());
-                pokemonWithHigherValue--;
-                i = 0;
+            } else {
+                CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
+                if ((agents.get(i).getSrc()) == p.getEdge().getSrc()) {
+                    agent a = agents.get(i);
+                    //                System.out.println(p.getEdge().getDest());
+                    this.game.chooseNextEdge(a.getId(), p.getEdge().getDest());
+                    //                System.out.println(this.game.getAgents());
+                    pokemonWithHigherValue--;
+                    i = 0;
+                }
             }
         }
         String jsonAgents = this.game.getAgents();

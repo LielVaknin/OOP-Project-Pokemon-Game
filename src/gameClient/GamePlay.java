@@ -24,12 +24,12 @@ public class GamePlay implements Runnable{
             try {
 //                move();
 //                game.chooseNextEdge(0, 8);
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 10; i++) {
                     game.move();
 //                    if(i%200 == 0)
 //                        this.frame.update();
                 }
-                Thread.sleep(50);
+                Thread.sleep(10);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -40,7 +40,7 @@ public class GamePlay implements Runnable{
             move();
         }
         game.stopGame();
-//        System.out.println(game);
+        System.out.println(game);
     }
 
     public void move(){
