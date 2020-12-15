@@ -99,39 +99,39 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
-    @Override
-     public void movementStrategy() {
-       //  CL_Pokemon p = null;
-         String jsonPokemons = this.game.getPokemons();
-         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
-         int numOfPokemons = this.pokemons.size();
-         List<node_data> shortestWayToPokemon = new LinkedList<>();
-         for (int i = 0; i < numAgents; i++) {
-             if (this.agents.get(i).getDest() == -1) {
-                 for (int j = 0; j < numOfPokemons; j++) {
-                     if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()) {
-//                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
-                         this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
-                       //  pokemons.get(j).setBusted(true);
-                         return;
-                     }
-                    // if (!pokemons.get(j).isBusted()) {// אם הפוקימון תפוס שלא יבדוק אליו מסלול
-                         List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
-                         if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
-                             shortestWayToPokemon = pathToPokemon;
-                           //  p = pokemons.get(j);
-                         }
-                     }
-                 }
-//                 System.out.println(shortestWayToPokemon.toString());
-                 if(shortestWayToPokemon.size() != 0) {
-                     this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
-                   //  p.setBusted(true);
-                 }
-             }
-             shortestWayToPokemon.clear();
-          //   p = null;
-         }
+//    @Override
+//     public void movementStrategy() {
+//       //  CL_Pokemon p = null;
+//         String jsonPokemons = this.game.getPokemons();
+//         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
+//         int numOfPokemons = this.pokemons.size();
+//         List<node_data> shortestWayToPokemon = new LinkedList<>();
+//         for (int i = 0; i < numAgents; i++) {
+//             if (this.agents.get(i).getDest() == -1) {
+//                 for (int j = 0; j < numOfPokemons; j++) {
+//                     if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()) {
+////                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
+//                         this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
+//                       //  pokemons.get(j).setBusted(true);
+//                         return;
+//                     }
+//                    // if (!pokemons.get(j).isBusted()) {// אם הפוקימון תפוס שלא יבדוק אליו מסלול
+//                         List<node_data> pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
+//                         if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+//                             shortestWayToPokemon = pathToPokemon;
+//                           //  p = pokemons.get(j);
+//                         }
+//                     }
+//                 }
+////                 System.out.println(shortestWayToPokemon.toString());
+//                 if(shortestWayToPokemon.size() != 0) {
+//                     this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
+//                   //  p.setBusted(true);
+//                 }
+//             }
+//             shortestWayToPokemon.clear();
+//          //   p = null;
+//         }
 
 //    @Override
 //     public void movementStrategy() {
@@ -195,6 +195,24 @@ public class Arena implements arenaGame{
 //            shortestWayToPokemon.clear();
 //        }
 
+    @Override
+    public void movementStrategy() {
+        int agentsSize = agents.size();
+        int pokemonsSize = pokemons.size();
+        ArrayList<edge_data> pokemonEdges = new ArrayList<>();
+        List<node_data> pathToPokemon = new LinkedList<>();
+        List<node_data> shortestWayToPokemon = new LinkedList<>();
+        for (int i = 0; i < agentsSize; i++) {
+            for (int j = 0; j < pokemonsSize && pokemons.get(i) != null; j++) {
+                pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getDest());
+                if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+                    shortestWayToPokemon = pathToPokemon;
+                    agents.get(i).setShortestPathToPokemon(pathToPokemon);
+                }
+            }
+
+        }
+    }
     private static Range2D GraphRange(directed_weighted_graph g) {
         Iterator<node_data> itr = g.getV().iterator();
         double x0=0,x1=0,y0=0,y1=0;
