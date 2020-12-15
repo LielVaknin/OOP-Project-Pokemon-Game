@@ -4,6 +4,9 @@ import api.*;
 import com.google.gson.*;
 import org.json.JSONObject;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CL_Agent implements agent{
     private int id;
@@ -12,6 +15,7 @@ public class CL_Agent implements agent{
     private int dest;
     private double speed;
     private geo_location pos;
+    private List<node_data> shortestPathToPokemon;
 
     public CL_Agent(int id, double value, int src, int dest, double speed, geo_location pos){
         this.id = id;
@@ -20,6 +24,7 @@ public class CL_Agent implements agent{
         this.dest = dest;
         this.speed = speed;
         this.pos = pos;
+        this.shortestPathToPokemon = new LinkedList<>();
     }
 
     @Override
@@ -80,5 +85,13 @@ public class CL_Agent implements agent{
     @Override
     public void setPos(geo_location pos) {
         this.pos = pos;
+    }
+
+    public List<node_data> getShortestPathToPokemon() {
+        return shortestPathToPokemon;
+    }
+
+    public void setShortestPathToPokemon(List<node_data> shortestPathToPokemon) {
+        this.shortestPathToPokemon = shortestPathToPokemon;
     }
 }
