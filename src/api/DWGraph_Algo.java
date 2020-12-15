@@ -53,6 +53,45 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       return new DWGraph_DS(g);  //שולח לבנאי מעתיק של גרף
    }
 
+   private class shortestPathHelper extends NodeData{
+
+      private int dist;
+      private node_data prev;
+
+      public shortestPathHelper(int key, double w, geo_location pos) {
+         super(key);
+         this.setWeight(w);
+         this.setLocation(pos);
+      }
+
+
+      public int getDist() {
+         return dist;
+      }
+
+      public void setDist(int dist) {
+         this.dist = dist;
+      }
+
+      public node_data getPrev() {
+         return prev;
+      }
+
+      public void setPrev(node_data prev) {
+         this.prev = prev;
+      }
+
+//      @Override
+//      public int compareTo(shortestPathHelper o) {
+//         if(this.dist > o.dist)
+//            return 1;
+//         else if(this.dist < o.dist)
+//            return -1;
+//         else
+//            return 0;
+//      }
+   }
+
    /**
     * שייך לisConnected
     * @param graph

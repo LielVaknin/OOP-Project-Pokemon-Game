@@ -15,6 +15,7 @@ public class LaunchPage implements ActionListener {
 
     public LaunchPage(){
         JFrame loginFrame = new JFrame();
+
         loginFrame.setTitle("Catch Them All");
         ImageIcon image = new ImageIcon("./resources/Pokemon.png");
         loginFrame.setIconImage(image.getImage());
@@ -27,9 +28,9 @@ public class LaunchPage implements ActionListener {
         loginFrame.add(loginButton);
         ImageIcon img = new ImageIcon("./resources/LoginBackground.jpg");
         JLabel background = new JLabel("", img, JLabel.CENTER);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        int screenWidth = screenSize.width;
+//        int screenHeight = screenSize.height;
         background.setSize(loginFrame.getWidth(), loginFrame.getWidth());
         loginFrame.add(loginPanel);
         loginFrame.add(background);
@@ -44,6 +45,12 @@ public class LaunchPage implements ActionListener {
         if(e.getSource() == loginButton){
             int gameLevel = Integer.parseInt(loginPanel.getLevelText().getText());
             arena = new Arena(gameLevel);
+            Frame frame = new Frame(arena);
+            arena.gatGame().startGame();
+            arena.firstChooseNext();
+            GamePlay game = new GamePlay(arena, frame);
+            Thread gamePlay = new Thread(game);
+            gamePlay.start();
         }
     }
 
