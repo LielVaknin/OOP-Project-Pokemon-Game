@@ -30,9 +30,11 @@ public class LaunchPage implements ActionListener {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = screenSize.width;
         int screenHeight = screenSize.height;
-        background.setBounds(0, 0, screenWidth, screenHeight);
+        background.setSize(loginFrame.getWidth(), loginFrame.getWidth());
         loginFrame.add(loginPanel);
         loginFrame.add(background);
+//        background.setSize(screenSize);
+//        background.setBounds(0, 0, loginFrame.getWidth(), loginFrame.getHeight());
         loginFrame.setVisible(true);
         loginButton.addActionListener(this);
     }

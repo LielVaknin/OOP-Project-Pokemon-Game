@@ -117,7 +117,7 @@ public class Panel extends JPanel {
                 CL_Pokemon pok = it.next();
                 geo_location c = pok.getPos();
                 int r = 10;
-                g.setColor(Color.BLUE);
+                g.setColor(new Color(246, 243, 243, 255));
                 if(pok.getType() < 0) {
                     g.setColor(Color.red);
                 }
