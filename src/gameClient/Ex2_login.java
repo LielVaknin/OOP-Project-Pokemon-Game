@@ -1,5 +1,4 @@
 package gameClient;
-
 import Gui.Frame;
 import Gui.LaunchPage;
 
