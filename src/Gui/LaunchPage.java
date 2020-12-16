@@ -23,9 +23,11 @@ public class LaunchPage implements ActionListener {
         loginFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
         loginPanel = new panelLogin(loginFrame);
         JButton loginButton = new JButton("Login");
-        loginButton.setBounds(650, 400 , 80, 25);
-        loginButton.setFocusable(false);
+        loginButton.setBounds(742, 560, 100, 30);
+//        loginButton.setFocusable(false);
         loginFrame.add(loginButton);
+        loginButton.setForeground((new Color(0, 0, 0, 255)));
+        loginButton.setFont(new Font("Verdana", Font.ITALIC, 18));
         ImageIcon img = new ImageIcon("./resources/LoginBackground.jpg");
         JLabel background = new JLabel("", img, JLabel.CENTER);
 //        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
