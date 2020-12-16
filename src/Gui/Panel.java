@@ -47,7 +47,9 @@ public class Panel extends JPanel {
         this.arena = arena;
     }
 
-    public void update(){
+    public void update(int score){
+//        int grade = jsonToObject.score(arena.gatGame().toString());
+        this.score.setText("score: "+score);
         this.repaint();
     }
 
@@ -164,10 +166,10 @@ public class Panel extends JPanel {
         time.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         time.setBounds(w-2*WP, 2, 200, 50);
 
-        int grade = jsonToObject.score(arena.gatGame().toString());
-//        score = new JLabel("score: "+grade);
-//        this.add(score);
-        score.setText("score: "+grade);
+//        int grade = jsonToObject.score(arena.gatGame().toString());
+////        score = new JLabel("score: "+grade);
+////        this.add(score);
+//        score.setText("score: "+grade);
         score.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         score.setBounds(WP-5, 2, 200, 50);
 

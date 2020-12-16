@@ -24,7 +24,7 @@ public class CL_Agent implements agent{
         this.dest = dest;
         this.speed = speed;
         this.pos = pos;
-        this.shortestPathToPokemon = new LinkedList<>();
+//        this.shortestPathToPokemon = new LinkedList<>();
     }
 
     @Override

@@ -10,12 +10,12 @@ import java.util.*;
 public class Arena implements arenaGame{
 
     public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
-    private dw_graph_algorithms graphAlgo;
+    private final dw_graph_algorithms graphAlgo;
     private List<CL_Agent> agents;
     private List<CL_Pokemon> pokemons;
-    private game_service game;
-    private int level;
-    private int numAgents;
+    private final game_service game;
+    private final int level;
+    private final int numAgents;
 
     public Arena(int level) {
         this.level = level;
@@ -97,6 +97,39 @@ public class Arena implements arenaGame{
         }
         String jsonAgents = this.game.getAgents();
         this.agents = jsonToObject.loadAgents(jsonAgents);
+    }
+
+    @Override
+    public void movementStrategy() {
+        String jsonPokemons = this.game.getPokemons();
+        this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
+//         int numOfAgents = this.agents.size();
+        int numOfPokemons = this.pokemons.size();
+//         double shortestWayToPokemon = Double.MAX_VALUE;
+        List<node_data> shortestWayToPokemon = new LinkedList<>();
+        List<node_data> pathToPokemon = new LinkedList<>();
+//         List<node_data> destOfPokemon = null;
+//         int destOfPokemon = -1;
+        for (int i = 0; i < numAgents; i++) {
+            if (this.agents.get(i).getDest() == -1) {
+                for (int j = 0; j < numOfPokemons; j++) {
+                    if(agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()){
+//                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
+                        this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
+                        return;
+                    }
+                    pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
+                    if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+                        shortestWayToPokemon = pathToPokemon;
+//                         destOfPokemon = pokemons.get(i).getEdge().getDest();
+                    }
+                }
+//                 System.out.println(shortestWayToPokemon.toString());
+                if(shortestWayToPokemon.size() != 0)
+                    this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
+            }
+            shortestWayToPokemon.clear();
+        }
     }
 
 //    @Override
@@ -195,24 +228,47 @@ public class Arena implements arenaGame{
 //            shortestWayToPokemon.clear();
 //        }
 
-    @Override
-    public void movementStrategy() {
-        int agentsSize = agents.size();
-        int pokemonsSize = pokemons.size();
-        ArrayList<edge_data> pokemonEdges = new ArrayList<>();
-        List<node_data> pathToPokemon = new LinkedList<>();
-        List<node_data> shortestWayToPokemon = new LinkedList<>();
-        for (int i = 0; i < agentsSize; i++) {
-            for (int j = 0; j < pokemonsSize && pokemons.get(i) != null; j++) {
-                pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getDest());
-                if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
-                    shortestWayToPokemon = pathToPokemon;
-                    agents.get(i).setShortestPathToPokemon(pathToPokemon);
-                }
-            }
+//    @Override
+//    public void movementStrategy() {
+//        String jsonPokemons = this.game.getPokemons();
+//        this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
+////        int agentsSize = agents.size();
+////        int pokemonsSize = pokemons.size();
+//        CL_Pokemon p = null;
+//        edge_data e = null;
+//        ArrayList<edge_data> pokemonEdges = new ArrayList<>();
+//        List<node_data> pathToPokemon;
+//        List<node_data> shortestWayToPokemon = null;
+//        for (int i = 0; i < numAgents; i++) {
+//            for (int j = 0; j < pokemons.size() /*&& pokemons.get(i) != null*/; j++) {
+//                if (agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()) {
+//////                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
+//                    shortestWayToPokemon.add(graphAlgo.getGraph().getNode(pokemons.get(j).getEdge().getDest()));
+//                    shortestWayToPokemon.add(0, graphAlgo.getGraph().getNode(pokemons.get(j).getEdge().getSrc()));
+//                    return;
+//                }
+//                pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getDest());
+//                if ((shortestWayToPokemon == null) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
+//                    e = graphAlgo.getGraph().getEdge(pathToPokemon.get(pathToPokemon.size() - 2).getKey(), pathToPokemon.get(pathToPokemon.size() - 1).getKey());
+//                    if (!pokemonEdges.contains(e)) {
+//                        shortestWayToPokemon = pathToPokemon;
+//                        p = pokemons.get(j);
+////                    agents.get(i).setShortestPathToPokemon(pathToPokemon);
+//                    }
+//                }
+//                if (j == pokemons.size() - 1) {
+//                    pokemons.remove(p);
+//                }
+//            }
+//            agents.get(i).setShortestPathToPokemon(shortestWayToPokemon);
+//            if (shortestWayToPokemon != null && shortestWayToPokemon.size() > 2)
+//                game.chooseNextEdge(agents.get(i).getSrc(), shortestWayToPokemon.get(1).getKey());
+//            if (e != null)
+//                pokemonEdges.add(e);
+//            shortestWayToPokemon = null;
+//        }
+//    }
 
-        }
-    }
     private static Range2D GraphRange(directed_weighted_graph g) {
         Iterator<node_data> itr = g.getV().iterator();
         double x0=0,x1=0,y0=0,y1=0;

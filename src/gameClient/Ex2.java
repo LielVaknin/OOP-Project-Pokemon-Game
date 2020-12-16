@@ -11,7 +11,7 @@ public class Ex2 {
     public static void main(String[] args){
 //        System.out.println(g);
 //        System.out.println(g.getAgents());
-        Arena catchThemAll = new Arena(11);
+        Arena catchThemAll = new Arena(3);
 //        System.out.println(catchThePokemon.getGraphAlgo().getGraph().toString());
         Frame f = new Frame(catchThemAll);
         catchThemAll.gatGame().startGame();

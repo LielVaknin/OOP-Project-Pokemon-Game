@@ -45,19 +45,19 @@ public class Frame extends JFrame {
 //        this.setLayout(null);
 
         this.arena = arena;
-        initPanel(this.arena);
+        initPanel();
         this.setVisible(true); //make frame visible
     }
 
-    private void initPanel(Arena arena){
+    private void initPanel(){
 //        this.getSize();
 
         this.panel = new Panel(arena);
         this.add(panel);
     }
 
-    public void update(){
-        panel.update();
+    public void update(int score){
+        panel.update(score);
     }
 
 }
