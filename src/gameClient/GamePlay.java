@@ -19,7 +19,7 @@ public class GamePlay implements Runnable{
         this.arena = a;
         this.frame = f;
         this.game = a.gatGame();
-        this.dt = 110;
+        this.dt = 125;
         this.counter = 0;
         this.lastScore = 0;
     }
@@ -28,45 +28,36 @@ public class GamePlay implements Runnable{
     public void run() {
         while (game.isRunning()) {
             score = jsonToObject.score(arena.gatGame().toString());
+            
             if (score != lastScore) {
                 lastScore = score;
                 counter = 0;
             }
-            if (score == lastScore)
-                counter++;
-            if (counter >= 10) {
+            counter++;
+            if (counter >= 20 && counter < 25) {
                 try {
-//                move();
                     for (int i = 0; i < 1; i++) {
                         game.move();
-//                    if(i%200 == 0)
-//                        this.frame.update();
                     }
-                    Thread.sleep(dt - 25);
+                    Thread.sleep(dt - (counter/2)-5);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//            } if (counter >= 10 && counter < 12){
-//                try {
-////                move();
-//                    for (int i = 0; i < 1; i++) {
-//                        game.move();
-////                    if(i%200 == 0)
-////                        this.frame.update();
-//                    }
-//                    Thread.sleep(dt - 30);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+            } else if (counter >= 25){
+                try {
+                    for (int i = 0; i < 3; i++) {
+                        game.move();
+                    }
+                    Thread.sleep(dt - (counter/2)-10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             } else {
                 try {
-//                   move();
                     for (int i = 0; i < 1; i++) {
                         game.move();
-//                     if(i%200 == 0)
-//                        this.frame.update();
                     }
-                    Thread.sleep(dt);
+                    Thread.sleep(dt+counter-10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -74,6 +65,7 @@ public class GamePlay implements Runnable{
             move();
         }
         game.stopGame();
+        this.frame.update(score);
         System.out.println(game);
     }
 
