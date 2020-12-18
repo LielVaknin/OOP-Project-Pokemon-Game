@@ -10,7 +10,7 @@ The second one actually uses this graph we created in order to develop pokemons 
 ---
 ## Graph implementation
 
- There is api package and 5 classes in it which each class implements a given interface.
+ There is an api package and 5 classes in it which each class implements a given interface.
 
 * NodeData class implements the node_data interface.
 It represents the set of operations applicable on a node in a directed weighted graph.
