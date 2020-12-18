@@ -47,6 +47,8 @@ public class LaunchPage implements ActionListener {
         if(e.getSource() == loginButton){
             int gameLevel = Integer.parseInt(loginPanel.getLevelText().getText());
             arena = new Arena(gameLevel);
+            long user = Integer.parseInt(loginPanel.getIDText().getText());
+            arena.gatGame().login(user);
             Frame frame = new Frame(arena);
             arena.gatGame().startGame();
             arena.firstChooseNext();

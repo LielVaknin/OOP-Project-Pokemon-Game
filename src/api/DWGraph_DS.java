@@ -162,6 +162,7 @@ public class DWGraph_DS implements directed_weighted_graph{
                 this.removeEdge(n.getKey(), key);
             }
         }
+        edgeSize = edgeSize - this.edges.remove(key).size();
         nodeSize--;
         MC++;
         return this.nodes.remove(key);

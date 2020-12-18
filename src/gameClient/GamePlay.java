@@ -26,6 +26,8 @@ public class GamePlay implements Runnable{
 
     @Override
     public void run() {
+        arena.gatGame().startGame();
+        arena.firstChooseNext();
         while (game.isRunning()) {
             score = jsonToObject.score(arena.gatGame().toString());
             
