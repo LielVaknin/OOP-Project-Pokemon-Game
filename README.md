@@ -3,7 +3,7 @@
 ## Decription
 ### Authors : Liel Vaknin & Renana Levy
 
-This project is divided into two parts.
+This project is consists of two parts.
 The first one implements algorithms for developing a data structure type of a directed weighted graph.
 The second one actually uses this graph we created in order to develop pokemons game.
 
