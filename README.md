@@ -53,7 +53,7 @@ This package includes 2 JUNIT tests :
 
 ## Game implementation 
 
- There is 2 packages and 5 classes in this part.
+ There are 2 packages and 5 classes in this part.
  
  ### GameClient package
  
