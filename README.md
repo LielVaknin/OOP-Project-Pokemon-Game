@@ -40,7 +40,7 @@ It represents a Directed Weighted Graph Theory algorithms.
 The class includes a set of operations applicable on the graph g - 
 initialization of graph g with a given graph, a getGraph method, a deep copy method, 
 a method which uses the [DFS algorithm](https://en.wikipedia.org/wiki/Depth-first_search) for the implementation of method which checks
-if the graph is connected or not, finding the shortest path in the graph between a given source and destination and a method for finding its length - using  [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm), 
+if the graph is connected or not, finding the shortest path in the graph between a given source and destination and a method for finding its length - using  [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) and
 a method which saves this graph to a given file name and a method which loads a graph to this graph algorithm (using JSON format and gson library).
 
 
