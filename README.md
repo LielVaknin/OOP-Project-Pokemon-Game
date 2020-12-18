@@ -97,7 +97,7 @@ For installing the game please follow the instructions below:
 
 ### Have fun!
 
-
+*For more information go to the project's [wiki pages](https://github.com/LielVaknin/ex2/wiki)*
 
 
  
