@@ -51,7 +51,7 @@ This package includes 2 JUNIT tests :
  
 ### An example of a directed weighted graph:
 
-## game implementation 
+## Game implementation 
 
  There is 2 packages and 5 classes in this part.
  
