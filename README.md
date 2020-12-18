@@ -40,7 +40,7 @@ It represents a Directed Weighted Graph Theory algorithms.
 The class includes a set of operations applicable on the graph g - 
 initialization of graph g with a given graph, a getGraph method, a deep copy method, 
 a method which uses the [DFS algorithm](https://en.wikipedia.org/wiki/Depth-first_search) for the implementation of method which checks
-if the graph is connected or not, finding the shortest path in the graph between a given source and destination and a method for finding its length - using  [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) and
+if the graph is connected or not, finding the shortest path in the graph between a given source and destination and a method for finding its length - using  [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm),
 a method which saves this graph to a given file name and a method which loads a graph to this graph algorithm (using JSON format and gson library).
 
 
@@ -53,7 +53,7 @@ This package includes 2 JUNIT tests :
 
 ## Game implementation 
 
- There are 2 packages and 5 classes in this part.
+ There are 2 packages and 10 classes in this part.
  
  ### GameClient package
  
@@ -73,7 +73,7 @@ It represents a pokemon in the game.
  This package contains all classes which implements the Graphical User Interface (Gui) of the game.
  * Frame class extends JFrame and represents the frame contains the game board which painted by the panel.
  * Panel class extends JPanel and represents the panel on which the game board is painted on.
- * LaunchPage class represents the Login frame contains the Login window which painted by the loginPanel.
+ * LaunchPage class represents the frame contains the Login window which painted by the loginPanel.
  * PanelLogin class extends JPanel and represents the panel on which the Login window is painted on.
  
 ### Our game goal
