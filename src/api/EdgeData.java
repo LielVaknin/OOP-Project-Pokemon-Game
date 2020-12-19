@@ -7,7 +7,6 @@ import java.util.Objects;
  * directional edge (src,dest) in a directed weighted graph.
  *
  * @authors Liel.Vaknin & Renana.Levy.
- *
  */
 public class EdgeData implements edge_data{
 

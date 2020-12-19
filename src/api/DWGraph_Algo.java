@@ -17,7 +17,6 @@ import java.util.*;
  * 6. Load(file); // JSON file
  *
  * @Authors Liel.Vaknin & Renana.Levy.
- *
  */
 public class DWGraph_Algo implements dw_graph_algorithms {
 
@@ -30,7 +29,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    @Override
    public void init(directed_weighted_graph g) {
-      this.g = g;    // גרף עליו האלגוריתמים יעבדו
+      this.g = g;
    }
 
    /**
@@ -40,7 +39,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    @Override
    public directed_weighted_graph getGraph() {
-      return g;     //מחזיק את הגרף
+      return g;
    }
 
    /**
@@ -51,8 +50,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    @Override
    public directed_weighted_graph copy() {
       if (this.g == null)
-         return null;   //מחזיר null אם אין גרף
-      return new DWGraph_DS(g);  //שולח לבנאי מעתיק של גרף
+         return null;
+      return new DWGraph_DS(g);
    }
 
    /**
@@ -62,15 +61,15 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     */
    private void dfsVisit(directed_weighted_graph graph, node_data src) {
       if (graph.getE(src.getKey()) == null) {
-         return; // תנאי עצירה לרקורסיה
+         return;
       }
-      src.setInfo("grey"); //תחילת טיפול בקודקוד צובע אותו באפור
-      for (edge_data e : graph.getE(src.getKey())) {  // עובר על כל הצלעות שמחוברות לsrc
-         if (graph.getNode(e.getDest()).getInfo().equals("white")) {    // אם אחד השכנים לבן זה אומר שנתקלנו בו לראשונה
-            dfsVisit(graph, graph.getNode(e.getDest()));    // המשך- ולכן אותו שכן הופך להיות הsrc וקוראים לפונקציה שוב
+      src.setInfo("grey");
+      for (edge_data e : graph.getE(src.getKey())) {
+         if (graph.getNode(e.getDest()).getInfo().equals("white")) {
+            dfsVisit(graph, graph.getNode(e.getDest()));
          }
       }
-      src.setInfo("black");   // סיימנו לטפל בקודקוד אחרי שחזרנו מהרקורסיה ולכן הוא הופך לשחור
+      src.setInfo("black");
    }
 
    /**
@@ -84,16 +83,16 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       if(g ==null || g.nodeSize()<2)
          return true;
       for (node_data n : this.g.getV()) {
-         n.setInfo("white");     // צובע את כל הקודקודים בלבן
+         n.setInfo("white");
       }
       int c = 0;
       while ((g.getNode(c)) == null){
-         c++;     // מחפש קודקוד להתחלה (מפתח שנמצא בגרף)
+         c++;
       }
-      dfsVisit(this.g, (g.getNode(c)));   // שולח לפונקציה שמחשבת מסלולים (רקורסית DFS)
+      dfsVisit(this.g, (g.getNode(c)));
       for (node_data n : this.g.getV()) {
          if (n.getInfo().equals("white"))
-            return false;     //אם קיים קודקוד לבן זה אומר שאין מסלול מהsrc אליו ולכן הגרף לא קשיר חזק
+            return false;
       }
 
       directed_weighted_graph gr = new DWGraph_DS();
@@ -108,28 +107,23 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
 
       for (node_data n : gr.getV()) {
-         n.setInfo("white");     // צובע את כל הקודקודים בלבן
+         n.setInfo("white");
       }
 
-      dfsVisit(gr, (gr.getNode(c)));   // שולח לפונקציה שמחשבת מסלולים (רקורסית DFS). מתחיל מהקודקוד שסיימנו לטפל בו אחרון, קודם (אמור להיות הקודקוד ששלחנו כי זה רקורסיה)
+      dfsVisit(gr, (gr.getNode(c)));
       for (node_data n : gr.getV()) {
          if (n.getInfo().equals("white"))
-            return false;     // אם יש קודקוד לבן אז אין עץ עומק יחיד ולכן יש קודקודים שאין מסלול בניהם ולכן גם בגרף המקורי לא יהיה מסלול (הפוך) בניהם,
-      }                       // עובד על פי עקרון הDFS
+            return false;
+      }
       return true;
    }
 
-   // שייך לshortest
-   private void DFS(node_data src) {
+   private void Dijkstra(node_data src) {
       for (node_data n : this.g.getV()) {
          n.setInfo("unvisited");
-         ((NodeData) n).dist = Double.MAX_VALUE;   // מאתחל את המרחק מהsrc לאינסוף
+         ((NodeData) n).dist = Double.MAX_VALUE;
       }
-      ((NodeData) src).dist = 0;    // מרחק מקודקוד לעצמו הוא 0
-      Dijkstra(src.getKey());
-   }
-
-   private void Dijkstra(int src) {
+      ((NodeData)src).dist = 0;
       Queue<node_data> q= new PriorityQueue<>();
       for (node_data n: g.getV()) {
          q.add(n);
@@ -163,16 +157,16 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    @Override
    public double shortestPathDist(int src, int dest) {
       if (g.getNode(src) == null || g.getNode(dest) == null) {
-         return -1;  // אם אחד הקודקודים לא בגרף או שהם שווים אין מרחק בניהם ולכן המרחק הוא 1-
+         return -1;
       }
       if(src == dest) {
          return 0;
       }
-      DFS(g.getNode(src));    // קריאה לDFS. עושים זאת פעם אחת כי אנחנו מחפשים מסלול ספציפי
-      if (g.getNode(dest).getInfo().equals("white")) {
-         return -1;  // אם הdest לבן אז לא היה מסלול ולכן נחזיר 1-
+      Dijkstra(g.getNode(src));
+      if (((NodeData)g.getNode(dest)).dist == Double.MAX_VALUE) {
+         return -1;
       }
-      return ((NodeData) g.getNode(dest)).dist;    // נחזיר את המחרק של הdest מהsrc
+      return ((NodeData) g.getNode(dest)).dist;
    }
 
    /**
@@ -249,7 +243,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          initFromJson(jsonOb);
          return true;
       } catch (FileNotFoundException e) {
-         e.printStackTrace();
          return false;
       }
    }

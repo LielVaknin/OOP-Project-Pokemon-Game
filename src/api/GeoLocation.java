@@ -4,7 +4,6 @@ package api;
  * This class represents a geo location <x,y,z>, aka Point3D.
  *
  * @authors Liel.Vaknin & Renana.Levy.
- *
  */
 public class GeoLocation implements geo_location {
 
@@ -104,13 +103,6 @@ public class GeoLocation implements geo_location {
         double dz = this.z() - g.z();
         double t = (dx*dx+dy*dy+dz*dz);
         return Math.sqrt(t);
-//            double distance;
-//            double partOneOfCalculation, partTwoOfCalculation, partThreeOfCalculation;
-//            partOneOfCalculation = Math.pow(g.x() - this.x, 2);
-//            partTwoOfCalculation = Math.pow(g.y() - this.y, 2);
-//            partThreeOfCalculation = Math.pow(g.z() - this.z, 2);
-//            distance = Math.pow(partOneOfCalculation + partTwoOfCalculation + partThreeOfCalculation, 0.5);
-//            return distance;
     }
 
     /**

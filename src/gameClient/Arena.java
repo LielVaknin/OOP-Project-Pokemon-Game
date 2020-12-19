@@ -56,7 +56,6 @@ public class Arena implements arenaGame{
 
     @Override
     public void startPositionOfAgents() {
-//        int numOfAgents = jsonToObject.numOfAgentsByLevel(jsonGame);
         Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());
         int pokemonWithHigherValue = pokemons.size() - 1;
         for (int i = 1; i <= numAgents; i++) {
@@ -143,39 +142,6 @@ public class Arena implements arenaGame{
             }
         }
     }
-
-//    @Override
-//    public void movementStrategy() {
-//        String jsonPokemons = this.game.getPokemons();
-//        this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
-////         int numOfAgents = this.agents.size();
-//        int numOfPokemons = this.pokemons.size();
-////         double shortestWayToPokemon = Double.MAX_VALUE;
-//        List<node_data> shortestWayToPokemon = new LinkedList<>();
-//        List<node_data> pathToPokemon = new LinkedList<>();
-////         List<node_data> destOfPokemon = null;
-////         int destOfPokemon = -1;
-//        for (int i = 0; i < numAgents; i++) {
-//            if (this.agents.get(i).getDest() == -1) {
-//                for (int j = 0; j < numOfPokemons; j++) {
-//                    if(agents.get(i).getSrc() == pokemons.get(j).getEdge().getSrc()){
-////                         System.out.println("["+agents.get(i).getSrc()+", "+pokemons.get(j).getEdge().getDest()+"]");
-//                        this.game.chooseNextEdge(agents.get(i).getId(), pokemons.get(j).getEdge().getDest());
-//                        break;
-//                    }
-//                    pathToPokemon = graphAlgo.shortestPath(agents.get(i).getSrc(), pokemons.get(j).getEdge().getSrc());
-//                    if ((shortestWayToPokemon.size() == 0) || (pathToPokemon.size() < shortestWayToPokemon.size())) {
-//                        shortestWayToPokemon = pathToPokemon;
-////                         destOfPokemon = pokemons.get(i).getEdge().getDest();
-//                    }
-//                }
-////                 System.out.println(shortestWayToPokemon.toString());
-//                if(shortestWayToPokemon.size() != 0)
-//                    this.game.chooseNextEdge(agents.get(i).getId(), shortestWayToPokemon.get(1).getKey());
-//            }
-//            shortestWayToPokemon.clear();
-//        }
-//    }
 
     private static Range2D GraphRange(directed_weighted_graph g) {
         Iterator<node_data> itr = g.getV().iterator();

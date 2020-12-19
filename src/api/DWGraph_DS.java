@@ -2,7 +2,6 @@ package api;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * This class represents a directional weighted graph.
@@ -183,13 +182,15 @@ public class DWGraph_DS implements directed_weighted_graph{
     public edge_data removeEdge(int src, int dest){
         if (!this.nodes.containsKey(src) || !this.nodes.containsKey(dest) || src == dest)
             return null;
-        edge_data edge = edges.get(src).get(dest);
         if (this.edges.get(src).containsKey(dest)) {
+            edge_data edge = edges.get(src).get(dest);
             this.edges.get(src).remove(dest);
             edgeSize--;
             MC++;
+            return edge;
         }
-        return edge;
+        else
+            return null;
     }
 
     /** Returns the number of vertices (nodes) in the graph.
@@ -258,8 +259,6 @@ public class DWGraph_DS implements directed_weighted_graph{
             return true;
         if (o == null || /*getClass() != o.getClass()*/ !(o instanceof directed_weighted_graph))
             return false;
-//        DWGraph_DS that = (DWGraph_DS) o;
-//        return nodeSize == that.nodeSize && edgeSize == that.edgeSize && ID == that.ID && Objects.equals(nodes, that.nodes) && Objects.equals(edges, that.edges);
         directed_weighted_graph that = (directed_weighted_graph)o;
         if(this.nodeSize != that.nodeSize() || this.edgeSize != that.edgeSize() || this.MC!=that.getMC())
             return false;
@@ -282,14 +281,5 @@ public class DWGraph_DS implements directed_weighted_graph{
         }
         return true;
     }
-
-    /**
-     * HashCode method.
-     *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(nodeSize, edgeSize, nodes, edges, ID);
-    }
 }
+

@@ -94,42 +94,6 @@ public class CL_Pokemon implements pokemon {
         return isOnEdge(p, src, dest, g);
     }
 
-//    public edge_data pokemonEdge(directed_weighted_graph graph) {
-//        Boolean pokemonOnRisingEdge = true;
-//        Boolean pokemonOnFallingEdge = true;
-//        if (this.type == 1) {
-//            pokemonOnFallingEdge = false;
-//        } else if (this.type == -1) {
-//            pokemonOnRisingEdge = false;
-//        }
-//        Iterator<node_data> it1 = graph.getV().iterator();
-//        while (it1.hasNext()) {
-//            node_data node = it1.next();
-//            Iterator<edge_data> it2 = graph.getE(node.getKey()).iterator();
-//            while (it2.hasNext()) {
-//                edge_data edge = it2.next();
-//                if (pokemonOnRisingEdge && (edge.getSrc() < edge.getDest())) {
-//                    if(this.pos.y() == calculatePokemonEdge(edge, graph)){
-//                        return edge;
-//                    }
-//                } else if (pokemonOnFallingEdge && (edge.getSrc() > edge.getDest())) {
-//                    if(this.pos.y() == calculatePokemonEdge(edge, graph)){
-//                        return edge;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    private double calculatePokemonEdge(edge_data edge, directed_weighted_graph graph){
-//        double subtruction_y1_y2 = graph.getNode(edge.getSrc()).getLocation().y() - graph.getNode(edge.getDest()).getLocation().y();
-//        double subtruction_x1_x2 = graph.getNode(edge.getSrc()).getLocation().x() - graph.getNode(edge.getDest()).getLocation().x();
-//        double m = subtruction_y1_y2 / subtruction_x1_x2;
-//        double n = graph.getNode(edge.getSrc()).getLocation().y() - (m * graph.getNode(edge.getSrc()).getLocation().x());
-//        return m * this.pos.x() + n;
-//    }
-
     /**
      * ToString method.
      *
