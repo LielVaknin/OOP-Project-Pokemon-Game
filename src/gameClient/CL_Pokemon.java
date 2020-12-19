@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class CL_Pokemon implements pokemon {
 
-    public static final double EPS1 = 0.001, EPS2=EPS1*EPS1, EPS=EPS2;
+    public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
     private int id;
     private double value;
     private int type;
@@ -40,6 +40,12 @@ public class CL_Pokemon implements pokemon {
         return pos;
     }
 
+    /**
+     * This method finds on which edge the given pokemon is on and sets this edge to be the pokemon's edge.
+     *
+     * @param pok represents a given pokemon.
+     * @param g represents a given graph.
+     */
     public static void updateEdge(CL_Pokemon pok, directed_weighted_graph g) {
         //	oop_edge_data ans = null;
         Iterator<node_data> it1 = g.getV().iterator();
@@ -88,6 +94,11 @@ public class CL_Pokemon implements pokemon {
         return isOnEdge(p, src, dest, g);
     }
 
+    /**
+     * ToString method.
+     *
+     * @return String which represents the value and type of this pokemon.
+     */
     public String toString() {return "F:{v="+value+", t="+type+"}";}
 
     /**

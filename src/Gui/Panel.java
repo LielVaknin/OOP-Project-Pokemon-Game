@@ -47,7 +47,7 @@ public class Panel extends JPanel {
         this.arena = arena;
     }
 
-    public void update(int score){
+    protected void update(int score){
 //        int grade = jsonToObject.score(arena.gatGame().toString());
         this.score.setText("score: "+score);
         this.repaint();

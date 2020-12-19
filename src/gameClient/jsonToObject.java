@@ -7,8 +7,20 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class receives data from the server (jar file) on which the game is performed
+ * and loads the information from it which based on strings represented as JSON.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
 public final class jsonToObject {
 
+    /**
+     * Loads the information from the given JSON String to the given new empty graph.
+     *
+     * @param json represents a JSON String which contains all the information about the game's graph.
+     * @param graph represents a new empty graph which built according all the information of the given JSON String.
+     */
     public static void loadGraph(String json, directed_weighted_graph graph) {
         Gson gson = new Gson();
         JsonObject jGraph = gson.fromJson(json, JsonObject.class);
@@ -31,6 +43,12 @@ public final class jsonToObject {
         }
     }
 
+    /**
+     * Loads the information from the given JSON String to a new empty list of agents and returns the list.
+     *
+     * @param json represents a JSON String which contains all the information about the game's list of agents.
+     * @return List<CL_Agent>.
+     */
     public static List<CL_Agent> loadAgents(String json) {
         List<CL_Agent> l = new ArrayList<>();
         Gson gson = new Gson();
@@ -50,6 +68,13 @@ public final class jsonToObject {
         return l;
     }
 
+    /**
+     * Loads the information from the given JSON String to a new empty list of pokemons and returns the list.
+     *
+     * @param json represents a JSON String which contains all the information about the game's list of pokemons.
+     * @param graph represents the graph's game.
+     * @return List<CL_Pokemon>.
+     */
     public static List<CL_Pokemon> loadPokemon(String json, directed_weighted_graph graph) {
         List<CL_Pokemon> l = new ArrayList<>();
         Gson gson = new Gson();
@@ -66,6 +91,12 @@ public final class jsonToObject {
         return l;
     }
 
+    /**
+     * Loads from the given JSON String the number of agents in the game.
+     *
+     * @param jsonGame represents a JSON String which contains the information about the game.
+     * @return number of agents in the game.
+     */
     public static int numOfAgentsByLevel(String jsonGame){
         Gson gson = new Gson();
         JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
@@ -73,6 +104,12 @@ public final class jsonToObject {
         return numOfAgentsInTheGame;
     }
 
+    /**
+     * Loads from the given JSON String the score in the game.
+     *
+     * @param jsonGame represents a JSON String which contains the information about the game.
+     * @return score in the game.
+     */
     public static int score(String jsonGame){
         Gson gson = new Gson();
         JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
@@ -80,6 +117,12 @@ public final class jsonToObject {
         return grade;
     }
 
+    /**
+     * Loads from the given JSON String the number of moves in the game.
+     *
+     * @param jsonGame jsonGame represents a JSON String which contains the information about the game.
+     * @return number of moves in the game.
+     */
     public static int moves(String jsonGame){
         Gson gson = new Gson();
         JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);

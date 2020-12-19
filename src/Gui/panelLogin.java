@@ -30,6 +30,8 @@ public class panelLogin extends JPanel implements ActionListener {
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
+        background = new ImageIcon("./resources/LoginBackground.jpg").getImage();
+
         this.setLayout(null);
 
         ID = new JLabel("ID");
@@ -42,8 +44,6 @@ public class panelLogin extends JPanel implements ActionListener {
         this.add(levelText);
         loginButton = new JButton("Login");
         this.add(loginButton);
-
-        background = new ImageIcon("./resources/LoginBackground.jpg").getImage();
 
         loginFrame.add(this);
         loginFrame.setVisible(true);
@@ -65,24 +65,24 @@ public class panelLogin extends JPanel implements ActionListener {
     }
 
     private void setID(){
-        ID.setBounds((w/2)-139, (h/2)-50, 90, 35);
+        ID.setBounds((w/2)-155, (h/2)-35, 90, 35);
         ID.setForeground((new Color(255, 255, 255, 255)));
         ID.setFont(new Font("Verdana", Font.ITALIC, 20));
 
-        IDText.setBounds((w/2)-70, (h/2)-50, 260, 34);
+        IDText.setBounds((w/2)-100, (h/2)-35, 260, 34);
     }
 
     private void setLevel() {
-        level.setBounds((w/2)-139, (h/2)+20, 90, 35);
+        level.setBounds((w/2)-170, (h/2)+20, 90, 35);
         level.setForeground((new Color(255, 255, 255, 255)));
         level.setFont(new Font("Verdana", Font.ITALIC, 20));
 
-        levelText.setBounds((w/2)-70, (h/2)+20, 260, 34);
+        levelText.setBounds((w/2)-100, (h/2)+20, 260, 34);
 
     }
 
     private void setLoginButton(){
-        loginButton.setBounds((w/2), (h/2)+80, 100, 30);
+        loginButton.setBounds((w/2)-20, (h/2)+80, 100, 30);
         loginButton.setForeground((new Color(0, 0, 0, 255)));
         loginButton.setFont(new Font("Verdana", Font.ITALIC, 18));
     }

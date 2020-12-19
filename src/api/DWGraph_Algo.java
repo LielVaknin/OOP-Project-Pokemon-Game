@@ -16,6 +16,7 @@ import java.util.*;
  * 5. Save(file); // JSON file
  * 6. Load(file); // JSON file
  *
+ * @Authors Liel.Vaknin & Renana.Levy.
  */
 public class DWGraph_Algo implements dw_graph_algorithms {
 
@@ -42,7 +43,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    }
 
    /**
-    * Computes a deep copy of this weighted graph.
+    * Performs a deep copy of this directed weighted graph.
     *
     * @return copied graph.
     */
@@ -205,6 +206,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    /**
     * Saves this weighted (directed) graph to the given
     * file name - in JSON format.
+    *
     * @param file - the file name (may include a relative path).
     * @return true - iff the file was successfully saved.
     */
@@ -228,6 +230,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     * If the file was successfully loaded - the underlying graph
     * of this class will be changed (to the loaded one), in case the
     * graph was not loaded the original graph should remain "as is".
+    *
     * @param file - file name of JSON file.
     * @return true - iff the graph was successfully loaded.
     */

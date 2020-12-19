@@ -89,12 +89,11 @@ The more Pokemons are caught, the higher score in the game!
 ## Installation
 For installing the game please follow the instructions below:
 * Clone this repository.
-*
 * To start playing the game run Ex2.
 * Insert your ID & Chooce level.
 * Press Login and let's "catch them all!"
 
-### Have fun!
+### *Have fun!*
 
 *For more information go to the project's [wiki pages](https://github.com/LielVaknin/ex2/wiki)*
 

@@ -1,45 +1,53 @@
 package gameClient;
 
-import api.directed_weighted_graph;
 import api.dw_graph_algorithms;
 import api.game_service;
-import gameClient.util.Range2D;
-import gameClient.util.Range2Range;
 
 import java.util.List;
 
+/**
+ * This interface represents the arena of the game.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
 public interface arenaGame {
 
     /**
      * Returns the graph of this level of the game.
+     *
      * @return
      */
     public dw_graph_algorithms getGraphAlgo();
 
     /**
      * Returns the game in specific level.
+     *
      * @return
      */
     public game_service gatGame();
 
     /**
      * Returns a List of agents.
+     *
      * @return
      */
     public List<CL_Agent> getAgents();
 
     /**
      * Returns a List of pokemons.
+     *
      * @return
      */
     public List<CL_Pokemon> getPokemons();
 
     /**
      * This method places the agents before the game begins.
-     *
      */
     public void startPositionOfAgents();
 
+    /**
+     * This method
+     */
     public void firstChooseNext();
 
     /**

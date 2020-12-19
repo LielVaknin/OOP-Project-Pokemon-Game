@@ -4,10 +4,9 @@ import java.util.Objects;
 
 /**
  * This class represents the set of operations applicable on a
- * directional edge(src,dest) in a (directional) weighted graph.
+ * directional edge (src,dest) in a directed weighted graph.
  *
  * @authors Liel.Vaknin & Renana.Levy.
- *
  */
 public class EdgeData implements edge_data{
 
@@ -17,6 +16,13 @@ public class EdgeData implements edge_data{
     private String edgeInfo;
     private int edgeTag;
 
+    /**
+     * Constructor
+     *
+     * @param src
+     * @param dest
+     * @param edgeWeight
+     */
     public EdgeData(int src,int dest, double edgeWeight){
         this.src = src;
         this.dest = dest;
@@ -37,8 +43,9 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * The id of the source node of this edge.
-     * @return
+     * Returns the id of the source node of this edge.
+     *
+     * @return src.
      */
     @Override
     public int getSrc(){
@@ -46,8 +53,9 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * The id of the destination node of this edge
-     * @return
+     * Returns the id of the destination node of this edge.
+     *
+     * @return dest.
      */
     @Override
     public int getDest(){
@@ -55,7 +63,9 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * @return the weight of this edge (positive value).
+     * Returns the weight of this edge (positive value).
+     *
+     * @return edgeWeight.
      */
     @Override
     public double getWeight(){
@@ -64,7 +74,8 @@ public class EdgeData implements edge_data{
 
     /**
      * Returns the remark (meta data) associated with this edge.
-     * @return
+     *
+     * @return edgeInfo.
      */
     @Override
     public String getInfo(){
@@ -73,7 +84,8 @@ public class EdgeData implements edge_data{
 
     /**
      * Allows changing the remark (meta data) associated with this edge.
-     * @param s
+     *
+     * @param s represents the given edgeInfo.
      */
     @Override
     public void setInfo(String s){
@@ -81,9 +93,9 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * Temporal data (aka color: e,g, white, gray, black)
-     * which can be used be algorithms
-     * @return
+     * Temporal data which can be used by algorithms.
+     *
+     * @return edgeTag.
      */
     @Override
     public int getTag(){
@@ -91,9 +103,10 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * This method allows setting the "tag" value for temporal marking an edge - common
+     * Allows setting the "tag" value for temporal marking an edge - common
      * practice for marking by algorithms.
-     * @param t - the new value of the tag
+     *
+     * @param t represents the new value of the edgeTag.
      */
     @Override
     public void setTag(int t){
@@ -124,4 +137,3 @@ public class EdgeData implements edge_data{
         return Objects.hash(src, dest, edgeWeight, edgeInfo, edgeTag);
     }
 }
-

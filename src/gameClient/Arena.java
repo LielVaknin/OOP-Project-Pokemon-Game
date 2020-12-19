@@ -7,6 +7,7 @@ import gameClient.util.Range2D;
 import gameClient.util.Range2Range;
 import java.util.*;
 
+
 public class Arena implements arenaGame{
 
     public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
@@ -71,6 +72,7 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
+    @Override
     public void firstChooseNext(){
         int pokemonWithHigherValue = pokemons.size() - 1;
         for (int i = 0; i < numAgents; i++) {

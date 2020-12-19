@@ -1,12 +1,9 @@
 package api;
 
-import gameClient.util.Point3D;
-
 /**
  * This class represents a geo location <x,y,z>, aka Point3D.
  *
  * @authors Liel.Vaknin & Renana.Levy.
- *
  */
 public class GeoLocation implements geo_location {
 
@@ -15,16 +12,34 @@ public class GeoLocation implements geo_location {
     private double y;
     private double z;
 
+    /**
+     * Constructor.
+     *
+     * @param x
+     * @param y
+     * @param z
+     */
     public GeoLocation(double x, double y, double z) {
         this.x=x;
         this.y=y;
         this.z=z;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param x
+     * @param y
+     */
     public GeoLocation(double x, double y) {
         this(x,y,0);
     }
 
+    /**
+     * Constructor - gets a String, splits it and initializes x, y and z.
+     *
+     * @param pos
+     */
     public GeoLocation(String pos){
         String[] a = pos.split(",");
         this.x = Double.parseDouble(a[0]);
@@ -32,6 +47,11 @@ public class GeoLocation implements geo_location {
         this.z = Double.parseDouble(a[2]);
     }
 
+    /**
+     * Copy constructor - Performs a deep copy of a given geo location.
+     *
+     * @param pos
+     */
     public GeoLocation(geo_location pos){
         if (pos == null)
             return;
@@ -40,24 +60,57 @@ public class GeoLocation implements geo_location {
         this.z = pos.z();
     }
 
-        public double x(){
-            return this.x;
-        }
-        public double y(){
-            return this.y;
-        }
-        public double z(){
-            return this.z;
-        }
-       // TODO: To test this method.
-        public double distance(geo_location g){
-            double dx = this.x() - g.x();
-            double dy = this.y() - g.y();
-            double dz = this.z() - g.z();
-            double t = (dx*dx+dy*dy+dz*dz);
-            return Math.sqrt(t);
-        }
+    /**
+     * Returns x.
+     *
+     * @return x.
+     */
+    @Override
+    public double x(){
+        return this.x;
+    }
 
+    /**
+     * Returns y.
+     *
+     * @return y.
+     */
+    @Override
+    public double y(){
+        return this.y;
+    }
+
+    /**
+     * Returns z.
+     *
+     * @return z.
+     */
+    @Override
+    public double z(){
+        return this.z;
+    }
+
+    /**
+     * Calculates the distance between this geo location and a given one.
+     *
+     * @param g represents a given geo location.
+     */
+    // TODO: To test this method.
+    @Override
+    public double distance(geo_location g){
+        double dx = this.x() - g.x();
+        double dy = this.y() - g.y();
+        double dz = this.z() - g.z();
+        double t = (dx*dx+dy*dy+dz*dz);
+        return Math.sqrt(t);
+    }
+
+    /**
+     * Equals method.
+     *
+     * @param p represents a given object.
+     * @return true if this object and a given object are equals, false if not.
+     */
     public boolean equals(Object p) {
         if(p==null || !(p instanceof geo_location)) {return false;}
         geo_location p2 = (geo_location) p;
@@ -67,4 +120,4 @@ public class GeoLocation implements geo_location {
         return ( this.distance(p2) < EPS ); }
     public boolean equalsXY (geo_location p)
     {return p.x() == x && p.y() == y();}
-    }
+}
