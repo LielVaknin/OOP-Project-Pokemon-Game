@@ -30,6 +30,8 @@ public class panelLogin extends JPanel implements ActionListener {
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
+        background = new ImageIcon("./resources/LoginBackground.jpg").getImage();
+
         this.setLayout(null);
 
         ID = new JLabel("ID");
@@ -42,8 +44,6 @@ public class panelLogin extends JPanel implements ActionListener {
         this.add(levelText);
         loginButton = new JButton("Login");
         this.add(loginButton);
-
-        background = new ImageIcon("./resources/LoginBackground.jpg").getImage();
 
         loginFrame.add(this);
         loginFrame.setVisible(true);
