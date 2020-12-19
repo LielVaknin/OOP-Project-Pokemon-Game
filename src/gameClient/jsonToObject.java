@@ -7,8 +7,17 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class
+ */
 public final class jsonToObject {
 
+    /**
+     *
+     *
+     * @param json
+     * @param graph
+     */
     public static void loadGraph(String json, directed_weighted_graph graph) {
         Gson gson = new Gson();
         JsonObject jGraph = gson.fromJson(json, JsonObject.class);
@@ -31,6 +40,12 @@ public final class jsonToObject {
         }
     }
 
+    /**
+     *
+     *
+     * @param json
+     * @return
+     */
     public static List<CL_Agent> loadAgents(String json) {
         List<CL_Agent> l = new ArrayList<>();
         Gson gson = new Gson();
@@ -50,6 +65,13 @@ public final class jsonToObject {
         return l;
     }
 
+    /**
+     *
+     *
+     * @param json
+     * @param graph
+     * @return
+     */
     public static List<CL_Pokemon> loadPokemon(String json, directed_weighted_graph graph) {
         List<CL_Pokemon> l = new ArrayList<>();
         Gson gson = new Gson();
@@ -66,6 +88,12 @@ public final class jsonToObject {
         return l;
     }
 
+    /**
+     *
+     *
+     * @param jsonGame
+     * @return
+     */
     public static int numOfAgentsByLevel(String jsonGame){
         Gson gson = new Gson();
         JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
@@ -73,6 +101,11 @@ public final class jsonToObject {
         return numOfAgentsInTheGame;
     }
 
+    /**
+     *
+     * @param jsonGame
+     * @return
+     */
     public static int score(String jsonGame){
         Gson gson = new Gson();
         JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);
@@ -80,6 +113,12 @@ public final class jsonToObject {
         return grade;
     }
 
+    /**
+     *
+     *
+     * @param jsonGame
+     * @return
+     */
     public static int moves(String jsonGame){
         Gson gson = new Gson();
         JsonObject jGame = gson.fromJson(jsonGame, JsonObject.class);

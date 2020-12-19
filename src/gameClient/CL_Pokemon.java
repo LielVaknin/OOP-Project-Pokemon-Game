@@ -40,6 +40,12 @@ public class CL_Pokemon implements pokemon {
         return pos;
     }
 
+    /**
+     * This method finds on which edge the given pokemon is on and sets this edge to be the pokemon's edge.
+     *
+     * @param pok represents a given pokemon.
+     * @param g represents a given graph.
+     */
     public static void updateEdge(CL_Pokemon pok, directed_weighted_graph g) {
         //	oop_edge_data ans = null;
         Iterator<node_data> it1 = g.getV().iterator();
@@ -124,6 +130,11 @@ public class CL_Pokemon implements pokemon {
 //        return m * this.pos.x() + n;
 //    }
 
+    /**
+     * ToString method.
+     *
+     * @return
+     */
     public String toString() {return "F:{v="+value+", t="+type+"}";}
 
     /**
