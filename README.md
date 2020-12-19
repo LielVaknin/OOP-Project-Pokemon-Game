@@ -93,7 +93,7 @@ For installing the game please follow the instructions below:
 * Insert your ID & Chooce level.
 * Press Login and let's "catch them all!"
 
-### Have fun!
+### *Have fun!*
 
 *For more information go to the project's [wiki pages](https://github.com/LielVaknin/ex2/wiki)*
 
