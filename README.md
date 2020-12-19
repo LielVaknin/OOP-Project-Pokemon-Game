@@ -70,10 +70,9 @@ It represents a pokemon in the game.
  ### Gui package
  
  This package contains all classes which implements the Graphical User Interface (Gui) of the game.
- * Frame class extends JFrame and represents the frame contains the game board which painted by the panel.
- * Panel class extends JPanel and represents the panel on which the game board is painted on.
- * LaunchPage class represents the frame contains the Login window which painted by the loginPanel.
- * PanelLogin class extends JPanel and represents the panel on which the Login window is painted on.
+ * Frame class extends JFrame and represents the frame on which panelLogin and the panel of the game drawing on.
+ * Panel class extends JPanel uses for drawing the login window of the game on the frame.
+ * PanelLogin class extends JPanel uses for drawing the game window on the frame.
  
 ### Our game goal
 
