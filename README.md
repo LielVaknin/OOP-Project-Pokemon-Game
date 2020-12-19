@@ -63,10 +63,9 @@ This package includes 2 JUNIT tests :
 It represents an agent in the game.
 * CL_Pokemon class implements the pokemon interface.
 It represents a pokemon in the game.
-* jsonToObject class's role is to receive the data from the server (jar file) 
- on which the game is performed and to load the information from it which based on strings represented as JSON.
- * GamePlay class 
- * Ex2 contains the "main" method which runs the whole project.
+* This class receives data from the server (jar file) on which the game is performed and loads the information from it which based on strings represented as JSON.
+* GamePlay class 
+* Ex2 contains the "main" method which runs the whole project.
 
  ### Gui package
  
