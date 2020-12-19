@@ -1,17 +1,13 @@
 package gameClient;
 
 import Gui.Frame;
-import Gui.LaunchPage;
-import Server.Game_Server_Ex2;
-import api.game_service;
-
-import java.awt.*;
+import Gui.panelLogin;
 
 public class Ex2 {
 
     public static void main(String[] args){
         if(args.length == 0){
-            LaunchPage p = new LaunchPage();
+            panelLogin p = new panelLogin();
         }
         else {
             Arena catchThemAll = new Arena(Integer.parseInt(args[1]));

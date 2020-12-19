@@ -154,28 +154,19 @@ public class Panel extends JPanel {
 
     private void Info(){
 
-//        level = new JLabel("level: "+arena.getLevel());
-//        this.add(level);
         level.setText("level: "+arena.getLevel());
         level.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         level.setBounds(w-3*WP, 2, 200, 50);
 
-//        time = new JLabel("time: "+arena.gatGame().timeToEnd());
-//        this.add(time);
         time.setText("time: "+arena.gatGame().timeToEnd());
         time.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         time.setBounds(w-2*WP, 2, 200, 50);
 
 //        int grade = jsonToObject.score(arena.gatGame().toString());
-////        score = new JLabel("score: "+grade);
-////        this.add(score);
-//        score.setText("score: "+grade);
         score.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         score.setBounds(WP-5, 2, 200, 50);
 
         int moving = jsonToObject.moves(arena.gatGame().toString());
-//        moves = new JLabel("moves: "+moving);
-//        this.add(moves);
         moves.setText("moves: "+moving);
         moves.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         moves.setBounds(2*WP, 2, 200, 50);

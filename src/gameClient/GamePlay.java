@@ -6,7 +6,6 @@ import api.game_service;
 import java.util.List;
 
 public class GamePlay implements Runnable{
-
     private final Arena arena;
     private Frame frame;
     private final game_service game;
@@ -81,8 +80,6 @@ public class GamePlay implements Runnable{
 //        System.out.println(this.arena.getAgents().get(0).getDest());
 //        System.out.println(game);
         this.frame.update(score);
-
-//        return  -1; // מה שחוזר מפונקצית החישוב
     }
 
     /*

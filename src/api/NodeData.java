@@ -27,7 +27,7 @@ public class NodeData implements node_data, Comparable<node_data>{
     }
 
     public NodeData(int id){
-        this.key= -1;
+        this.key= id;
         this.nodeInfo = "";
         this.nodeTag= 0;
         this.nodeWeight =0;
@@ -156,7 +156,7 @@ public class NodeData implements node_data, Comparable<node_data>{
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || /*getClass() != o.getClass()*/ !(o instanceof node_data))
+        if (o == null || !(o instanceof node_data))
             return false;
         node_data nodeData = (node_data) o;
 //        return key == nodeData.key && nodeTag == nodeData.nodeTag && Double.compare(nodeData.nodeWeight, nodeWeight) == 0 && Double.compare(nodeData.dist, dist) == 0 && Objects.equals(nodeInfo, nodeData.nodeInfo) && Objects.equals(nodeGeoLocation, nodeData.nodeGeoLocation) && Objects.equals(prev, nodeData.prev);

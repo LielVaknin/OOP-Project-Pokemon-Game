@@ -1,7 +1,11 @@
 package gameClient;
 
+import api.directed_weighted_graph;
 import api.dw_graph_algorithms;
 import api.game_service;
+import gameClient.util.Range2D;
+import gameClient.util.Range2Range;
+
 import java.util.List;
 
 public interface arenaGame {
@@ -35,6 +39,8 @@ public interface arenaGame {
      *
      */
     public void startPositionOfAgents();
+
+    public void firstChooseNext();
 
     /**
      * This method implements an algorithm which chooses

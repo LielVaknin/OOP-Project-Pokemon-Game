@@ -73,7 +73,7 @@ class DWGraph_AlgoTest {
         g_Test.addNode(n0);
         assertTrue(ga_Test.isConnected());	//A graph with 1 node.
 
-        node_data n1 = new NodeData(0);
+        node_data n1 = new NodeData(1);
         g_Test.addNode(n1);
         assertFalse(ga_Test.isConnected());	//A graph with 2 nodes that not connected.
 
@@ -86,22 +86,13 @@ class DWGraph_AlgoTest {
 
     @Test
     void shortestPathDist() {
-//        assertEquals(7, ga_Test.shortestPathDist(0, 4));
-//        assertEquals(-1, ga_Test.shortestPathDist(6, 10)); // Tries to find the length of shortest path between 2 non-existent nodes.
-//        assertEquals(-1, ga_Test.shortestPathDist(6, 4)); // Tries to find the length of shortest path between 2 nodes which the first is not exists in the graph.
-//        assertEquals(-1, ga_Test.shortestPathDist(4, 10)); // Tries to find the length of shortest path between 2 nodes which the second is not exists in the graph.
-//        assertEquals(0, ga_Test.shortestPathDist(1, 1)); // The length of shortest path from a node to itself is 0.
-//
-//        g_Test.removeNode(1);
-//        g_Test.removeNode(3);
-//        assertEquals(Double.POSITIVE_INFINITY, ga_Test.shortestPathDist(0, 4)); // The length is infinity because 4 is not connected to the graph.
         assertEquals(5, ga_Test.shortestPathDist(1, 0));	    //Path between 2 node that in the graph and connected.
         assertEquals(3, ga_Test.shortestPath(1, 0).size());
         assertEquals(10, ga_Test.shortestPathDist(0, 4));	//Path between 2 node that in the graph and connected.
         assertEquals(5, ga_Test.shortestPath(0, 4).size());
         assertEquals(3, ga_Test.shortestPathDist(1, 3));	//Path between 2 node that in the graph and connected.
         assertEquals(3, ga_Test.shortestPath(1, 3).size());
-        g_Test.removeEdge(2, 0);
+        assertNotNull(g_Test.removeEdge(2, 0));
         assertEquals(-1, ga_Test.shortestPathDist(3, 0));	    //Path between 2 node that in the graph and not connected.
         assertNull(ga_Test.shortestPath(3, 0));
         assertEquals(-1, ga_Test.shortestPathDist(4, 7));	    //Path between node in the graph to node that not in the graph.
@@ -115,30 +106,6 @@ class DWGraph_AlgoTest {
         assertEquals(-1, ga_Test.shortestPathDist(10, 10));	//Path between node that not in the graph to himself.
         assertNull(ga_Test.shortestPath(10, 10));
     }
-
-//    @Test
-//    void shortestPath() {
-//        LinkedList<node_data> path_Test = (LinkedList<node_data>) ga_Test.shortestPath(0, 4);
-//        assertEquals(0, path_Test.get(0).getKey());
-//        assertEquals(2, path_Test.get(1).getKey());
-//        assertEquals(3, path_Test.get(2).getKey());
-//        assertEquals(4, path_Test.get(3).getKey());
-//        System.out.println(ga_Test.shortestPath(0, 4));
-//
-//        assertNull(ga_Test.shortestPath(6, 10)); // Tries to find the shortest path between 2 non-existent nodes.
-//        assertNull(ga_Test.shortestPath(6, 4)); // Tries to find the shortest path between 2 nodes which the first is not exists in the graph.
-//        assertNull(ga_Test.shortestPath(4, 10)); // Tries to find the shortest path between 2 nodes which the second is not exists in the graph.
-//        path_Test = (LinkedList<node_data>) ga_Test.shortestPath(1, 1); // src == node so might return a List with one node.
-//        assertEquals(1, path_Test.get(0).getKey());
-//        assertEquals(1, path_Test.size());
-//        System.out.println(ga_Test.shortestPath(1, 1));
-//
-//        g_Test.removeNode(1);
-//        g_Test.removeNode(3);
-//        path_Test = (LinkedList<node_data>) ga_Test.shortestPath(0, 4);
-//        assertNull(path_Test); // 4 is not connected to the graph so there is no such path.
-//        System.out.println(ga_Test.shortestPath(0, 4));
-//    }
 
     @Test
     void file() {

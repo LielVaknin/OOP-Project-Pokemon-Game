@@ -1,57 +1,103 @@
 package Gui;
 
+import gameClient.Arena;
+import gameClient.GamePlay;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class panelLogin extends JPanel {
+public class panelLogin extends JPanel implements ActionListener {
 
-    private JLabel ID;
-    private JLabel level;
-    private JTextField IDText;
-    private JTextField levelText;
-    private JFrame frame;
+    private JFrame loginFrame;
 
-    public panelLogin(JFrame f){ ;
+    private JLabel ID, level;
+    private JTextField IDText, levelText;
+    private JButton loginButton;
+
+    private Arena arena;
+    private Image background;
+
+    private int w;
+    private int h;
+
+    public panelLogin(){
+        loginFrame = new JFrame();
+        loginFrame.setTitle("Catch Them All");
+        ImageIcon image = new ImageIcon("./resources/Pokemon.png");
+        loginFrame.setIconImage(image.getImage());
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+
         this.setLayout(null);
+
+        ID = new JLabel("ID");
+        this.add(ID);
+        IDText = new JTextField(10);
+        this.add(IDText);
+        level = new JLabel("level");
+        this.add(level);
+        levelText = new JTextField(10);
+        this.add(levelText);
+        loginButton = new JButton("Login");
+        this.add(loginButton);
+
+        background = new ImageIcon("./resources/LoginBackground.jpg").getImage();
+
+        loginFrame.add(this);
+        loginFrame.setVisible(true);
+        loginButton.addActionListener(this);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        w = this.getWidth();
+        h = this.getHeight();
+
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(background, 0,0, w, h, null);
+
         setID();
         setLevel();
-        this.frame = f;
-        f.add(ID);
-        f.add(IDText);
-        f.add(level);
-        f.add(levelText);
+        setLoginButton();
     }
 
     private void setID(){
-        ID = new JLabel("ID");
-        ID.setBounds(624, 449, 90, 35);
-        this.add(ID);
+        ID.setBounds((w/2)-139, (h/2)-50, 90, 35);
         ID.setForeground((new Color(255, 255, 255, 255)));
         ID.setFont(new Font("Verdana", Font.ITALIC, 20));
 
-        IDText = new JTextField(10);
-        IDText.setBounds(660, 450, 260, 34);
-        this.add(IDText);
+        IDText.setBounds((w/2)-70, (h/2)-50, 260, 34);
     }
 
     private void setLevel() {
-        level = new JLabel("level");
-        level.setBounds(601, 499, 90, 35);
-        this.add(level);
+        level.setBounds((w/2)-139, (h/2)+20, 90, 35);
         level.setForeground((new Color(255, 255, 255, 255)));
         level.setFont(new Font("Verdana", Font.ITALIC, 20));
 
-        levelText = new JTextField(10);
-        levelText.setBounds(660, 500, 260, 34);
-        this.add(levelText);
+        levelText.setBounds((w/2)-70, (h/2)+20, 260, 34);
 
     }
 
-    public JTextField getIDText() {
-        return IDText;
+    private void setLoginButton(){
+        loginButton.setBounds((w/2), (h/2)+80, 100, 30);
+        loginButton.setForeground((new Color(0, 0, 0, 255)));
+        loginButton.setFont(new Font("Verdana", Font.ITALIC, 18));
     }
 
-    public JTextField getLevelText() {
-        return levelText;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == loginButton){
+            int gameLevel = Integer.parseInt(levelText.getText());
+            arena = new Arena(gameLevel);
+            long user = Integer.parseInt(IDText.getText());
+            arena.gatGame().login(user);
+            Frame frame = new Frame(arena);
+            GamePlay game = new GamePlay(arena, frame);
+            Thread gamePlay = new Thread(game);
+            gamePlay.start();
+        }
     }
 }
