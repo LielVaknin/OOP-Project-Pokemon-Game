@@ -4,6 +4,8 @@ import api.*;
 
 /**
  * This interface represents an agent in the game.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
  */
 public interface agent {
 

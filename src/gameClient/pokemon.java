@@ -5,6 +5,8 @@ import api.geo_location;
 
 /**
  * This interface represents a pokemon.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
  */
 public interface pokemon {
 

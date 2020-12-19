@@ -73,6 +73,7 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
+    @Override
     public void firstChooseNext(){
         int pokemonWithHigherValue = pokemons.size() - 1;
         for (int i = 0; i < numAgents; i++) {
