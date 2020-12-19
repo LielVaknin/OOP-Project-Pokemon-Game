@@ -58,7 +58,7 @@ This package includes 2 JUNIT tests :
  ### GameClient package
  
  This package contains all classes which implements the logic of the game:
-* Arena class represents the arena of the game and manage the logic of the game in it.
+* Arena class represents the arena of the game and manages the logic of the game in it.
 * CL_Agent class implements the agent interface.
 It represents an agent in the game.
 * CL_Pokemon class implements the pokemon interface.
