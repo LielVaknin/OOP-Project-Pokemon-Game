@@ -16,6 +16,8 @@ import java.util.*;
  * 5. Save(file); // JSON file
  * 6. Load(file); // JSON file
  *
+ * @Authors Liel.Vaknin & Renana.Levy.
+ *
  */
 public class DWGraph_Algo implements dw_graph_algorithms {
 
@@ -42,7 +44,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    }
 
    /**
-    * Computes a deep copy of this weighted graph.
+    * Performs a deep copy of this directed weighted graph.
     *
     * @return copied graph.
     */
@@ -51,45 +53,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       if (this.g == null)
          return null;   //מחזיר null אם אין גרף
       return new DWGraph_DS(g);  //שולח לבנאי מעתיק של גרף
-   }
-
-   private class shortestPathHelper extends NodeData{
-
-      private int dist;
-      private node_data prev;
-
-      public shortestPathHelper(int key, double w, geo_location pos) {
-         super(key);
-         this.setWeight(w);
-         this.setLocation(pos);
-      }
-
-
-      public int getDist() {
-         return dist;
-      }
-
-      public void setDist(int dist) {
-         this.dist = dist;
-      }
-
-      public node_data getPrev() {
-         return prev;
-      }
-
-      public void setPrev(node_data prev) {
-         this.prev = prev;
-      }
-
-//      @Override
-//      public int compareTo(shortestPathHelper o) {
-//         if(this.dist > o.dist)
-//            return 1;
-//         else if(this.dist < o.dist)
-//            return -1;
-//         else
-//            return 0;
-//      }
    }
 
    /**
@@ -144,21 +107,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          }
       }
 
-//         //לולאה שהופכת את כיווני הצלעות של הגרף (יוצרת גרף חדש)
-//      directed_weighted_graph gr = this.copy();
-//      for (node_data n : gr.getV()){
-//         Iterator<edge_data> itEdge = gr.getE(n.getKey()).iterator();
-//         while ((itEdge.hasNext())){
-//            edge_data e = itEdge.next();
-//            gr.connect(e.getDest(), e.getSrc(), e.getWeight());
-//            itEdge.remove();
-//         }
-//         for (edge_data e : gr.getE(n.getKey())){
-//            gr.removeEdge(e.getSrc(), e.getDest());
-//            gr.connect(e.getDest(), e.getSrc(), e.getWeight());
-//         }
-//      }
-
       for (node_data n : gr.getV()) {
          n.setInfo("white");     // צובע את כל הקודקודים בלבן
       }
@@ -174,12 +122,10 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    // שייך לshortest
    private void DFS(node_data src) {
       for (node_data n : this.g.getV()) {
-//         n.setInfo("white");     //צובע את כל הקודקודים בלבן
          n.setInfo("unvisited");
          ((NodeData) n).dist = Double.MAX_VALUE;   // מאתחל את המרחק מהsrc לאינסוף
       }
       ((NodeData) src).dist = 0;    // מרחק מקודקוד לעצמו הוא 0
-//      dfsVisit(src);    // שליחה לרקורסיה
       Dijkstra(src.getKey());
    }
 
@@ -204,24 +150,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          }
          rm.setInfo("visited");
       }
-   }
-
-   // שייך לshortest
-   private void dfsVisit(node_data src) {
-      if (src == null) {
-         return;     // תנאי עצירה לרקורסיה
-      }
-      src.setInfo("grey");    // תחילת טיפול בקודקוד צובע אותו באפור
-      for (edge_data e : g.getE(src.getKey())) { // עובר על כל הצלעות שמחוברות לsrc
-         if (((NodeData) g.getNode(e.getDest())).dist > ((NodeData) src).dist + e.getWeight()) {
-            ((NodeData) g.getNode(e.getDest())).dist = ((NodeData) src).dist + e.getWeight();   // אם המרחק מהsrc המקורי עכשיו קטן יותר מקודם- נעדכן אותו למרחק הקטן
-            ((NodeData) g.getNode(e.getDest())).prev = src;  // ונעדכן את הקודקוד שדרכו הגענו אליו להיות האבא שלו
-         }
-         if (g.getNode(e.getDest()).getInfo().equals("white")) {
-            dfsVisit(g.getNode(e.getDest()));   // אם הגענו לקודקוד לבן משמע קודקוד חדש- נפעיל עליו את הרקורסיה
-         }
-      }
-      src.setInfo("black");   // קודקוד שסיימנו לטפל נצבע אותו בשחור
    }
 
    /**
@@ -284,6 +212,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    /**
     * Saves this weighted (directed) graph to the given
     * file name - in JSON format.
+    *
     * @param file - the file name (may include a relative path).
     * @return true - iff the file was successfully saved.
     */
@@ -307,6 +236,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     * If the file was successfully loaded - the underlying graph
     * of this class will be changed (to the loaded one), in case the
     * graph was not loaded the original graph should remain "as is".
+    *
     * @param file - file name of JSON file.
     * @return true - iff the graph was successfully loaded.
     */

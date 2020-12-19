@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * This class represents the set of operations applicable on a
- * node (vertex) in a (directional) weighted graph.
+ * node (vertex) in a directed weighted graph.
  *
  * @authors Liel.Vaknin & Renana.Levy.
  *
@@ -26,6 +26,11 @@ public class NodeData implements node_data, Comparable<node_data>{
         this(-1);
     }
 
+    /**
+     * Constructor
+     *
+     * @param id
+     */
     public NodeData(int id){
         this.key= -1;
         this.nodeInfo = "";
@@ -34,7 +39,7 @@ public class NodeData implements node_data, Comparable<node_data>{
     }
 
     /**
-     * Copy constructor - Builds a new node from a given node.
+     * Copy constructor - Performs a deep copy of a given node.
      *
      * @param node represents the given node.
      */
@@ -52,19 +57,22 @@ public class NodeData implements node_data, Comparable<node_data>{
         if(this.key == -1)
             this.key= k;
     }
+
     /**
      * Returns the key (id) associated with this node.
-     * @return
+     *
+     * @return key.
      */
     @Override
     public int getKey(){
         return this.key;
     }
 
-    /** Returns the location of this node, if
-     * none return null.
+    /**
+     * Returns the location of this node, if
+     * none returns null.
      *
-     * @return
+     * @return nodeGeoLocation.
      */
     @Override
     public geo_location getLocation(){
@@ -72,8 +80,9 @@ public class NodeData implements node_data, Comparable<node_data>{
     }
 
     /**
-     * Allows changing this node's location.
-     * @param p - new new location (position) of this node.
+     * Allows changing this node's geo location.
+     *
+     * @param p represents a new geo location (position) for changing.
      */
     @Override
     public void setLocation(geo_location p){
@@ -82,7 +91,8 @@ public class NodeData implements node_data, Comparable<node_data>{
 
     /**
      * Returns the weight associated with this node.
-     * @return
+     *
+     * @return nodeWeight.
      */
     @Override
     public double getWeight(){
@@ -91,7 +101,8 @@ public class NodeData implements node_data, Comparable<node_data>{
 
     /**
      * Allows changing this node's weight.
-     * @param w - the new weight
+     *
+     * @param w represents the new weight.
      */
     @Override
     public void setWeight(double w){
@@ -100,7 +111,8 @@ public class NodeData implements node_data, Comparable<node_data>{
 
     /**
      * Returns the remark (meta data) associated with this node.
-     * @return
+     *
+     * @return nodeInfo.
      */
     @Override
     public String getInfo(){
@@ -109,7 +121,8 @@ public class NodeData implements node_data, Comparable<node_data>{
 
     /**
      * Allows changing the remark (meta data) associated with this node.
-     * @param s
+     *
+     * @param s represents the new nodeInfo.
      */
     @Override
     public void setInfo(String s){
@@ -117,9 +130,9 @@ public class NodeData implements node_data, Comparable<node_data>{
     }
 
     /**
-     * Temporal data (aka color: e,g, white, gray, black)
-     * which can be used be algorithms
-     * @return
+     * Returns temporal data which can be used by algorithms.
+     *
+     * @return nodeTag.
      */
     @Override
     public int getTag(){
@@ -129,7 +142,8 @@ public class NodeData implements node_data, Comparable<node_data>{
     /**
      * Allows setting the "tag" value for temporal marking an node - common
      * practice for marking by algorithms.
-     * @param t - the new value of the tag
+     *
+     * @param t represents the new value of nodeTag.
      */
     @Override
     public void setTag(int t){
@@ -180,6 +194,12 @@ public class NodeData implements node_data, Comparable<node_data>{
         return Objects.hash(key, nodeInfo, nodeTag, nodeWeight, nodeGeoLocation, prev, dist);
     }
 
+    /**
+     * CompareTo method.
+     *
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(node_data o) {
         if(this.dist > ((NodeData)o).dist)
@@ -190,5 +210,3 @@ public class NodeData implements node_data, Comparable<node_data>{
             return 0;
     }
 }
-
-

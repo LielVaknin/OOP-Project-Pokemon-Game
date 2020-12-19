@@ -1,11 +1,6 @@
 package gameClient;
 
 import api.*;
-import com.google.gson.*;
-import org.json.JSONObject;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CL_Agent implements agent{

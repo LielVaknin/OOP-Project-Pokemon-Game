@@ -16,7 +16,7 @@ public class Ex2 {
         Frame f = new Frame(catchThemAll);
         catchThemAll.gatGame().startGame();
         catchThemAll.firstChooseNext();
-        catchThemAll.gatGame().login(111222);
+       // catchThemAll.gatGame().login(111222);
         GamePlay game = new GamePlay(catchThemAll, f);
         Thread gamePlay = new Thread(game);
         gamePlay.start();

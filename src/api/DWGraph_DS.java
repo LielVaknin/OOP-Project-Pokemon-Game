@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * This class represents a directional weighted graph.
+ *
  * @authors Liel.Vaknin & Renana.Levy.
  */
 public class DWGraph_DS implements directed_weighted_graph{
@@ -31,7 +32,9 @@ public class DWGraph_DS implements directed_weighted_graph{
     }
 
     /**
-     * Copy constructor.
+     * Copy constructor - Performs a deep copy of a given graph.
+     *
+     * @param graph
      */
     public DWGraph_DS(directed_weighted_graph graph) {
         this.nodes = new HashMap<>();
@@ -57,18 +60,19 @@ public class DWGraph_DS implements directed_weighted_graph{
     }
 
     /**
-     * returns the node_data by the node_id,
-     * @param key - the node_id
-     * @return the node_data by the node_id, null if none.
+     * Returns the node_data by the node_id.
+     *
+     * @param key represents the node_id.
+     * @return the node_data by the given node_id, null if none.
      */
     @Override
     public node_data getNode(int key){ return this.nodes.get(key);}
 
     /**
-     * returns the data of the edge (src,dest), null if none.
-     * Note: this method should run in O(1) time.
-     * @param src
-     * @param dest
+     * Returns the data of the edge (src,dest), null if none.
+     *
+     * @param src represents the key of the source node.
+     * @param dest represents the key of the destination node.
      * @return
      */
     @Override
@@ -79,9 +83,9 @@ public class DWGraph_DS implements directed_weighted_graph{
     }
 
     /**
-     * adds a new node to the graph with the given node_data.
-     * Note: this method should run in O(1) time.
-     * @param n
+     * Adds a new node to the graph with a given node_data.
+     *
+     * @param n represents a given new node for adding to the graph.
      */
     @Override
     public void addNode(node_data n){
@@ -96,10 +100,10 @@ public class DWGraph_DS implements directed_weighted_graph{
 
     /**
      * Connects an edge with weight w between node src to node dest.
-     * * Note: this method should run in O(1) time.
-     * @param src - the source of the edge.
-     * @param dest - the destination of the edge.
-     * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
+     *
+     * @param src represents the key of the source node of the edge.
+     * @param dest represents the key of the destination node of the edge.
+     * @param w - positive weight representing the cost (aka time, price, etc) between src --> dest.
      */
     @Override
     public void connect(int src, int dest, double w){
@@ -120,7 +124,7 @@ public class DWGraph_DS implements directed_weighted_graph{
     /**
      * This method returns a pointer (shallow copy) for the
      * collection representing all the nodes in the graph.
-     * Note: this method should run in O(1) time.
+     *
      * @return Collection<node_data>
      */
     @Override
@@ -132,7 +136,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      * This method returns a pointer (shallow copy) for the
      * collection representing all the edges getting out of
      * the given node (all the edges starting (source) at the given node).
-     * Note: this method should run in O(k) time, k being the collection size.
+     *
      * @return Collection<edge_data>
      */
     @Override
@@ -143,11 +147,11 @@ public class DWGraph_DS implements directed_weighted_graph{
     }
 
     /**
-     * Deletes the node (with the given ID) from the graph -
+     * Deletes the node (with the given ID) from the graph
      * and removes all edges which starts or ends at this node.
-     * This method should run in O(k), V.degree=k, as all the edges should be removed.
+     *
+     * @param key represents the key of the node which should be deleted.
      * @return the data of the removed node (null if none).
-     * @param key
      */
     // TODO: To fix this method.
     @Override
@@ -162,16 +166,17 @@ public class DWGraph_DS implements directed_weighted_graph{
                 this.removeEdge(n.getKey(), key);
             }
         }
+        edgeSize = edgeSize - this.edges.remove(key).size();
         nodeSize--;
         MC++;
         return this.nodes.remove(key);
     }
 
     /**
-     * Deletes the edge from the graph,
-     * Note: this method should run in O(1) time.
-     * @param src
-     * @param dest
+     * Deletes from the graph the directed edge between src to dest.
+     *
+     * @param src represents the key of the source node of the edge.
+     * @param dest represents the key of the destination node of the edge.
      * @return the data of the removed edge (null if none).
      */
     @Override
@@ -188,27 +193,33 @@ public class DWGraph_DS implements directed_weighted_graph{
     }
 
     /** Returns the number of vertices (nodes) in the graph.
-     * Note: this method should run in O(1) time.
-     * @return
+     *
+     * @return nodeSize.
      */
     @Override
     public int nodeSize(){return this.nodeSize;}
 
     /**
-     * Returns the number of edges (assume directional graph).
-     * Note: this method should run in O(1) time.
-     * @return
+     * Returns the number of directional edges in the graph.
+     *
+     * @return edgeSize.
      */
     @Override
     public int edgeSize(){return this.edgeSize;}
 
     /**
      * Returns the Mode Count - for testing changes in the graph.
-     * @return
+     *
+     * @return MC.
      */
     @Override
     public int getMC(){return this.MC;}
 
+    /**
+     * ToString method.
+     *
+     * @return String which represents all the nodes in this graph by their keys and the neighbors for each one of them.
+     */
     @Override
     public String toString(){
         String g = "[";
