@@ -51,9 +51,6 @@ public class DWGraph_DS implements directed_weighted_graph{
                 this.edges.put(n.getKey(), newEdges);
             }
         }
-        this.MC = graph.getMC();
-        this.nodeSize = graph.nodeSize();
-        this.edgeSize = graph.edgeSize();
     }
 
     /**

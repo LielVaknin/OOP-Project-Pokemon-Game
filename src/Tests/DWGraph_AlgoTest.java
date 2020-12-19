@@ -34,6 +34,9 @@ class DWGraph_AlgoTest {
         g_Test.connect(3, 4, 1);
         g_Test.connect(4, 1, 3);
         ga_Test.init(g_Test);
+        assertEquals(5, g_Test.nodeSize());
+        assertEquals(9, g_Test.edgeSize());
+        assertEquals(14, g_Test.getMC());
     }
 
     @Test
@@ -41,11 +44,14 @@ class DWGraph_AlgoTest {
         directed_weighted_graph ga_copy = ga_Test.copy();
         System.out.println(g_Test.toString());
         System.out.println(ga_copy.toString());
-        assertEquals(g_Test, ga_copy);
+        assertEquals(14, g_Test.getMC());
         g_Test.removeNode(1);
         System.out.println(g_Test.toString());
         System.out.println(ga_copy.toString());
         assertNotEquals(g_Test, ga_copy);
+        assertNotEquals(g_Test.getMC(), ga_copy.getMC());
+        directed_weighted_graph ga_copy2 = ga_Test.copy();
+        assertEquals(8, g_Test.getMC());
     }
 
     @Test
