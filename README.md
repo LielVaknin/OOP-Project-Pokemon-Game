@@ -66,7 +66,7 @@ It represents a pokemon in the game.
 * jsonToObject class's role is to receive the data from the server (jar file) 
  on which the game is performed and to load the information from it which based on strings represented as JSON.
  * GamePlay class 
- * Ex2 class is the "main" method which running the whole project.
+ * Ex2 contains the "main" method which runs the whole project.
 
  ### Gui package
  
