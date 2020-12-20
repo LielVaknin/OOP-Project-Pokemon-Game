@@ -51,6 +51,8 @@ This package includes 2 JUNIT tests :
  
 ### An example of a directed weighted graph: 
 
+![Graph example](https://github.com/LielVaknin/ex2/blob/master/resources/Graph%20example.png)
+
 ## Game implementation 
 
  There are 2 packages and 9 classes in this part.
