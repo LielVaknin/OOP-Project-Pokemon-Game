@@ -1,13 +1,11 @@
-package Tests;
+package api;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import api.*;
-import java.util.LinkedList;
 
 /**
- * Test to DWGraph_Algo class.
+ * Test for DWGraph_Algo class.
  */
 class DWGraph_AlgoTest {
 
@@ -21,7 +19,7 @@ class DWGraph_AlgoTest {
     node_data n4 = new NodeData();
 
     /**
-     * Building graph with 5 nodes, 9 edges
+     * Builts a graph with 5 nodes and 9 edges.
      */
     @BeforeEach
     public void  buildingGraph(){
@@ -46,7 +44,7 @@ class DWGraph_AlgoTest {
     }
 
     /**
-     * Test to copy method.
+     * Test for copy method.
      */
     @Test
     void copy() {
@@ -67,7 +65,7 @@ class DWGraph_AlgoTest {
     }
 
     /**
-     * Test to isConnected method.
+     * Test for isConnected method.
      */
     @Test
     void isConnected() {
@@ -106,7 +104,7 @@ class DWGraph_AlgoTest {
     }
 
     /**
-     * Test to shortestPathDist and shortestPath methods.
+     * Test for shortestPathDist and shortestPath methods.
      */
     @Test
     void shortestPath() {
@@ -132,7 +130,7 @@ class DWGraph_AlgoTest {
     }
 
     /**
-     * Test to save and load methods.
+     * Test for save and load methods.
      */
     @Test
     void file() {

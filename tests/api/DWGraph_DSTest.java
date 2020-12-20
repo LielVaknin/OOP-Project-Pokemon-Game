@@ -1,13 +1,12 @@
-package Tests;
+package api;
 
-import api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Test to DWGraph_DS class.
+ * Test for DWGraph_DS class.
  */
 class DWGraph_DSTest {
 
@@ -20,7 +19,7 @@ class DWGraph_DSTest {
     node_data n4 = new NodeData();
 
     /**
-     * Building graph with 5 nodes, 9 edges
+     * Builts a graph with 5 nodes and 9 edges.
      */
     @BeforeEach
     public void  buildingGraph(){
@@ -44,23 +43,23 @@ class DWGraph_DSTest {
     }
 
     /**
-     * Test to getNode and addNode methods
+     * Test for getNode and addNode methods.
      */
     @Test
     public void nodes() {
         assertNull(g_Test.getNode(12));		    //A node that isn't in the graph.
         assertNotNull(g_Test.getNode(4));	    //A node that is in the graph.
         node_data n5 = new NodeData();
-        g_Test.addNode(n5);							//Add node which there is in the graph.
+        g_Test.addNode(n5);							//Add node to the graph.
         assertEquals(6, g_Test.nodeSize());
         assertEquals(15, g_Test.getMC());
-        g_Test.addNode(n5);
+        g_Test.addNode(n5);                         //Add node which there is in the graph.
         assertEquals(6, g_Test.nodeSize());
         assertEquals(15, g_Test.getMC());
     }
 
     /**
-     * Test to connect and getEdge methods.
+     * Test for connect and getEdge methods.
      */
     @Test
     public void edges() {
@@ -84,7 +83,7 @@ class DWGraph_DSTest {
     }
 
     /**
-     * Test to getV method.
+     * Test for getV method.
      */
     @Test
     public void getV() {
@@ -96,7 +95,7 @@ class DWGraph_DSTest {
     }
 
     /**
-     * Test to getE method.
+     * Test for getE method.
      */
     @Test
     void getE() {
@@ -109,7 +108,7 @@ class DWGraph_DSTest {
     }
 
     /**
-     * Test to removeNode method.
+     * Test for removeNode method.
      */
     @Test
     void removeNode() {
@@ -125,7 +124,7 @@ class DWGraph_DSTest {
     }
 
     /**
-     * Test to removeEdge method.
+     * Test for removeEdge method.
      */
     @Test
     public void removeEdge() {
