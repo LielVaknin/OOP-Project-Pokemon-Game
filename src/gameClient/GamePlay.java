@@ -3,14 +3,17 @@ package gameClient;
 import Gui.Frame;
 import api.*;
 
-import java.util.List;
-
+/**
+ * This class manages the processes of the game.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
 public class GamePlay implements Runnable{
     private final Arena arena;
     private Frame frame;
     private final game_service game;
     private int dt;
-    private int counter;    //Counts how many times the agents are stuck.
+    private int counter; // Counts the number of times that the score didn't update.
     private int score;
     private int lastScore;
 
@@ -66,15 +69,11 @@ public class GamePlay implements Runnable{
     }
 
     public void move(){
-//        this.frame.update();
 //        System.out.println(game.getAgents());
-//        List<CL_Agent> l = jsonToObject.loadAgents(game.getAgents());
-//        this.arena.setAgents(l);
 //        System.out.println(this.arena.getAgents().get(0).getDest());
         this.arena.movementStrategy();
 //        System.out.println(this.arena.getAgents().get(0).getDest());
 //        System.out.println(game);
         this.frame.update(score);
     }
-
 }
