@@ -80,6 +80,8 @@ possible in order to increase their own value.
 Our algorithm determines the start position of each agent before starting the game and also directs each one along the graph during the game.
 The algorithm finds the nearest pokemon for each agent and moves the agent to there - according to [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
 The more Pokemons are caught, the higher score in the game!
+There are 0-23 levels and each one has a different amount of agents, pokemons and limited time.
+Every Pokemon caught, a new one appears
 
 ## Installation
 For installing the game please follow the instructions below:
