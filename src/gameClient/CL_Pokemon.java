@@ -4,7 +4,12 @@ import api.*;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class CL_Pokemon implements pokemon {
+/**
+ * This class represents a pokemon in the game.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
+public class CL_Pokemon {
 
     public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
     private int id;
@@ -13,6 +18,14 @@ public class CL_Pokemon implements pokemon {
     private geo_location pos;
     private edge_data edge;
 
+    /**
+     * Constructor.
+     *
+     * @param value
+     * @param type
+     * @param pos
+     * @param g
+     */
     public CL_Pokemon(double value, int type, geo_location pos, directed_weighted_graph g){
         this.value = value;
         this.type = type;
@@ -20,22 +33,40 @@ public class CL_Pokemon implements pokemon {
         updateEdge(this, g);
     }
 
-    @Override
+    /**
+     * Returns the edge which the pokemon is stands on.
+     *
+     * @return edge.
+     */
     public edge_data getEdge() {
         return edge;
     }
 
-    @Override
+    /**
+     * Returns the value of the pokemon.
+     *
+     * @return value.
+     */
     public double getValue() {
         return value;
     }
 
-    @Override
+    /**
+     * Returns the type of the pokemon.
+     * if type == -1 the pokemon is on falling edge,
+     * if type == 1 the pokemon is on rising edge.
+     *
+     * @return type.
+     */
     public int getType() {
         return type;
     }
 
-    @Override
+    /**
+     * Returns geo location <x,y,z>, aka Point3D of the pokemon.
+     *
+     * @return pos.
+     */
     public geo_location getPos() {
         return pos;
     }

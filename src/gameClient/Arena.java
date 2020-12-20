@@ -7,8 +7,12 @@ import gameClient.util.Range2D;
 import gameClient.util.Range2Range;
 import java.util.*;
 
-
-public class Arena implements arenaGame{
+/**
+ * This class represents the arena of the game.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
+public class Arena {
 
     public static final double EPS1 = 0.001, EPS2 = EPS1 * EPS1, EPS = EPS2;
     private final dw_graph_algorithms graphAlgo;
@@ -18,6 +22,11 @@ public class Arena implements arenaGame{
     private final int level;
     private final int numAgents;
 
+    /**
+     * Constructor
+     *
+     * @param level
+     */
     public Arena(int level) {
         this.level = level;
         graphAlgo = new DWGraph_Algo();
@@ -28,33 +37,62 @@ public class Arena implements arenaGame{
         startPositionOfAgents();
     }
 
+    /**
+     * Returns the the current level of the game.
+     *
+     * @return level.
+     */
+
     public int getLevel(){return level;}
 
+    /**
+     * Allows setting the list of agents.
+     *
+     * @param a represents the given list.
+     */
     public void setAgents(List<CL_Agent> a){
         this.agents = a;
     }
 
-    @Override
+    /**
+     * Returns the graph of current level of the game.
+     *
+     * @return graphAlgo.
+     */
     public dw_graph_algorithms getGraphAlgo() {
         return graphAlgo;
     }
 
-    @Override
+    /**
+     * Returns the game in specific level.
+     *
+     * @return game.
+     */
     public game_service gatGame() {
         return game;
     }
 
-    @Override
+    /**
+     * Returns a List of agents.
+     *
+     * @return List<CL_Agent>.
+     */
     public List<CL_Agent> getAgents() {
         return agents;
     }
 
-    @Override
+    /**
+     * Returns a List of pokemons.
+     *
+     * @return List<CL_Pokemon>.
+     */
     public List<CL_Pokemon> getPokemons() {
         return pokemons;
     }
 
-    @Override
+    /**
+     * This method places the agents before the game begins.
+     */
     public void startPositionOfAgents() {
         Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());
         int pokemonWithHigherValue = pokemons.size() - 1;
@@ -72,12 +110,14 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
-    @Override
+    /**
+     *
+     */
     public void firstChooseNext(){
         int pokemonWithHigherValue = pokemons.size() - 1;
         for (int i = 0; i < numAgents; i++) {
             if(pokemonWithHigherValue < 0){
-                agent a = agents.get(i);
+                CL_Agent a = agents.get(i);
                 Collection<edge_data> e = graphAlgo.getGraph().getE(a.getSrc());
                 if(e != null) {
                     Iterator<edge_data> itE = e.iterator();
@@ -87,7 +127,7 @@ public class Arena implements arenaGame{
             } else {
                 CL_Pokemon p = pokemons.get(pokemonWithHigherValue);
                 if ((agents.get(i).getSrc()) == p.getEdge().getSrc()) {
-                    agent a = agents.get(i);
+                    CL_Agent a = agents.get(i);
                     //                System.out.println(p.getEdge().getDest());
                     this.game.chooseNextEdge(a.getId(), p.getEdge().getDest());
                     //                System.out.println(this.game.getAgents());
@@ -100,7 +140,11 @@ public class Arena implements arenaGame{
         this.agents = jsonToObject.loadAgents(jsonAgents);
     }
 
-    @Override
+    /**
+     * This method implements an algorithm which chooses
+     * for each agent with dest == -1 (agent who has no destination at a given moment)
+     * his next destination during the game depending the new pokemons list.
+     */
     public void movementStrategy() {
         String jsonPokemons = this.game.getPokemons();
         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());

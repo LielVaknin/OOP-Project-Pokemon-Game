@@ -9,7 +9,12 @@ import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
-public class Panel extends JPanel {
+/**
+ * This class uses for drawing the window of the game on the frame.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
+public class gamePanel extends JPanel {
 
     private static final int WP = 100;
 
@@ -27,7 +32,7 @@ public class Panel extends JPanel {
     private gameClient.util.Range2Range _w2f;
 
 
-    public Panel(Arena arena) {
+    public gamePanel(Arena arena) {
         super();
         this.setLayout(null);
 
@@ -35,7 +40,7 @@ public class Panel extends JPanel {
 
         level = new JLabel("level: "+arena.getLevel());
         this.add(level);
-        time = new JLabel("time: "+arena.gatGame().timeToEnd());
+        time = new JLabel("time: "+(arena.gatGame().timeToEnd()/1000));
         this.add(time);
         int grade = jsonToObject.score(arena.gatGame().toString());
         score = new JLabel("score: "+grade);
@@ -158,7 +163,7 @@ public class Panel extends JPanel {
         level.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         level.setBounds(w-3*WP, 2, 200, 50);
 
-        time.setText("time: "+arena.gatGame().timeToEnd());
+        time.setText("time: "+(arena.gatGame().timeToEnd()/1000));
         time.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         time.setBounds(w-2*WP, 2, 200, 50);
 
