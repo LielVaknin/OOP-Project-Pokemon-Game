@@ -35,7 +35,7 @@ public class CL_Agent {
     }
 
     /**
-     * Returns the id of the agent.
+     * Returns the id of this agent.
      *
      * @return id.
      */
@@ -44,16 +44,7 @@ public class CL_Agent {
     }
 
     /**
-     * Allows to set the id of the agent.
-     *
-     * @param id represents the given id.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Returns the value of the agent.
+     * Returns the value of this agent.
      *
      * @return value.
      */
@@ -62,16 +53,7 @@ public class CL_Agent {
     }
 
     /**
-     * Allows to set the value of the agent.
-     *
-     * @param value represents the given value.
-     */
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    /**
-     * Returns the id of the source node which the agent is currently stands on.
+     * Returns the key of the source node which this agent is currently stands on.
      *
      * @return src.
      */
@@ -80,16 +62,16 @@ public class CL_Agent {
     }
 
     /**
-     * Allows to set the id of the source node which the agent is currently stands on.
+     * Allows to set the key of the source node which this agent is currently stands on.
      *
-     * @param src represents the given id of this source node.
+     * @param src represents the given key of the source node.
      */
     public void setSrc(int src) {
         this.src = src;
     }
 
     /**
-     * Returns the id of the destination node which the agent is about to reach.
+     * Returns the key of the destination node which this agent is about to reach.
      *
      * @return dest.
      */
@@ -98,16 +80,16 @@ public class CL_Agent {
     }
 
     /**
-     * Allows to set the id of the destination node which the agent is about to reach.
+     * Allows to set the key of the destination node which this agent is about to reach.
      *
-     * @param dest represents the given destination node.
+     * @param dest represents the given key of the destination node.
      */
     public void setDest(int dest) {
         this.dest = dest;
     }
 
     /**
-     * Returns the speed of the agent.
+     * Returns the speed of this agent.
      *
      * @return speed.
      */
@@ -116,16 +98,7 @@ public class CL_Agent {
     }
 
     /**
-     * Allows to set the speed of the agent.
-     *
-     * @param speed represents the speed of the agent.
-     */
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    /**
-     * Returns geo location <x,y,z>, aka Point3D of the agent.
+     * Returns geo location <x,y,z>, aka Point3D, of this agent.
      *
      * @return pos.
      */
@@ -134,7 +107,7 @@ public class CL_Agent {
     }
 
     /**
-     * Allows to set the geo location <x,y,z>, aka Point3D of the agent.
+     * Allows to set the geo location <x,y,z>, aka Point3D, of this agent.
      *
      * @param pos represents the given geo location.
      */

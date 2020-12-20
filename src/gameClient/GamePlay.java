@@ -68,8 +68,8 @@ public class GamePlay implements Runnable{
     public void move(){
 //        this.frame.update();
 //        System.out.println(game.getAgents());
-        List<CL_Agent> l = jsonToObject.loadAgents(game.getAgents());
-        this.arena.setAgents(l);
+//        List<CL_Agent> l = jsonToObject.loadAgents(game.getAgents());
+//        this.arena.setAgents(l);
 //        System.out.println(this.arena.getAgents().get(0).getDest());
         this.arena.movementStrategy();
 //        System.out.println(this.arena.getAgents().get(0).getDest());

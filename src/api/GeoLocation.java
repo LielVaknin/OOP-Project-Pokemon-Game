@@ -36,9 +36,9 @@ public class GeoLocation implements geo_location {
     }
 
     /**
-     * Constructor - gets a String, splits it and initializes x, y and z.
+     * Constructor - Gets a String, splits it and initializes x, y and z.
      *
-     * @param pos
+     * @param pos represents the given String.
      */
     public GeoLocation(String pos){
         String[] a = pos.split(",");
@@ -50,7 +50,7 @@ public class GeoLocation implements geo_location {
     /**
      * Copy constructor - Performs a deep copy of a given geo location.
      *
-     * @param pos
+     * @param pos represents the given geo location.
      */
     public GeoLocation(geo_location pos){
         if (pos == null)
@@ -95,7 +95,6 @@ public class GeoLocation implements geo_location {
      *
      * @param g represents a given geo location.
      */
-    // TODO: To test this method.
     @Override
     public double distance(geo_location g){
         double dx = this.x() - g.x();
@@ -116,8 +115,4 @@ public class GeoLocation implements geo_location {
         geo_location p2 = (geo_location) p;
         return ( (x==p2.x()) && (y==p2.y()) && (z==p2.z()) );
     }
-    public boolean close2equals(geo_location p2) {
-        return ( this.distance(p2) < EPS ); }
-    public boolean equalsXY (geo_location p)
-    {return p.x() == x && p.y() == y();}
 }

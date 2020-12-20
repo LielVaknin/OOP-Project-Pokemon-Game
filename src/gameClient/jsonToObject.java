@@ -16,7 +16,8 @@ import java.util.List;
 public final class jsonToObject {
 
     /**
-     * Loads the information from the given JSON String to the given new empty graph.
+     * Loads the information from the given JSON String which represents a directed weighted graph,
+     * to the given new empty graph.
      *
      * @param json represents a JSON String which contains all the information about the game's graph.
      * @param graph represents a new empty graph which built according all the information of the given JSON String.
@@ -44,7 +45,8 @@ public final class jsonToObject {
     }
 
     /**
-     * Loads the information from the given JSON String to a new empty list of agents and returns the list.
+     * Loads the information from the given JSON String which represents a list of agents,
+     * to a new empty list of agents and returns the list.
      *
      * @param json represents a JSON String which contains all the information about the game's list of agents.
      * @return List<CL_Agent>.
@@ -69,7 +71,8 @@ public final class jsonToObject {
     }
 
     /**
-     * Loads the information from the given JSON String to a new empty list of pokemons and returns the list.
+     * Loads the information from the given JSON String which represents a list of pokemons,
+     * to a new empty list of pokemons and returns the list.
      *
      * @param json represents a JSON String which contains all the information about the game's list of pokemons.
      * @param graph represents the graph's game.

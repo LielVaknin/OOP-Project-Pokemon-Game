@@ -56,9 +56,13 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    }
 
    /**
-    * שייך לisConnected
-    * @param graph
-    * @param src
+    * This method uses the DFS (Depth-first search) algorithm,
+    * private method which helps with the implementation of isConnected method in DWGraph_Algo class.
+    * Uses "info" field for representing colors : "white", "grey" and "black" -
+    * each color represents a different status of a node.
+    *
+    * @param graph represents the given graph.
+    * @param src represents the given source node.
     */
    private void dfsVisit(directed_weighted_graph graph, node_data src) {
       if (graph.getE(src.getKey()) == null) {
@@ -75,9 +79,9 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
    /**
     * Returns true if and only if (iff) there is a valid path from every node to each
-    * other node.
+    * other node (strongly connected) using DFS algorithm (dfsVisit method).
     *
-    * @return true if this graph is connected, false if not.
+    * @return true if this graph is strongly connected, false if not.
     */
    @Override
    public boolean isConnected() {
@@ -119,6 +123,12 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       return true;
    }
 
+   /**
+    * This method implements the Dijkstra's algorithm.
+    * Dijkstra is an algorithm for finding the shortest paths between nodes in a graph.
+    *
+    * @param src represents a given source node.
+    */
    private void Dijkstra(node_data src) {
       for (node_data n : this.g.getV()) {
          n.setInfo("unvisited");
@@ -174,7 +184,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     * Returns the shortest path between src to dest - as an ordered List of nodes:
     * src --> n1 --> n2 -->...dest,
     * if no such path --> returns null.
-    * Using Dijkstra's algorithm (shortestPathDist).
+    * Using Dijkstra's algorithm (shortestPathDist method).
     *
     * @param src represents the starting point.
     * @param dest represents the ending point.
@@ -205,11 +215,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
    }
 
    /**
-    * Saves this weighted (directed) graph to the given
+    * Saves this directed weighted graph to the given
     * file name - in JSON format.
     *
-    * @param file - the file name (may include a relative path).
-    * @return true - iff the file was successfully saved.
+    * @param file represents the file name (may include a relative path).
+    * @return true iff the file was successfully saved.
     */
    @Override
    public boolean save(String file) {
@@ -232,8 +242,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     * of this class will be changed (to the loaded one), in case the
     * graph was not loaded the original graph should remain "as is".
     *
-    * @param file - file name of JSON file.
-    * @return true - iff the graph was successfully loaded.
+    * @param file represents the file name of JSON file.
+    * @return true iff the graph was successfully loaded.
     */
    @Override
    public boolean load(String file) {
@@ -248,6 +258,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
    }
 
+   /**
+    * This method loads the graph from the jsonObject.
+    *
+    * @param json represents the given jsonObject which represents a directed weighted graph.
+    */
    private void initFromJson(JsonObject json){
       directed_weighted_graph newGraph = new DWGraph_DS();
       loadNodes(json, newGraph);
@@ -255,6 +270,12 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       this.g = newGraph;
    }
 
+   /**
+    * This method loads the nodes of the graph from the jsonObject.
+    *
+    * @param json represents the given jsonObject which represents a directed weighted graph.
+    * @param newGraph represents the graph which the nodes are loaded to it.
+    */
    private void loadNodes(JsonObject json, directed_weighted_graph newGraph){
       JsonObject jsonNodes = json.get("nodes").getAsJsonObject();
       for (Map.Entry<String, JsonElement> node : jsonNodes.entrySet()){
@@ -275,6 +296,12 @@ public class DWGraph_Algo implements dw_graph_algorithms {
       }
    }
 
+   /**
+    * This method loads the edges of the graph from the jsonObject.
+    *
+    * @param json represents the given jsonObject which represents a directed weighted graph.
+    * @param newGraph represents the graph which the edges are loaded to it.
+    */
    private void loadEdges(JsonObject json, directed_weighted_graph newGraph){
       JsonObject jsonEdges = json.get("edges").getAsJsonObject();
       for (Map.Entry<String, JsonElement> setHashEdges : jsonEdges.entrySet()) {
@@ -288,5 +315,4 @@ public class DWGraph_Algo implements dw_graph_algorithms {
          }
       }
    }
-
 }

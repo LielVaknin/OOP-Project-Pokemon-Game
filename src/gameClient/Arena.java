@@ -38,24 +38,14 @@ public class Arena {
     }
 
     /**
-     * Returns the the current level of the game.
+     * Returns the current level of this game.
      *
      * @return level.
      */
-
     public int getLevel(){return level;}
 
     /**
-     * Allows setting the list of agents.
-     *
-     * @param a represents the given list.
-     */
-    public void setAgents(List<CL_Agent> a){
-        this.agents = a;
-    }
-
-    /**
-     * Returns the graph of current level of the game.
+     * Returns the graph of current level of this game.
      *
      * @return graphAlgo.
      */
@@ -73,7 +63,7 @@ public class Arena {
     }
 
     /**
-     * Returns a List of agents.
+     * Returns a List of agents of this game.
      *
      * @return List<CL_Agent>.
      */
@@ -82,7 +72,7 @@ public class Arena {
     }
 
     /**
-     * Returns a List of pokemons.
+     * Returns a List of pokemons of this game.
      *
      * @return List<CL_Pokemon>.
      */
@@ -111,7 +101,7 @@ public class Arena {
     }
 
     /**
-     *
+     * This method makes for each agent his first movement in this game.
      */
     public void firstChooseNext(){
         int pokemonWithHigherValue = pokemons.size() - 1;
@@ -141,11 +131,12 @@ public class Arena {
     }
 
     /**
-     * This method implements an algorithm which chooses
-     * for each agent with dest == -1 (agent who has no destination at a given moment)
-     * his next destination during the game depending the new pokemons list.
+     * This method implements an algorithm which chooses for each agent with dest == -1
+     * (agent who has no destination at a given moment) his next destination during the game
+     * depending the new pokemons list.
      */
     public void movementStrategy() {
+        this.agents = jsonToObject.loadAgents(game.getAgents());
         String jsonPokemons = this.game.getPokemons();
         this.pokemons = jsonToObject.loadPokemon(jsonPokemons, this.graphAlgo.getGraph());
         synchronized (this) {
@@ -210,6 +201,13 @@ public class Arena {
         return new Range2D(xr,yr);
     }
 
+    /**
+     * This method uses for updateFrame() method in gamePanel class.
+     *
+     * @param g
+     * @param frame
+     * @return
+     */
     public static Range2Range w2f(directed_weighted_graph g, Range2D frame) {
         Range2D world = GraphRange(g);
         Range2Range ans = new Range2Range(world, frame);

@@ -30,11 +30,11 @@ public class CL_Pokemon {
         this.value = value;
         this.type = type;
         this.pos = pos;
-        updateEdge(this, g);
+        updateEdge(g);
     }
 
     /**
-     * Returns the edge which the pokemon is stands on.
+     * Returns the edge which this pokemon is stands on.
      *
      * @return edge.
      */
@@ -43,7 +43,7 @@ public class CL_Pokemon {
     }
 
     /**
-     * Returns the value of the pokemon.
+     * Returns the value of this pokemon.
      *
      * @return value.
      */
@@ -52,7 +52,7 @@ public class CL_Pokemon {
     }
 
     /**
-     * Returns the type of the pokemon.
+     * Returns the type of this pokemon.
      * if type == -1 the pokemon is on falling edge,
      * if type == 1 the pokemon is on rising edge.
      *
@@ -63,7 +63,7 @@ public class CL_Pokemon {
     }
 
     /**
-     * Returns geo location <x,y,z>, aka Point3D of the pokemon.
+     * Returns geo location <x,y,z>, aka Point3D, of this pokemon.
      *
      * @return pos.
      */
@@ -72,12 +72,12 @@ public class CL_Pokemon {
     }
 
     /**
-     * This method finds on which edge the given pokemon is on and sets this edge to be the pokemon's edge.
+     * This method finds on which edge the given pokemon is stands on
+     * and sets this edge to be the pokemon's edge.
      *
-     * @param pok represents a given pokemon.
-     * @param g represents a given graph.
+     * @param g represents the given graph.
      */
-    public static void updateEdge(CL_Pokemon pok, directed_weighted_graph g) {
+    private void updateEdge(directed_weighted_graph g) {
         //	oop_edge_data ans = null;
         Iterator<node_data> it1 = g.getV().iterator();
         while(it1.hasNext()) {
@@ -85,35 +85,63 @@ public class CL_Pokemon {
             Iterator<edge_data> it2 = g.getE(v.getKey()).iterator();
             while(it2.hasNext()) {
                 edge_data e = it2.next();
-                boolean f = isOnEdge(pok.getPos(), e, pok.getType(), g);
+                boolean f = isOnEdge(e, g);
                 if(f) {
-                    pok.setEdge(e);
+                    this.setEdge(e);
                 }
             }
         }
     }
 
+    /**
+     * Uses for updating the pokemon's edge.
+     *
+     * @param e represents the given edge.
+     */
     private void setEdge(edge_data e) {
         this.edge = e;
     }
 
-    private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest) {
+    /**
+     * Checks if this pokemon is on edge src-->dest.
+     *
+     * @param src represents the geo location of source node.
+     * @param dest represents the geo location of destination node.
+     * @return true if the pokemon is on edge src-->dest, else returns false.
+     */
+    private boolean isOnEdge(geo_location src, geo_location dest) {
         boolean ans = false;
         double dist = src.distance(dest);
-        double d1 = src.distance(p) + p.distance(dest);
+        double d1 = src.distance(this.pos) + this.pos.distance(dest);
         if(dist > d1 - EPS2) {
             ans = true;
         }
         return ans;
     }
 
-    private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
+    /**
+     * Calculates the geo locations of two neighbors nodes in graph g
+     * and sends them to method that checks if this pokemon is on the edge between them.
+     *
+     * @param s represents the key of the source node.
+     * @param d represents the key of the destination node.
+     * @param g represents a given graph.
+     * @return what the method that checks if the pokemon is on the edge between s-->d returns.
+     */
+    private boolean isOnEdge(int s, int d, directed_weighted_graph g) {
         geo_location src = g.getNode(s).getLocation();
         geo_location dest = g.getNode(d).getLocation();
-        return isOnEdge(p, src, dest);
+        return isOnEdge(src, dest);
     }
 
-    private static boolean isOnEdge(geo_location p, edge_data e, int type, directed_weighted_graph g) {
+    /**
+     * Checks if this pokemon can be on the given edge.
+     *
+     * @param e represents the given edge.
+     * @param g represents the given graph.
+     * @return true if this pokemon is on e, false if not.
+     */
+    private boolean isOnEdge(edge_data e, directed_weighted_graph g) {
         int src = g.getNode(e.getSrc()).getKey();
         int dest = g.getNode(e.getDest()).getKey();
         if(type < 0 && dest > src) {
@@ -122,7 +150,7 @@ public class CL_Pokemon {
         if(type > 0 && src > dest) {
             return false;
         }
-        return isOnEdge(p, src, dest, g);
+        return isOnEdge(src, dest, g);
     }
 
     /**
@@ -134,7 +162,7 @@ public class CL_Pokemon {
 
     /**
      * Class which implements the Comparator<T> interface,
-     * used for startPositionOfAgents method in Arena class.
+     * used for startPositionOfAgents() method in Arena class.
      */
     static class pokemonsComparator implements Comparator<CL_Pokemon> {
 
