@@ -8,9 +8,9 @@ The first one implements algorithms for developing a data structure type of a di
 The second one actually uses this graph we created in order to develop pokemons game.
 
 ---
-## Graph implementation
+## api
 
- There is an api package and 5 classes in it which each class implements a given interface.
+ In this package there are 5 classes which each class implements a given interface.
 
 * NodeData class implements the node_data interface.
 It represents the set of operations applicable on a node in a directed weighted graph.
@@ -59,20 +59,18 @@ This package includes 2 JUNIT tests :
  
  This package contains all classes which implements the logic of the game:
 * Arena class represents the arena of the game and manages the logic of the game in it.
-* CL_Agent class implements the agent interface.
-It represents an agent in the game.
-* CL_Pokemon class implements the pokemon interface.
-It represents a pokemon in the game.
-* This class receives data from the server (jar file) on which the game is performed and loads the information from it which based on strings represented as JSON.
+* CL_Agent class represents an agent in the game.
+* CL_Pokemon class represents a pokemon in the game.
+* jsonToObject class receives data from the server (jar file) on which the game is performed and loads the information from it which based on strings represented as JSON.
 * GamePlay class 
 * Ex2 contains the "main" method which runs the whole project.
 
  ### Gui package
  
  This package contains all classes which implements the Graphical User Interface (Gui) of the game.
- * Frame class extends JFrame and represents the frame on which panelLogin and the panel of the game drawing on.
- * Panel class extends JPanel uses for drawing the login window of the game on the frame.
- * PanelLogin class extends JPanel uses for drawing the game window on the frame.
+ * Frame class extends JFrame and represents the frame on which the loginPanel and the gamePanel drawing on.
+ * gamePanel class extends JPanel uses for drawing the window of the game on the frame.
+ * loginPanel class extends JPanel uses for drawing the login window on the frame.
  
 ### Our game goal
 
@@ -83,14 +81,16 @@ Our algorithm determines the start position of each agent before starting the ga
 The algorithm finds the nearest pokemon for each agent and moves the agent to there - according to [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
 The more Pokemons are caught, the higher score in the game!
 
-### An example of running level   of the game :
-
 ## Installation
 For installing the game please follow the instructions below:
 * Clone this repository.
 * To start playing the game run Ex2.
 * Insert your ID & Chooce level.
 * Press Login and let's "catch them all!"
+
+### An example of running level 11 of the game :
+
+
 
 ### *Have fun!*
 
