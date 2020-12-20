@@ -49,10 +49,14 @@ public class DWGraph_DS implements directed_weighted_graph{
                 for (edge_data e: graph.getE(n.getKey())){
                     edge_data newE = new EdgeData(e);
                     newEdges.put(e.getDest(), newE);
+                    MC++;
                 }
                 this.edges.put(n.getKey(), newEdges);
             }
+            MC++;
         }
+        this.nodeSize = graph.nodeSize();
+        this.edgeSize = graph.edgeSize();
     }
 
     /**
@@ -162,7 +166,8 @@ public class DWGraph_DS implements directed_weighted_graph{
                 this.removeEdge(n.getKey(), key);
             }
         }
-        edgeSize = edgeSize - this.edges.remove(key).size();
+        this.edges.remove(key);
+        edgeSize = edgeSize - this.edges.size();
         nodeSize--;
         MC++;
         return this.nodes.remove(key);
@@ -257,7 +262,7 @@ public class DWGraph_DS implements directed_weighted_graph{
         if (o == null || /*getClass() != o.getClass()*/ !(o instanceof directed_weighted_graph))
             return false;
         directed_weighted_graph that = (directed_weighted_graph)o;
-        if(this.nodeSize != that.nodeSize() || this.edgeSize != that.edgeSize() || this.MC!=that.getMC())
+        if(this.nodeSize != that.nodeSize() || this.edgeSize != that.edgeSize())
             return false;
         for(node_data ng: that.getV()) {
             int keyG = ng.getKey();

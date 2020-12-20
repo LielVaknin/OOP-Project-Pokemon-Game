@@ -44,6 +44,7 @@ class DWGraph_AlgoTest {
         directed_weighted_graph ga_copy = ga_Test.copy();
         System.out.println(g_Test.toString());
         System.out.println(ga_copy.toString());
+        assertEquals(g_Test, ga_copy);
         assertEquals(14, g_Test.getMC());
         g_Test.removeNode(1);
         System.out.println(g_Test.toString());
@@ -51,7 +52,8 @@ class DWGraph_AlgoTest {
         assertNotEquals(g_Test, ga_copy);
         assertNotEquals(g_Test.getMC(), ga_copy.getMC());
         directed_weighted_graph ga_copy2 = ga_Test.copy();
-        assertEquals(8, g_Test.getMC());
+        assertEquals(g_Test, ga_copy2);
+        assertEquals(8, ga_copy2.getMC());
     }
 
     @Test

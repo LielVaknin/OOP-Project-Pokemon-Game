@@ -54,6 +54,10 @@ public class Arena implements arenaGame{
         return pokemons;
     }
 
+    public int getNumAgents(){
+        return numAgents;
+    }
+
     @Override
     public void startPositionOfAgents() {
         Collections.sort(pokemons, new CL_Pokemon.pokemonsComparator());

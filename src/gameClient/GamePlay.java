@@ -1,7 +1,7 @@
 package gameClient;
 
 import Gui.Frame;
-import api.game_service;
+import api.*;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class GamePlay implements Runnable{
         this.arena = a;
         this.frame = f;
         this.game = a.gatGame();
-        this.dt = 125;
+        this.dt = 150;
         this.counter = 0;
         this.lastScore = 0;
     }
@@ -29,27 +29,26 @@ public class GamePlay implements Runnable{
         arena.firstChooseNext();
         while (game.isRunning()) {
             score = jsonToObject.score(arena.gatGame().toString());
-            
             if (score != lastScore) {
                 lastScore = score;
                 counter = 0;
             }
             counter++;
-            if (counter >= 20 && counter < 25) {
+            if (counter >= 15 && counter < 25) {
                 try {
                     for (int i = 0; i < 1; i++) {
                         game.move();
                     }
-                    Thread.sleep(dt - (counter/2)-5);
+                    Thread.sleep(dt - ((counter/2)+30));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } else if (counter >= 25){
                 try {
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < 1; i++) {
                         game.move();
                     }
-                    Thread.sleep(dt - (counter/2)-10);
+                    Thread.sleep(dt - ((counter/2)+40));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -58,15 +57,15 @@ public class GamePlay implements Runnable{
                     for (int i = 0; i < 1; i++) {
                         game.move();
                     }
-                    Thread.sleep(dt+counter-10);
+                    Thread.sleep(dt);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             move();
         }
-        game.stopGame();
         this.frame.update(score);
+        game.stopGame();
         System.out.println(game);
     }
 
@@ -82,7 +81,4 @@ public class GamePlay implements Runnable{
         this.frame.update(score);
     }
 
-    /*
-     חישוב הצלע הכי ארוכה לסוכן חלקי המהירות שלו (להפוך למילי שניות) לעשות את החישוב במוב סטראתג'י
-     */
 }
