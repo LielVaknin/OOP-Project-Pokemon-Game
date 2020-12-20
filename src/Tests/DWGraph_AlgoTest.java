@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import api.*;
 import java.util.LinkedList;
 
+/**
+ * Test to DWGraph_Algo class.
+ */
 class DWGraph_AlgoTest {
 
     directed_weighted_graph g_Test = new DWGraph_DS();
@@ -17,6 +20,9 @@ class DWGraph_AlgoTest {
     node_data n3 = new NodeData();
     node_data n4 = new NodeData();
 
+    /**
+     * Building graph with 5 nodes, 9 edges
+     */
     @BeforeEach
     public void  buildingGraph(){
         g_Test.addNode(n0);
@@ -39,16 +45,20 @@ class DWGraph_AlgoTest {
         assertEquals(14, g_Test.getMC());
     }
 
+    /**
+     * Test to copy method.
+     */
     @Test
     void copy() {
         directed_weighted_graph ga_copy = ga_Test.copy();
-        System.out.println(g_Test.toString());
-        System.out.println(ga_copy.toString());
+//        System.out.println(g_Test.toString());
+//        System.out.println(ga_copy.toString());
         assertEquals(g_Test, ga_copy);
         assertEquals(14, g_Test.getMC());
+
         g_Test.removeNode(1);
-        System.out.println(g_Test.toString());
-        System.out.println(ga_copy.toString());
+//        System.out.println(g_Test.toString());
+//        System.out.println(ga_copy.toString());
         assertNotEquals(g_Test, ga_copy);
         assertNotEquals(g_Test.getMC(), ga_copy.getMC());
         directed_weighted_graph ga_copy2 = ga_Test.copy();
@@ -56,6 +66,9 @@ class DWGraph_AlgoTest {
         assertEquals(8, ga_copy2.getMC());
     }
 
+    /**
+     * Test to isConnected method.
+     */
     @Test
     void isConnected() {
         assertTrue(ga_Test.isConnected());	//The graph is connected.
@@ -92,13 +105,16 @@ class DWGraph_AlgoTest {
         assertTrue(ga_Test.isConnected());	//A graph with 2 nodes that connected.
     }
 
+    /**
+     * Test to shortestPathDist and shortestPath methods.
+     */
     @Test
-    void shortestPathDist() {
+    void shortestPath() {
         assertEquals(5, ga_Test.shortestPathDist(1, 0));	    //Path between 2 node that in the graph and connected.
         assertEquals(3, ga_Test.shortestPath(1, 0).size());
-        assertEquals(10, ga_Test.shortestPathDist(0, 4));	//Path between 2 node that in the graph and connected.
+        assertEquals(10, ga_Test.shortestPathDist(0, 4));	    //Path between 2 node that in the graph and connected.
         assertEquals(5, ga_Test.shortestPath(0, 4).size());
-        assertEquals(3, ga_Test.shortestPathDist(1, 3));	//Path between 2 node that in the graph and connected.
+        assertEquals(3, ga_Test.shortestPathDist(1, 3));	    //Path between 2 node that in the graph and connected.
         assertEquals(3, ga_Test.shortestPath(1, 3).size());
         assertNotNull(g_Test.removeEdge(2, 0));
         assertEquals(-1, ga_Test.shortestPathDist(3, 0));	    //Path between 2 node that in the graph and not connected.
@@ -115,6 +131,9 @@ class DWGraph_AlgoTest {
         assertNull(ga_Test.shortestPath(10, 10));
     }
 
+    /**
+     * Test to save and load methods.
+     */
     @Test
     void file() {
         assertTrue(ga_Test.save("test1.txt"));	//Save graph to file.

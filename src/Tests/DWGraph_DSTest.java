@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test to DWGraph_DS class.
+ */
 class DWGraph_DSTest {
 
     directed_weighted_graph g_Test = new DWGraph_DS();
@@ -16,6 +19,9 @@ class DWGraph_DSTest {
     node_data n3 = new NodeData();
     node_data n4 = new NodeData();
 
+    /**
+     * Building graph with 5 nodes, 9 edges
+     */
     @BeforeEach
     public void  buildingGraph(){
         g_Test.addNode(n0);
@@ -37,16 +43,25 @@ class DWGraph_DSTest {
         assertEquals(14, g_Test.getMC());
     }
 
+    /**
+     * Test to getNode and addNode methods
+     */
     @Test
     public void nodes() {
-        assertNull(g_Test.getNode(12));		//A node that isn't in the graph.
-        assertNotNull(g_Test.getNode(4));	//A node that is in the graph.
+        assertNull(g_Test.getNode(12));		    //A node that isn't in the graph.
+        assertNotNull(g_Test.getNode(4));	    //A node that is in the graph.
         node_data n5 = new NodeData();
         g_Test.addNode(n5);							//Add node which there is in the graph.
         assertEquals(6, g_Test.nodeSize());
         assertEquals(15, g_Test.getMC());
+        g_Test.addNode(n5);
+        assertEquals(6, g_Test.nodeSize());
+        assertEquals(15, g_Test.getMC());
     }
 
+    /**
+     * Test to connect and getEdge methods.
+     */
     @Test
     public void edges() {
         assertNotNull( g_Test.getEdge(1, 4));
@@ -68,6 +83,9 @@ class DWGraph_DSTest {
         assertEquals(15, g_Test.getMC());
     }
 
+    /**
+     * Test to getV method.
+     */
     @Test
     public void getV() {
         int length= g_Test.getV().size();
@@ -77,6 +95,9 @@ class DWGraph_DSTest {
         assertEquals(0, length1);
     }
 
+    /**
+     * Test to getE method.
+     */
     @Test
     void getE() {
         int length1= g_Test.getE(1).size();
@@ -87,7 +108,9 @@ class DWGraph_DSTest {
         assertNull(g_Test.getE(10));
     }
 
-
+    /**
+     * Test to removeNode method.
+     */
     @Test
     void removeNode() {
         node_data n= g_Test.removeNode(1);	//Remove a node that is in the graph.
@@ -101,6 +124,9 @@ class DWGraph_DSTest {
         assertEquals(17, g_Test.getMC());
     }
 
+    /**
+     * Test to removeEdge method.
+     */
     @Test
     public void removeEdge() {
         g_Test.removeEdge(0, 1);		//Remove a edge that is in the graph.
