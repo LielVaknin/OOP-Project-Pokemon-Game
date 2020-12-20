@@ -26,9 +26,9 @@ public class NodeData implements node_data, Comparable<node_data>{
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param id
+     * @param id represents the new key.
      */
     public NodeData(int id){
         this.key= id;
@@ -51,7 +51,11 @@ public class NodeData implements node_data, Comparable<node_data>{
             this.nodeGeoLocation = new GeoLocation(node.getLocation());
     }
 
-
+    /**
+     * Gives a new key to the node which built in the default constructor.
+     *
+     * @param k represents the new key.
+     */
     void setKey(int k){
         if(this.key == -1)
             this.key= k;
@@ -81,7 +85,7 @@ public class NodeData implements node_data, Comparable<node_data>{
     /**
      * Allows changing this node's geo location.
      *
-     * @param p represents a new geo location (position) for changing.
+     * @param p represents a new geo location for changing.
      */
     @Override
     public void setLocation(geo_location p){
@@ -172,7 +176,6 @@ public class NodeData implements node_data, Comparable<node_data>{
         if (o == null || !(o instanceof node_data))
             return false;
         node_data nodeData = (node_data) o;
-//        return key == nodeData.key && nodeTag == nodeData.nodeTag && Double.compare(nodeData.nodeWeight, nodeWeight) == 0 && Double.compare(nodeData.dist, dist) == 0 && Objects.equals(nodeInfo, nodeData.nodeInfo) && Objects.equals(nodeGeoLocation, nodeData.nodeGeoLocation) && Objects.equals(prev, nodeData.prev);
         if(this.key != nodeData.getKey() || this.nodeTag!=nodeData.getTag() || (!(this.nodeInfo.equals(nodeData.getInfo()))) || (this.nodeWeight != nodeData.getWeight()))
             return false;
         geo_location gl = nodeData.getLocation();
@@ -184,20 +187,12 @@ public class NodeData implements node_data, Comparable<node_data>{
     }
 
     /**
-     * HashCode method.
-     *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(key, nodeInfo, nodeTag, nodeWeight, nodeGeoLocation, prev, dist);
-    }
-
-    /**
      * CompareTo method.
      *
-     * @param o
-     * @return
+     * @param o represents a given object.
+     * @return 1 if this node's dist is bigger than o's dist,
+     * -1 if o's dist is bigger than this node's dist,
+     * 0 if this node's dist and o's dist are equals.
      */
     @Override
     public int compareTo(node_data o) {

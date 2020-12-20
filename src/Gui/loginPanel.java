@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * This class uses for drawing the login window on the frame.
+ * This class displays the login window of the game.
  *
  * @authors Liel.Vaknin & Renana.Levy.
  */
@@ -27,6 +27,9 @@ public class loginPanel extends JPanel implements ActionListener {
     private int w;
     private int h;
 
+    /**
+     * Constructor.
+     */
     public loginPanel(){
         loginFrame = new JFrame();
         loginFrame.setTitle("Catch Them All");
@@ -55,6 +58,12 @@ public class loginPanel extends JPanel implements ActionListener {
         loginButton.addActionListener(this);
     }
 
+    /**
+     * Displays on the window the TextFields of the Login.
+     * Overrides paintComponent method.
+     *
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -69,6 +78,9 @@ public class loginPanel extends JPanel implements ActionListener {
         setLoginButton();
     }
 
+    /**
+     * Displays on the window TextFields for userID.
+     */
     private void setID(){
         ID.setBounds((w/2)-155, (h/2)-35, 90, 35);
         ID.setForeground((new Color(255, 255, 255, 255)));
@@ -77,6 +89,9 @@ public class loginPanel extends JPanel implements ActionListener {
         IDText.setBounds((w/2)-100, (h/2)-35, 260, 34);
     }
 
+    /**
+     * Displays on the window TextFields for choosing level.
+     */
     private void setLevel() {
         level.setBounds((w/2)-170, (h/2)+20, 90, 35);
         level.setForeground((new Color(255, 255, 255, 255)));
@@ -86,12 +101,21 @@ public class loginPanel extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Displays the Login button on the window.
+     */
     private void setLoginButton(){
         loginButton.setBounds((w/2)-20, (h/2)+80, 100, 30);
         loginButton.setForeground((new Color(0, 0, 0, 255)));
         loginButton.setFont(new Font("Verdana", Font.ITALIC, 18));
     }
 
+    /**
+     * Launches the game after pressing the Login button.
+     * Overrides actionPerformed method from actionListener.
+     *
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == loginButton){
@@ -99,6 +123,7 @@ public class loginPanel extends JPanel implements ActionListener {
             arena = new Arena(gameLevel);
             long user = Integer.parseInt(IDText.getText());
             arena.gatGame().login(user);
+            loginFrame.dispose();
             Frame frame = new Frame(arena);
             GamePlay game = new GamePlay(arena, frame);
             Thread gamePlay = new Thread(game);

@@ -31,7 +31,11 @@ public class gamePanel extends JPanel {
     private Arena arena;
     private gameClient.util.Range2Range _w2f;
 
-
+    /**
+     * Constructor
+     *
+     * @param arena represents the game arena.
+     */
     public gamePanel(Arena arena) {
         super();
         this.setLayout(null);
@@ -52,12 +56,20 @@ public class gamePanel extends JPanel {
         this.arena = arena;
     }
 
+    /**
+     * Updates the window which displays game arena.
+     *
+     * @param score represents the score on the game.
+     */
     protected void update(int score){
 //        int grade = jsonToObject.score(arena.gatGame().toString());
         this.score.setText("score: "+score);
         this.repaint();
     }
 
+    /**
+     * Updates the frame relative to the screen size.
+     */
     private void updateFrame() {
         Range rx = new Range(30,w-30);
         Range ry = new Range(h-30,60);
@@ -66,11 +78,17 @@ public class gamePanel extends JPanel {
         _w2f = Arena.w2f(g,frame);
     }
 
+    /**
+     * Draws on the window.
+     * Overrides paintComponent method.
+     *
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        w= this.getWidth();
-        h= this.getHeight();
+        w = this.getWidth();
+        h = this.getHeight();
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(background, 0,0, w, h, null);
         updateFrame();
@@ -81,6 +99,11 @@ public class gamePanel extends JPanel {
         Info();
     }
 
+    /**
+     * Draws the graph on the window.
+     *
+     * @param g
+     */
     private void drawGraph(Graphics g) {
         directed_weighted_graph graph = arena.getGraphAlgo().getGraph();
         Iterator<node_data> it1 = graph.getV().iterator();
@@ -95,15 +118,26 @@ public class gamePanel extends JPanel {
         }
     }
 
+    /**
+     * Draws a node on the window.
+     *
+     * @param n represents the given node needed to be drawn on the window.
+     * @param r represents a given range between the geo location of a given node and the location of the node in the drawing.
+     * @param g
+     */
     private void drawNode(node_data n, int r, Graphics g) {
-
-
         geo_location pos = n.getLocation();
         geo_location fp = this._w2f.world2frame(pos);
         g.fillOval((int)fp.x()-r, (int)fp.y()-r-2, 2*r+3, 2*r+3);
         g.drawString(""+n.getKey(), (int)fp.x()-r+1, (int)fp.y()-2*r);
     }
 
+    /**
+     * Draws an edge on the window.
+     *
+     * @param e represents the given edge needed to be drawn on the window.
+     * @param g
+     */
     private void drawEdge(edge_data e, Graphics g) {
         directed_weighted_graph gg = arena.getGraphAlgo().getGraph();
         geo_location s = gg.getNode(e.getSrc()).getLocation();
@@ -116,6 +150,11 @@ public class gamePanel extends JPanel {
         //	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
     }
 
+    /**
+     * Draws all the pokemons on the window.
+     *
+     * @param g
+     */
     private void drawPokemons(Graphics g) {
         List<CL_Pokemon> pokemons = arena.getPokemons();
         if(pokemons!=null) {
@@ -139,6 +178,11 @@ public class gamePanel extends JPanel {
         }
     }
 
+    /**
+     * Draws all the agents on the window.
+     *
+     * @param g
+     */
     private void drawAgents(Graphics g) {
         List<CL_Agent> agents = arena.getAgents();
         g.setColor(Color.DARK_GRAY);
@@ -157,6 +201,9 @@ public class gamePanel extends JPanel {
         }
     }
 
+    /**
+     * Draws information about the game on the window - level, time to end, score and moves.
+     */
     private void Info(){
 
         level.setText("level: "+arena.getLevel());

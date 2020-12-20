@@ -19,9 +19,9 @@ public class EdgeData implements edge_data{
     /**
      * Constructor
      *
-     * @param src
-     * @param dest
-     * @param edgeWeight
+     * @param src represents the new src.
+     * @param dest represents the new dest.
+     * @param edgeWeight represents the new edgeWeight.
      */
     public EdgeData(int src,int dest, double edgeWeight){
         this.src = src;
@@ -30,9 +30,9 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * Copy constructor
+     * Copy constructor - Performs a deep copy of a given edge.
      *
-     * @param e
+     * @param e represents the given edge.
      */
     public EdgeData(edge_data e){
         this.src =  e.getSrc();
@@ -43,7 +43,7 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * Returns the id of the source node of this edge.
+     * Returns the key of the source node of this edge.
      *
      * @return src.
      */
@@ -53,7 +53,7 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * Returns the id of the destination node of this edge.
+     * Returns the key of the destination node of this edge.
      *
      * @return dest.
      */
@@ -93,7 +93,7 @@ public class EdgeData implements edge_data{
     }
 
     /**
-     * Temporal data which can be used by algorithms.
+     * Returns temporal data which can be used by algorithms.
      *
      * @return edgeTag.
      */
