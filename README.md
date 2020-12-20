@@ -49,7 +49,7 @@ This package includes 2 JUNIT tests :
  -  DWGraph_DSTest - for testing class DWGraph_DS algorithms.
  -  DWGraph_AlgoTest - for testing class DWGraph_Algo algorithms. 
  
-### An example of a directed weighted graph:
+### An example of a directed weighted graph: 
 
 ## Game implementation 
 
@@ -70,7 +70,7 @@ This package includes 2 JUNIT tests :
  This package contains all classes which implements the Graphical User Interface (Gui) of the game.
  * Frame class extends JFrame and represents the frame on which the loginPanel and the gamePanel drawing on.
  * gamePanel class extends JPanel uses for drawing the window of the game on the frame.
- * loginPanel class extends JPanel uses for drawing the login window on the frame.
+ * loginPanel class extends JPanel implements ActionListener uses for drawing the login window of the game on the frame.
  
 ### Our game goal
 
