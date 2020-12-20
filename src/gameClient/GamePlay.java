@@ -36,18 +36,14 @@ public class GamePlay implements Runnable{
             counter++;
             if (counter >= 15 && counter < 25) {
                 try {
-                    for (int i = 0; i < 1; i++) {
-                        game.move();
-                    }
+                    game.move();
                     Thread.sleep(dt - ((counter/2)+30));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             } else if (counter >= 25){
                 try {
-                    for (int i = 0; i < 1; i++) {
-                        game.move();
-                    }
+                    game.move();
                     Thread.sleep(dt - ((counter/2)+40));
                 } catch (InterruptedException e) {
                     e.printStackTrace();

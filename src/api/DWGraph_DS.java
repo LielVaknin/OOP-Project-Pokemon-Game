@@ -33,7 +33,7 @@ public class DWGraph_DS implements directed_weighted_graph{
     /**
      * Copy constructor - Performs a deep copy of a given graph.
      *
-     * @param graph
+     * @param graph represents the given graph.
      */
     public DWGraph_DS(directed_weighted_graph graph) {
         this.nodes = new HashMap<>();
@@ -141,7 +141,7 @@ public class DWGraph_DS implements directed_weighted_graph{
      */
     @Override
     public Collection<edge_data> getE(int node_id){
-        if(this.edges.get(node_id) ==null)
+        if(this.edges.get(node_id) == null)
             return null;
         return this.edges.get(node_id).values();
     }

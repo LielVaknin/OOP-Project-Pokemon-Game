@@ -4,10 +4,15 @@ import gameClient.Arena;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This class represents the frame on which the loginPanel and the gamePanel drawing on.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
 public class Frame extends JFrame {
 
     private Arena arena;
-    private Panel panel;
+    private gamePanel gamePanel;
 
 
     public Frame(){
@@ -17,11 +22,11 @@ public class Frame extends JFrame {
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
 
-        this.setTitle("Catch Them All"); //sets title of frame
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
-        this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
-        ImageIcon image = new ImageIcon("./resources/Pokemon.png"); //create an ImageIcon
-        this.setIconImage(image.getImage()); //change icon of frame
+        this.setTitle("Catch Them All"); // Sets the title of the frame
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exits from application
+        this.setSize(screenWidth, screenHeight); // Sets the x-dimension and y-dimension of frame
+        ImageIcon image = new ImageIcon("./resources/Pokemon.png"); // Create an ImageIcon
+        this.setIconImage(image.getImage()); // Change icon of frame
     }
 
     public Frame(Arena arena) {
@@ -31,26 +36,26 @@ public class Frame extends JFrame {
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
 
-        this.setTitle("Catch Them All"); //sets title of frame
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
-        this.setSize(screenWidth, screenHeight); //sets the x-dimension, and y-dimension of frame
+        this.setTitle("Catch Them All"); // Sets the title of frame
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exits from application
+        this.setSize(screenWidth, screenHeight); // Sets the x-dimension and y-dimension of frame
         this.setResizable(true);
-        ImageIcon image = new ImageIcon("./resources/Pokemon.png"); //create an ImageIcon
-        this.setIconImage(image.getImage()); //change icon of frame
+        ImageIcon image = new ImageIcon("./resources/Pokemon.png"); // Creates an ImageIcon
+        this.setIconImage(image.getImage()); // Changes icon of frame
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         this.arena = arena;
         initPanel();
-        this.setVisible(true); //make frame visible
+        this.setVisible(true); // Makes frame visible
     }
 
     private void initPanel(){
-        this.panel = new Panel(arena);
-        this.add(panel);
+        this.gamePanel = new gamePanel(arena);
+        this.add(gamePanel);
     }
 
     public void update(int score){
-        panel.update(score);
+        gamePanel.update(score);
     }
 
 }

@@ -8,9 +8,9 @@ The first one implements algorithms for developing a data structure type of a di
 The second one actually uses this graph we created in order to develop pokemons game.
 
 ---
-## Graph implementation
+## api
 
- There is an api package and 5 classes in it which each class implements a given interface.
+ In this package there are 5 classes which each class implements a given interface.
 
 * NodeData class implements the node_data interface.
 It represents the set of operations applicable on a node in a directed weighted graph.
@@ -49,31 +49,28 @@ This package includes 2 JUNIT tests :
  -  DWGraph_DSTest - for testing class DWGraph_DS algorithms.
  -  DWGraph_AlgoTest - for testing class DWGraph_Algo algorithms. 
  
-### An example of a directed weighted graph:
+### An example of a directed weighted graph: 
 
 ## Game implementation 
 
- There are 2 packages and 10 classes in this part.
+ There are 2 packages and 9 classes in this part.
  
  ### GameClient package
  
  This package contains all classes which implements the logic of the game:
 * Arena class represents the arena of the game and manages the logic of the game in it.
-* CL_Agent class implements the agent interface.
-It represents an agent in the game.
-* CL_Pokemon class implements the pokemon interface.
-It represents a pokemon in the game.
-* This class receives data from the server (jar file) on which the game is performed and loads the information from it which based on strings represented as JSON.
+* CL_Agent class represents an agent in the game.
+* CL_Pokemon class represents a pokemon in the game.
+* jsonToObject class receives data from the server (jar file) on which the game is performed and loads the information from it which based on strings represented as JSON.
 * GamePlay class 
 * Ex2 contains the "main" method which runs the whole project.
 
  ### Gui package
  
  This package contains all classes which implements the Graphical User Interface (Gui) of the game.
- * Frame class extends JFrame and represents the frame contains the game board which painted by the panel.
- * Panel class extends JPanel and represents the panel on which the game board is painted on.
- * LaunchPage class represents the frame contains the Login window which painted by the loginPanel.
- * PanelLogin class extends JPanel and represents the panel on which the Login window is painted on.
+ * Frame class extends JFrame and represents the frame on which the loginPanel and the gamePanel drawing on.
+ * gamePanel class extends JPanel uses for drawing the window of the game on the frame.
+ * loginPanel class extends JPanel implements ActionListener uses for drawing the login window of the game on the frame.
  
 ### Our game goal
 
@@ -82,9 +79,9 @@ Each pokemon has different value and the role of the agents is to catch as many 
 possible in order to increase their own value.
 Our algorithm determines the start position of each agent before starting the game and also directs each one along the graph during the game.
 The algorithm finds the nearest pokemon for each agent and moves the agent to there - according to [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).
-The more Pokemons are caught, the higher score in the game!
-
-### An example of running level   of the game :
+The more Pokemons are caught, the higher score in the game!<br />
+There are 0-23 levels and each one has a different amount of agents, pokemons and limited time.
+When Pokemon caught, a new one appears in the game arena.
 
 ## Installation
 For installing the game please follow the instructions below:
@@ -92,6 +89,16 @@ For installing the game please follow the instructions below:
 * To start playing the game run Ex2.
 * Insert your ID & Chooce level.
 * Press Login and let's "catch them all!"
+
+### An example of running level 11 of the game :
+
+*Inserting ID and level here :*
+
+![loginPanel](https://github.com/LielVaknin/ex2/blob/master/resources/loginPanel.PNG)
+
+*After pressing Login the game starts :*
+
+![gamePanel](https://github.com/LielVaknin/ex2/blob/master/resources/gamePanel.PNG)
 
 ### *Have fun!*
 

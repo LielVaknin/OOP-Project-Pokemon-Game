@@ -8,7 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class panelLogin extends JPanel implements ActionListener {
+/**
+ * This class uses for drawing the login window on the frame.
+ *
+ * @authors Liel.Vaknin & Renana.Levy.
+ */
+public class loginPanel extends JPanel implements ActionListener {
 
     private JFrame loginFrame;
 
@@ -22,7 +27,7 @@ public class panelLogin extends JPanel implements ActionListener {
     private int w;
     private int h;
 
-    public panelLogin(){
+    public loginPanel(){
         loginFrame = new JFrame();
         loginFrame.setTitle("Catch Them All");
         ImageIcon image = new ImageIcon("./resources/Pokemon.png");
