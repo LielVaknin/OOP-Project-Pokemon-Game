@@ -90,7 +90,13 @@ For installing the game please follow the instructions below:
 
 ### An example of running level 11 of the game :
 
+*Inserting ID and level here :*
 
+![loginPanel](https://github.com/LielVaknin/ex2/blob/master/resources/loginPanel.PNG)
+
+*After pressing Login the game starts :*
+
+![gamePanel](https://github.com/LielVaknin/ex2/blob/master/resources/gamePanel.PNG)
 
 ### *Have fun!*
 
