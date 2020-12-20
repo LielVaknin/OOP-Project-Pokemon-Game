@@ -94,7 +94,7 @@ For installing the game please follow the instructions below:
 
 *Inserting ID and level here :*
 
-![loginPanel](https://github.com/LielVaknin/ex2/blob/master/resources/loginPanel.PNG)
+![Login example](https://github.com/LielVaknin/ex2/blob/master/resources/Login%20example.PNG)
 
 *After pressing Login the game starts :*
 
