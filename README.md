@@ -8,7 +8,7 @@ The first one implements algorithms for developing a data structure type of a di
 The second one uses this graph we created in order to develop pokemons game.
 
 ---
-## api
+## Api
 
  In this package there are 5 classes which each class implements a given interface.
 
@@ -42,7 +42,7 @@ if the graph is strongly connected or not, finding the shortest path in the grap
 a method which saves this graph to a given file name and a method which loads a graph to this graph algorithm (using JSON format and gson library).
 
 
-## api
+## Tests
 This ptoject includes 2 JUNIT tests :
  -  DWGraph_DSTest - for testing class DWGraph_DS algorithms.
  -  DWGraph_AlgoTest - for testing class DWGraph_Algo algorithms. 
